@@ -4,13 +4,7 @@ import { StyleSheet, Text, View } from 'react-native';
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>The entreprenreur app.tsx EDIT BY MALVIN</Text>
-      <Text>The ABCD app.tsx EDIT BY MALVIN</Text>
-      <Text>BISA NGEDIT MASTER BRANCH LOH</Text>
-      <Text>BISA NGEDIT MASTER BRANCH LOH</Text>
-      <Text>BISA NGEDIT MASTER BRANCH LOH</Text>
-      <Text>BISA NGEDIT MASTER BRANCH LOH</Text>
-      <Text>BISA NGEDIT MASTER BRANCH LOH</Text>
+      <Text>Welcome to the Entrepreneur App!</Text>
     </View>
   );
 }
