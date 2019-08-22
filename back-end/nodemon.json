@@ -1,0 +1,9 @@
+{
+  "watch": "src",
+  "ext": "ts",
+  "exec": "ts-node-dev ./src/index",
+  "events": {
+    "restart": "kill-port 8080 & fuser -k 8080/tcp",
+    "crash": "kill-port 8080 & fuser -k 8080/tcp"
+  }
+}
