@@ -8,7 +8,7 @@ export default class WelcomeScene extends Component<Props, State> {
   render() {
     return (
       <View style={styles.container}>
-        <Text> Welcome scene!</Text>
+        <Text>Welcome scene!</Text>
       </View>
     );
   }
