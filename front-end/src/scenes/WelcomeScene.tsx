@@ -9,11 +9,10 @@ export default class WelcomeScene extends Component<Props, State> {
   render() {
     return (
       <View style={styles.container}>
-                  <Texts content={'456'} type={"display3"}/>
-
-          <Texts content={'456'} type={"headline"}/>
-         <Texts content={'456'} type={"subheading"}/>
-         <Texts content={"789"} type={"body1"}/>
+        <Texts content='Heading3' type="display3" color="blue"/>
+        <Texts content='456' type="headline" color="red"/>
+        <Texts content='456' type="subheading" color="black"/>
+        <Texts content="789" type="body"/>
       </View>
     );
   }
