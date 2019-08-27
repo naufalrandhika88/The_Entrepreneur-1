@@ -11,7 +11,7 @@ export default class WelcomeScene extends Component<Props, State> {
       <View style={styles.container}>
         <Texts content='Heading3' type="display3" color="blue"/>
         <Texts content='456' type="headline" color="red"/>
-        <Texts content='456' type="subheading" color="black"/>
+        <Texts content='456' type="subheading" color="yellow"/>
         <Texts content="789" type="body"/>
       </View>
     );
