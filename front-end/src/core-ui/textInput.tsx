@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import { Input } from 'react-native-elements';
 
-import { WHITE } from '../constants/color';
+import { BLACK } from '../constants/color';
 
 type Props = TextInputProps & {
   containerStyle?: StyleProp<ViewStyle>;
@@ -77,11 +77,11 @@ const styles = StyleSheet.create({
     borderBottomWidth: 0,
   },
   defaultLabelStyle: {
-    color: WHITE,
+    color: BLACK,
     fontSize: 12,
   },
   defaultTextStyle: {
-    color: WHITE,
+    color: BLACK,
     fontSize: 14,
   },
 });
