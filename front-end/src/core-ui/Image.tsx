@@ -1,24 +1,34 @@
 import React from 'react';
-import { StyleSheet, StyleProp, ViewStyle, View } from 'react-native';
+import { StyleSheet, ViewStyle, StyleProp } from 'react-native';
 
 import { Image as Picture } from 'react-native-elements';
 
 type Props = {
+  newImageStyle?: StyleProp<ViewStyle>;
   src?: string;
   imagetype?: 'banner' | 'logo' | 'minilogo' | 'forum' | 'event' | 'seminar';
+  resizeMode?: 'center' | 'contain' | 'stretch' | 'cover' | 'repeat';
 };
 
-const IMAGE = {
-  logo: require('../../assets/images/logo.png'),
-};
+const placeholder = require('../../assets/images/logo.png');
 
 export default function Image(props: Props) {
-  let { src, imagetype } = props;
+  let { src, imagetype, newImageStyle, resizeMode } = props;
 
   return src ? (
-    <Picture source={{ uri: src }} style={styles[imagetype || 'logo']} />
+    <Picture
+      source={{ uri: src }}
+      style={styles[imagetype || 'logo']}
+      containerStyle={newImageStyle}
+      resizeMode={resizeMode ? resizeMode : 'contain'}
+    />
   ) : (
-    <View> </View>
+    <Picture
+      srouce={placeholder}
+      style={styles[imagetype || 'logo']}
+      containerStyle={newImageStyle}
+      resizeMode={resizeMode ? resizeMode : 'contain'}
+    />
   );
 }
 
