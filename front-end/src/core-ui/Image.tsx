@@ -10,7 +10,7 @@ type Props = {
   resizeMode?: 'center' | 'contain' | 'stretch' | 'cover' | 'repeat';
 };
 
-const placeholder = require('../../assets/images/logo.png');
+const placeholder = require('../../assets/images/placeholder.png');
 
 export default function Image(props: Props) {
   let { src, imagetype, newImageStyle, resizeMode } = props;
@@ -24,7 +24,7 @@ export default function Image(props: Props) {
     />
   ) : (
     <Picture
-      srouce={placeholder}
+      source={placeholder}
       style={styles[imagetype || 'logo']}
       containerStyle={newImageStyle}
       resizeMode={resizeMode ? resizeMode : 'contain'}
