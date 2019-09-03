@@ -33,7 +33,7 @@
     "tslint": "^5.17.0",
     "typescript": "^3.5.2",
     "validator": "^11.0.0",
-    "yarn": "^1.16.0"
+    "yarn": "^1.17.3"
   },
   "devDependencies": {
     "@babel/core": "^7.4.5",
