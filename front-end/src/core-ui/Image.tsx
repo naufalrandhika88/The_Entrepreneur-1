@@ -20,14 +20,14 @@ export default function Image(props: Props) {
       source={{ uri: src }}
       style={styles[imagetype || 'logo']}
       containerStyle={newImageStyle}
-      resizeMode={resizeMode ? resizeMode : 'contain'}
+      resizeMode={resizeMode ? resizeMode : 'center'}
     />
   ) : (
     <Picture
       source={placeholder}
       style={styles[imagetype || 'logo']}
       containerStyle={newImageStyle}
-      resizeMode={resizeMode ? resizeMode : 'contain'}
+      resizeMode={resizeMode ? resizeMode : 'center'}
     />
   );
 }
