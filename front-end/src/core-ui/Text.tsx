@@ -7,7 +7,7 @@ import {
   CUSTOM_GREEN,
   CUSTOM_RED,
   CUSTOM_PINK,
-} from '../../constants/color';
+} from '../constants/color';
 
 type TextProp = TextProps & {
   children: ReactNode;

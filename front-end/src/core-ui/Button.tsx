@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 
 import Icon from './Icon';
-import { BLACK, WHITE, RED, CUSTOM_YELLOW } from '../../constants/color';
+import { BLACK, WHITE, RED, CUSTOM_YELLOW } from '../constants/color';
 
 type Props = {
   newStyleButton?: StyleProp<ViewStyle>;
