@@ -52,7 +52,7 @@ export default function TextInput(props: Props) {
         value={value}
         placeholder={placeholder || label}
         placeholderTextColor={
-          placeholderTextColor ? placeholderTextColor : WHITE
+          placeholderTextColor ? placeholderTextColor : BLACK
         }
         onChangeText={onChangeText}
         secureTextEntry={isEncrypt === true}
