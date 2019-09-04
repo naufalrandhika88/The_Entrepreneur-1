@@ -1,32 +1,48 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-import {getDB} from './db';
-import {PORT, SERVER_OK} from './constants';
-import apiRouter from './routers';
-import {cloudinaryConfig} from './cloudinarySetup';
 
-const app: express.Application = express();
+let app = express();
 
-async function serverSetup() {
-  app.use(bodyParser.urlencoded({extended: false}));
-  app.use(bodyParser.json());
-  app.locals.db = await getDB();
+let db = {
+  tasks: [
+    {
+      id: 1,
+      name: 'masak nasi',
+    },
+    {
+      id: 2,
+      name: 'masak air',
+    },
+  ],
+};
 
-  app.use('*', cloudinaryConfig);
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
 
-  app.get('/', (req, res) => {
-    res.status(SERVER_OK);
-    res.send('Accessing Back-end Success.');
-  });
+app.get('/', (req, res) => {
+  res.send('success');
+});
 
-  app.use('/api', apiRouter);
+app.get('/task/', (req, res) => {
+  res.json(db.tasks);
+});
 
-  app.on('listening', function() {
-    console.log('server is running');
-  });
-  app.listen(PORT, () => {
-    console.log(`App is listening on http://127.0.0.1:${PORT}`);
-  });
-}
+app.get('/task/:id', (req, res) => {
+  let id = req.params.id;
+  for (let i = 0; i < db.tasks.length; i++) {
+    if (db.tasks[i].id === Number(id)) {
+      res.json(db.tasks[i]);
+    }
+  }
+});
 
-serverSetup();
+app.post('/task', (req, res) => {
+  let body = req.body;
+
+  res.json(body);
+  db.tasks.push(body);
+});
+
+app.listen(3000, () => {
+  console.log('Listening on port 3000');
+});
