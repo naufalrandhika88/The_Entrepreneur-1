@@ -866,16 +866,22 @@ lodash.once@^4.0.0:
   integrity sha1-DdOXEhPHxW34gJd9UEyI+0cal6w=
 
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
 lodash@^4.17.11:
   version "4.17.15"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.15.tgz#b447f6670a0455bbfeedd11392eff330ea097548"
   integrity sha512-8xOcRHvCjnocdS5cpwXQXVzmmh5e5+saE2QGoeQmbKmRS6J3VQppPOIt0MnmE+4xlZoumy0GPG0D0MVIQbNA1A==
 =======
+>>>>>>> 763092422e4417be4c3a2ed42d9e30834ec78d3c
 lodash.unescape@4.0.1:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/lodash.unescape/-/lodash.unescape-4.0.1.tgz#bf2249886ce514cda112fae9218cdc065211fc9c"
   integrity sha1-vyJJiGzlFM2hEvrpIYzcBlIR/Jw=
+<<<<<<< HEAD
+=======
 >>>>>>> Re-Setup Back End Environment
+>>>>>>> 763092422e4417be4c3a2ed42d9e30834ec78d3c
 
 lodash@^4.17.11:
   version "4.17.15"
@@ -971,6 +977,9 @@ minimist@^1.1.3:
   integrity sha1-o1AIsg9BOD7sH7kU9M1d95omQoQ=
 
 <<<<<<< HEAD
+mkdirp@^0.5.1:
+=======
+<<<<<<< HEAD
 minipass@^2.2.1, minipass@^2.3.5:
   version "2.3.5"
   resolved "https://registry.yarnpkg.com/minipass/-/minipass-2.3.5.tgz#cacebe492022497f656b0f0f51e2682a9ed2d848"
@@ -998,6 +1007,7 @@ mkdirp@^0.5.0, mkdirp@^0.5.1:
 =======
 mkdirp@^0.5.1:
 >>>>>>> Re-Setup Back End Environment
+>>>>>>> 763092422e4417be4c3a2ed42d9e30834ec78d3c
   version "0.5.1"
   resolved "https://registry.yarnpkg.com/mkdirp/-/mkdirp-0.5.1.tgz#30057438eac6cf7f8c4767f38648d6697d75c903"
   integrity sha1-MAV0OOrGz3+MR2fzhkjWaX11yQM=
@@ -1688,6 +1698,11 @@ wrappy@1:
 
 xtend@^4.0.0:
 <<<<<<< HEAD
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/xtend/-/xtend-4.0.2.tgz#bb72779f5fa465186b1f438f674fa347fdb5db54"
+  integrity sha512-LKYU1iAXJXUgAXn9URjiu+MWhyUXHsvfp7mcuYm9dSUKK0/CjtrUwFAxD82/mCWbtLsGjFIad0wIsod4zrTAEQ==
+=======
+<<<<<<< HEAD
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/xtend/-/xtend-4.0.1.tgz#a5c6d532be656e23db820efb943a1f04998d63af"
   integrity sha1-pcbVMr5lbiPbgg77lDofBJmNY68=
@@ -1711,6 +1726,7 @@ yarn@^1.17.3:
   resolved "https://registry.yarnpkg.com/xtend/-/xtend-4.0.2.tgz#bb72779f5fa465186b1f438f674fa347fdb5db54"
   integrity sha512-LKYU1iAXJXUgAXn9URjiu+MWhyUXHsvfp7mcuYm9dSUKK0/CjtrUwFAxD82/mCWbtLsGjFIad0wIsod4zrTAEQ==
 >>>>>>> Re-Setup Back End Environment
+>>>>>>> 763092422e4417be4c3a2ed42d9e30834ec78d3c
 
 yn@^3.0.0:
   version "3.1.1"
