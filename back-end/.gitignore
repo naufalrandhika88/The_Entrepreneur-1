@@ -4,3 +4,7 @@ dist
 /coverage
 yarn-error.log
 *.log
+<<<<<<< HEAD
+=======
+package-lock.json
+>>>>>>> 763092422e4417be4c3a2ed42d9e30834ec78d3c
