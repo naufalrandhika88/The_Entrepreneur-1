@@ -3,32 +3,36 @@ import bodyParser from 'body-parser';
 
 import { SERVER_OK, PORT } from './constants';
 import apiRouter from './routers';
+import { getDB } from './db';
+import { QueryResult } from 'pg';
 
-let app = express();
+const app: express.Application = express();
 
-let db = {
-  tasks: [
-    {
-      id: 1,
-      name: 'masak nasi',
-    },
-    {
-      id: 2,
-      name: 'masak air',
-    },
-  ],
-};
+async function serverSetup() {
+  app.use(bodyParser.json());
+  app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+  app.locals.db = await getDB();
+  await app.locals.db.query(
+    'create table users(ID SERIAL PRIMARY KEY, email varchar(80) UNIQUE, username varchar(50) UNIQUE, first_name varchar(50), last_name varchar(50), password text, avatar varchar(50), membership varchar(50), gender varchar(50))',
+    (error: Error, results: QueryResult) => {},
+  );
 
-app.get('/', (req, res) => {
-  res.status(SERVER_OK);
-  res.send('Accessing server back-end success!');
-});
+  // app.use('*', cloudinaryConfig);
 
-app.use('/api', apiRouter);
+  app.get('/', (req, res) => {
+    res.status(SERVER_OK);
+    res.send('Accessing Back-end Success.');
+  });
 
-app.listen(PORT, () => {
-  console.log(`App is listening on http://127.0.0.1:${PORT}`);
-});
+  app.use('/api', apiRouter);
+
+  app.on('listening', function() {
+    console.log('server is running');
+  });
+  app.listen(PORT, () => {
+    console.log(`App is listening on http://127.0.0.1:${PORT}`);
+  });
+}
+
+serverSetup();
