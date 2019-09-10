@@ -1,12 +1,6 @@
 import { Client } from 'pg';
 
-import {
-  DB_PORT,
-  USER,
-  HOST,
-  DATABASE_NAME,
-  PASSWORD,
-} from './generals/constants';
+import { DB_PORT, USER, HOST, DATABASE_NAME, PASSWORD } from './constants';
 
 let db: Promise<Client> | undefined;
 

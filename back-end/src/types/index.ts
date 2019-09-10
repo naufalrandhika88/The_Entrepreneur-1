@@ -16,3 +16,8 @@ export type UserSignUp = {
   last_name: string;
   password: string;
 };
+
+export type UserSignIn = {
+  email: string;
+  password: string;
+};
