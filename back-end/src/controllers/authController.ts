@@ -1,14 +1,21 @@
 import { Request, Response } from 'express';
 
-import * as taskModel from '../models/taskModel';
+import userModel from '../models/userModel';
 
-async function signIn(req: Request, res: Response) {
-  let result = await taskModel.getAllTask();
+async function signUp(req: Request, res: Response) {
+  let { email, username, first_name, last_name, password } = req.body;
+
+  let result = await userModel.userSignUp({
+    email,
+    username,
+    first_name,
+    last_name,
+    password,
+  });
+
   res.send(result);
-
-  console.log('masuk');
 
   return;
 }
 
-export default { signIn };
+export default { signUp };
