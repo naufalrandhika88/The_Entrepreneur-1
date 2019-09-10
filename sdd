@@ -1,0 +1,62 @@
+[33mcommit 22347170a523c9876b8834a927f6dc78aa55404c[m[33m ([m[1;36mHEAD -> [m[1;32mtextinput[m[33m, [m[1;31mupstream/master[m[33m, [m[1;31morigin/textinput[m[33m, [m[1;32mmaster[m[33m)[m
+Author: Malvin Hariyanto <malvinhariyanto50@gmail.com>
+Date:   Tue Aug 27 08:22:41 2019 +0700
+
+    Add core-ui button & icon, add constant, and add assets
+
+[33mcommit cd476a8b4715ba395b70a8adff88097b1d4ab9c0[m
+Author: Malvin Hariyanto <malvinhariyanto50@gmail.com>
+Date:   Fri Aug 23 09:49:54 2019 +0700
+
+    Add react navigation & setup scenes
+
+[33mcommit 4ddea02772b7ac29a99b07905cdd3ad4bdf983a3[m
+Author: Malvin Hariyanto <malvinhariyanto50@gmail.com>
+Date:   Thu Aug 22 14:22:48 2019 +0700
+
+    Add package-lock.json
+
+[33mcommit 3e290e3129247d8d0b12dde53dd04e085a231431[m
+Author: Malvin Hariyanto <malvinhariyanto50@gmail.com>
+Date:   Thu Aug 22 13:08:36 2019 +0700
+
+    Setup back-end initial files
+
+[33mcommit ab9a7cbd419acfc1b67e9df2836b5848434410be[m
+Author: Malvin Hariyanto <malvinhariyanto50@gmail.com>
+Date:   Thu Aug 22 13:06:57 2019 +0700
+
+    Add .expo to the gitignore
+
+[33mcommit 9f4b490064bc21733aa55398bad723715618e45c[m
+Merge: e90c5cb f86ee34
+Author: Malvin Hariyanto <42708035+malvinh1@users.noreply.github.com>
+Date:   Tue Aug 20 15:25:08 2019 +0700
+
+    Merge pull request #1 from malvinh1/EditApp
+    
+    Edit App.tsx
+
+[33mcommit f86ee34d826cd95ea3f19d1361125087cef55872[m
+Author: Malvin Hariyanto <malvinhariyanto50@gmail.com>
+Date:   Tue Aug 20 15:24:34 2019 +0700
+
+    Edit App.tsx
+
+[33mcommit e90c5cb517bc73c6ca10616bdf2acff13bbce190[m
+Author: Malvin Hariyanto <malvinhariyanto50@gmail.com>
+Date:   Tue Aug 20 15:20:47 2019 +0700
+
+    Add .gitignore file
+
+[33mcommit e4af3f8e34d5c4860447a35bf9a1ebec046bdd97[m
+Author: Malvin Hariyanto <42708035+malvinh1@users.noreply.github.com>
+Date:   Tue Aug 20 15:07:37 2019 +0700
+
+    Setup Initial Files
+
+[33mcommit 9eff08a3c1ba37374a4aa6fc5430b1b61a1dda08[m
+Author: Malvin Hariyanto <42708035+malvinh1@users.noreply.github.com>
+Date:   Tue Aug 20 15:06:22 2019 +0700
+
+    Add initial Files
