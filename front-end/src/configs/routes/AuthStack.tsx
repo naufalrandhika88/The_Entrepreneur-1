@@ -1,4 +1,4 @@
-import { createStackNavigator } from 'react-navigation';
+import { createStackNavigator, createSwitchNavigator } from 'react-navigation';
 
 import SignInScene from '../../scenes/SignInScene';
 import SignUpScene from '../../scenes/SignUpScene';
