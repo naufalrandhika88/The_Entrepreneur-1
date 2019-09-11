@@ -14,3 +14,4 @@ export let PASSWORD = process.env.PASSWORD;
 
 export const SERVER_OK = 200;
 export const SERVER_BAD_REQUEST = 400;
+export const SERVER_NOT_FOUND = 404;

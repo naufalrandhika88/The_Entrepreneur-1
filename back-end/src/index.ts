@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { Request, Response } from 'express';
 import bodyParser from 'body-parser';
 
 import { SERVER_OK, PORT } from './constants';
@@ -20,7 +20,7 @@ async function serverSetup() {
 
   // app.use('*', cloudinaryConfig);
 
-  app.get('/', (req, res) => {
+  app.get('/', (req: Request, res: Response) => {
     res.status(SERVER_OK);
     res.send('Accessing Back-end Success.');
   });
