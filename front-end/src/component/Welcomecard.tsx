@@ -7,7 +7,15 @@ import { WHITE } from '../constants/color';
 import Texts from '../core-ui/Text';
 import Button from '../core-ui/Button';
 
-export default function WelcomeCard() {
+type Props = {
+  signUpAction: ()=>void;
+  loginGoogleAction: ()=>void;
+  loginAction:()=>void;
+};
+
+export default function WelcomeCard(props: Props) {
+  let { signUpAction,loginGoogleAction,loginAction } = props;
+
   const styles = StyleSheet.create({
     card: {
       backgroundColor: WHITE,
@@ -53,9 +61,8 @@ export default function WelcomeCard() {
       <View style={styles.spacing} />
       <Button
         buttonType="default"
-        text="SIGN IN"
         newStyleButton={styles.buttonstyle}
-        onPress={() => {}}
+        onPress={signUpAction}
       />
       <View style={styles.spacing2} />
       <Texts
@@ -67,13 +74,14 @@ export default function WelcomeCard() {
       <Button
         buttonType="outline"
         newStyleButton={styles.buttonstyle}
-        onPress={() => {}}
+        onPress={() => loginGoogleAction}
       />
       <View style={styles.spacing2} />
       <Texts
         children="Already have an account? Login here"
         type="display1"
         style={styles.textstyle}
+        onPress={loginAction}
       ></Texts>
     </Card>
   );
