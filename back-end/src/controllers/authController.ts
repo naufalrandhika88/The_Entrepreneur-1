@@ -6,9 +6,9 @@ import { SERVER_OK, SERVER_BAD_REQUEST } from '../constants';
 
 async function signUp(req: Request, res: Response) {
   try {
-    let { email, username, first_name, last_name, password } = req.body;
+    let { email, first_name, last_name, password } = req.body;
 
-    if (!email || !username || !first_name || !last_name || !password) {
+    if (!email || !first_name || !last_name || !password) {
       res.status(SERVER_OK).json({
         success: false,
         data: {},
@@ -27,7 +27,6 @@ async function signUp(req: Request, res: Response) {
 
     let result = await userModel.userSignUp({
       email,
-      username,
       first_name,
       last_name,
       password,
