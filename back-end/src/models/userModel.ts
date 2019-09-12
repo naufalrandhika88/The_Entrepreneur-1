@@ -43,6 +43,7 @@ async function userSignUp(userObject: UserSignUp) {
     return {
       success: true,
       data: {
+        id: result.rows[0].id,
         email: result.rows[0].email,
         username: result.rows[0].username,
         first_name: result.rows[0].first_name,
@@ -83,6 +84,7 @@ async function userSignIn(userObject: UserSignIn) {
         return {
           success: true,
           data: {
+            id: result.rows[0].id,
             email: result.rows[0].email,
             username: result.rows[0].username,
             first_name: result.rows[0].first_name,
