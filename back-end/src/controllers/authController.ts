@@ -32,9 +32,11 @@ async function signUp(req: Request, res: Response) {
       password,
     });
 
-    res.send(result);
-
-    return;
+    if (result.success) {
+      res.status(SERVER_OK).json(result);
+    } else {
+      res.status(SERVER_BAD_REQUEST).json(result);
+    }
   } catch (e) {
     res.status(SERVER_BAD_REQUEST).json(String(e));
     return;

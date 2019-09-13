@@ -19,3 +19,23 @@ export type UserSignIn = {
   email: string;
   password: string;
 };
+
+export type ResponseObject = {
+  success: boolean;
+  data: any;
+  message: string;
+  token?: string;
+};
+
+export type DecodedObject = {
+  id: string;
+  iat: number;
+};
+
+export type ReqEditProfileObject = {
+  first_name: string;
+  last_name: string;
+  isAvatarChange?: boolean;
+  avatar: string | null;
+  gender: 'Male' | 'Female' | 'Other';
+};
