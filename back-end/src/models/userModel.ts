@@ -74,7 +74,7 @@ async function userSignIn(userObject: UserSignIn) {
       email,
     ]);
 
-    if (result) {
+    if (result.rows[0]) {
       let decrypted = sjcl.decrypt('TES', result.rows[0].password);
       if (hash === decrypted) {
         let { id } = result.rows[0];
@@ -97,6 +97,12 @@ async function userSignIn(userObject: UserSignIn) {
           token: token,
         };
       }
+    } else {
+      return {
+        success: false,
+        data: {},
+        message: 'Incorrect email or password.',
+      };
     }
   } catch (e) {
     return {

@@ -45,6 +45,15 @@ async function signIn(req: Request, res: Response) {
   try {
     let { email, password } = req.body;
 
+    if (!email || !password) {
+      res.status(SERVER_OK).json({
+        success: false,
+        data: {},
+        message: 'Please fill all required fields',
+      });
+      return;
+    }
+
     let result = await userModel.userSignIn({
       email,
       password,
