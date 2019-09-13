@@ -15,7 +15,7 @@ async function serverSetup() {
 
   app.locals.db = await getDB();
   await app.locals.db.query(
-    'create table users(ID SERIAL PRIMARY KEY, email varchar(80) UNIQUE, first_name varchar(50), last_name varchar(50), password text, avatar varchar(50), membership varchar(50), gender varchar(50))',
+    'create table users(ID SERIAL PRIMARY KEY, email varchar(80) UNIQUE, first_name varchar(50), last_name varchar(50), password text, avatar varchar(100), membership varchar(50), gender varchar(50))',
     (error: Error, results: QueryResult) => {},
   );
 

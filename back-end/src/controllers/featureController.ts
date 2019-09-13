@@ -7,8 +7,10 @@ import { uploader } from '../cloudinarySetup';
 
 async function editProfile(req: Request, res: Response) {
   try {
+    console.log('MASUK');
     let decoded = (<any>req).decoded;
     let { isAvatarChange, first_name, last_name, gender } = req.body;
+    console.log(req.body);
     if (!first_name || !gender) {
       res.status(SERVER_OK).json({
         success: false,
@@ -17,7 +19,7 @@ async function editProfile(req: Request, res: Response) {
       });
       return;
     }
-    if (req.file && isAvatarChange === true) {
+    if (req.file && isAvatarChange === 'true') {
       const file = dataUri(req).content;
       return uploader
         .upload(file)
@@ -43,7 +45,7 @@ async function editProfile(req: Request, res: Response) {
             message: 'Someting went wrong while processing your request',
           }),
         );
-    } else if (isAvatarChange === false) {
+    } else if (isAvatarChange === 'false') {
       let result: ResponseObject = await userModel.updateUser(
         { avatar: null, first_name, last_name, gender },
         decoded,
