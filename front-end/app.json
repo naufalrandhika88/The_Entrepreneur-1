@@ -9,10 +9,8 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
-      "image": "./assets/images/logo.png",
+      "image": "./assets/images/logo_splash.png",
       "resizeMode": "contain",
-      "width": "360",
-      "heigth": "640",
       "backgroundColor": "#454545"
     },
     "updates": {

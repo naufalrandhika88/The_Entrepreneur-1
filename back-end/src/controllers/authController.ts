@@ -6,9 +6,9 @@ import { SERVER_OK, SERVER_BAD_REQUEST } from '../constants';
 
 async function signUp(req: Request, res: Response) {
   try {
-    let { email, username, first_name, last_name, password } = req.body;
+    let { email, first_name, last_name, password } = req.body;
 
-    if (!email || !username || !first_name || !last_name || !password) {
+    if (!email || !first_name || !last_name || !password) {
       res.status(SERVER_OK).json({
         success: false,
         data: {},
@@ -27,15 +27,16 @@ async function signUp(req: Request, res: Response) {
 
     let result = await userModel.userSignUp({
       email,
-      username,
       first_name,
       last_name,
       password,
     });
 
-    res.send(result);
-
-    return;
+    if (result.success) {
+      res.status(SERVER_OK).json(result);
+    } else {
+      res.status(SERVER_BAD_REQUEST).json(result);
+    }
   } catch (e) {
     res.status(SERVER_BAD_REQUEST).json(String(e));
     return;
@@ -45,6 +46,15 @@ async function signUp(req: Request, res: Response) {
 async function signIn(req: Request, res: Response) {
   try {
     let { email, password } = req.body;
+
+    if (!email || !password) {
+      res.status(SERVER_OK).json({
+        success: false,
+        data: {},
+        message: 'Please fill all required fields',
+      });
+      return;
+    }
 
     let result = await userModel.userSignIn({
       email,
