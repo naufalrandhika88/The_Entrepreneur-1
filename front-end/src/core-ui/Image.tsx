@@ -5,7 +5,7 @@ import { Image as Picture } from 'react-native-elements';
 
 type Props = {
   newImageStyle?: StyleProp<ViewStyle>;
-  src?: string;
+  src?: string | 'placeholder';
   imagetype?: 'banner' | 'logo' | 'minilogo' | 'forum' | 'event' | 'seminar';
   resizeMode?: 'center' | 'contain' | 'stretch' | 'cover' | 'repeat';
 };
@@ -17,14 +17,14 @@ export default function Image(props: Props) {
 
   return src ? (
     <Picture
-      source={{ uri: src }}
+      source={src || placeholder}
       style={styles[imagetype || 'logo']}
       containerStyle={newImageStyle}
       resizeMode={resizeMode ? resizeMode : 'center'}
     />
   ) : (
     <Picture
-      source={placeholder}
+      source={{ uri: src }}
       style={styles[imagetype || 'logo']}
       containerStyle={newImageStyle}
       resizeMode={resizeMode ? resizeMode : 'center'}
