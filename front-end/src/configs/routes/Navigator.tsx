@@ -1,27 +1,23 @@
 import { createSwitchNavigator, createAppContainer } from 'react-navigation';
-import { createStackNavigator } from "react-navigation";
 
-import WelcomeScene from '../../scenes/WelcomeScene';
-import AppStack from './AppStack';
+//import AuthStack from './AuthStack';
 import AuthStack from './AuthStack';
+import MainNavigation from '../../scenes/MainNavigation';
 
 const AppNavigator = createSwitchNavigator(
   {
-    Auth: AuthStack,
-    App: {
-      screen: AppStack,
+    Auth: {
+      screen: AuthStack,
       navigationOptions: {
         header: null,
       },
     },
-    Welcome: {
-      screen: WelcomeScene,
-      navigationOptions: {header: null},
-    },
+    Main:{
+      screen: MainNavigation
+    }
   },
   {
-    initialRouteName: 'Welcome',
-
+    initialRouteName: 'Auth',
   },
 );
 

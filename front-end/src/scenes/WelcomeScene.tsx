@@ -12,7 +12,7 @@ type State = {};
 export default class WelcomeScene extends Component<Props, State> {
   loginAction = ()=>{this.props.navigation.navigate('SignIn')}
   signUpAction = ()=>{this.props.navigation.navigate('SignUp')}
-
+  googleSignAction = ()=>{}
 
   render() {
     return (
@@ -23,7 +23,7 @@ export default class WelcomeScene extends Component<Props, State> {
           start={{ x: 0, y: 0 }}
           end={{ x: 0, y: 1 }}>
             <Image></Image>
-            <WelcomeCard signUpAction={this.signUpAction} loginAction={this.loginAction}></WelcomeCard>
+            <WelcomeCard loginGoogleAction={this.googleSignAction} signUpAction={this.signUpAction} loginAction={this.loginAction}></WelcomeCard>
         </LinearGradient>
       </View>
     );

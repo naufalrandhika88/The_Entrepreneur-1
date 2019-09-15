@@ -7,12 +7,13 @@ import {
   CUSTOM_GREEN,
   CUSTOM_RED,
   CUSTOM_PINK,
+  CUSTOM_BROWN,
 } from '../constants/color';
 
 type TextProp = TextProps & {
   children: ReactNode;
   type?: 'display2' | 'display1' | 'headline' | 'subheading' | 'body';
-  color?: 'black' | 'yellow' | 'green' | 'red' | 'pink';
+  color?: 'black' | 'yellow' | 'green' | 'red' | 'pink' | 'brown';
   size?: number;
   weight?: 'regular' | 'bold';
   onPress?: () => void;
@@ -29,6 +30,7 @@ const FONT_COLOR: any = {
   green: CUSTOM_GREEN,
   red: CUSTOM_RED,
   pink: CUSTOM_PINK,
+  brown: CUSTOM_BROWN
 };
 
 export default function Texts(props: TextProp) {
@@ -58,27 +60,22 @@ export default function Texts(props: TextProp) {
 const styles = StyleSheet.create({
   headline: {
     fontSize: 18,
-    color: CUSTOM_BLACK,
     fontWeight: 'bold',
   },
   subheading: {
     fontSize: 16,
-    color: CUSTOM_BLACK,
     fontWeight: 'normal',
   },
   body: {
     fontSize: 14,
-    color: CUSTOM_BLACK,
     fontWeight: 'normal',
   },
   display1: {
     fontSize: 12,
-    color: CUSTOM_BLACK,
     fontWeight: 'normal',
   },
   display2: {
     fontSize: 10,
-    color: CUSTOM_BLACK,
     fontWeight: 'normal',
   },
 });
