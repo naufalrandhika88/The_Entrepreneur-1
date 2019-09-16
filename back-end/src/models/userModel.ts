@@ -145,7 +145,7 @@ async function getUserData(decoded: DecodedObject) {
       message: "Successfully retrieve user's profile",
     };
   } catch (e) {
-    return { success: false, data: 'ANJING', message: String(e) };
+    return { success: false, data: {}, message: String(e) };
   }
 }
 
