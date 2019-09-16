@@ -45,6 +45,9 @@ async function userSignUp(userObject: UserSignUp) {
       values,
     );
 
+    let { id } = result.rows[0];
+    let token = jwt.sign({ id }, API_SECRET);
+
     return {
       success: true,
       data: {
@@ -57,6 +60,7 @@ async function userSignUp(userObject: UserSignUp) {
         gender: result.rows[0].gender,
       },
       message: `User ${first_name} ${last_name} has been added`,
+      token: token,
     };
   } catch (e) {
     return {
