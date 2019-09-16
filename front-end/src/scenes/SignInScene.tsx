@@ -19,7 +19,7 @@ export default class SignInScene extends Component<Props, State> {
   render() {
     return (
       <View style={styles.view}>
-        <KeyboardAvoidingView  style={styles.view} behavior="padding" enabled>
+        <KeyboardAvoidingView style={styles.view} behavior="padding" enabled>
           <LinearGradient
             style={styles.container}
             colors={['#454545', '#000000']}
@@ -35,13 +35,13 @@ export default class SignInScene extends Component<Props, State> {
 }
 
 const styles = StyleSheet.create({
-  view:{
+  view: {
     flex: 1,
   },
   container: {
     flex: 1,
     justifyContent: 'flex-end',
     alignItems: 'center',
-    paddingBottom: 16
+    paddingBottom: 16,
   },
 });
