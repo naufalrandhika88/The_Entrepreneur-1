@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, ScrollView, SafeAreaView, View, } from 'react-native';
-import { headerBarColor } from '../constants/color';
-import Icon from '../core-ui/Icon';
+import {navigationOption} from '../component/NavBar';
 import Texts from '../core-ui/Text';
 import EventCard from '../component/EventCard';
 import StatusCard from '../component/StatusCard';
@@ -11,27 +10,8 @@ type Props = {};
 type State = {};
 
 export default class HomeScene extends Component<Props, State>{
-    static navigationOptions = {
-        headerStyle: {
-          backgroundColor: headerBarColor,
-        },
-        headerTintColor: '#fff',
-        headerTitleStyle: {
-          fontWeight: 'bold',
-        },
-        headerLeft:(
-            <View style={{paddingLeft: 16}}>
-                 <Icon name="logo"/>
-            </View>
-        ),
-        headerRight:(
-            <View style={{paddingRight: 16}}>
-                <Icon name="qr"/>
-            </View>
-        )
-      };
-
-      private example=[
+    static navigationOptions= navigationOption("Home");
+    private example=[
         {
             'imageURL':'https://facebook.github.io/react/logo-og.png',
             'eventTitle':"WORKSHOP",

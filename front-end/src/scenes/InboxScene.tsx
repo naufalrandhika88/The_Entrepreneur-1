@@ -1,33 +1,14 @@
 import React, { Component } from 'react';
 import { StyleSheet, SafeAreaView, View, Text } from 'react-native';
-import { headerBarColor } from '../constants/color';
-import Icon from '../core-ui/Icon';
+import { navigationOption } from '../component/NavBar';
 
 
 type Props = {};
 type State = {};
 
 export default class InboxScene extends Component<Props, State>{
-    static navigationOptions = {
-        headerStyle: {
-          backgroundColor: headerBarColor,
-        },
-        headerTintColor: '#fff',
-        headerTitleStyle: {
-          fontWeight: 'bold',
-        },
-        headerLeft:(
-            <View style={{paddingLeft: 16}}>
-                 <Icon name="logo"/>
-            </View>
-        ),
-        headerRight:(
-            <View style={{paddingRight: 16}}>
-                <Icon name="qr"/>
-            </View>
-        )
-      };
-
+    static navigationOptions= navigationOption("Inbox");
+    
     render() {
         return (
             <SafeAreaView style={styles.view}>
