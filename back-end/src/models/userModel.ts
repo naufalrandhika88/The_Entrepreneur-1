@@ -8,6 +8,7 @@ import {
   UserSignIn,
   DecodedObject,
   ReqEditProfileObject,
+  Role,
 } from '../types';
 import { API_SECRET } from '../constants';
 
@@ -29,9 +30,11 @@ async function userSignUp(userObject: UserSignUp) {
     let hash = sjcl.codec.hex.fromBits(sjcl.hash.sha256.hash(password + 'TES'));
 
     let encrypted = sjcl.encrypt('TES', hash);
+    let user_role: Role = email.endsWith('@admin.tes') ? 'Admin' : 'User';
 
     let values = [
       email,
+      user_role,
       first_name,
       last_name,
       encrypted,
@@ -41,7 +44,7 @@ async function userSignUp(userObject: UserSignUp) {
     ];
 
     let result: QueryResult = await db.query(
-      'INSERT INTO users (email, first_name, last_name, password, avatar, membership, gender) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *',
+      'INSERT INTO users (email, user_role, first_name, last_name, password, avatar, membership, gender) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *',
       values,
     );
 
@@ -53,6 +56,7 @@ async function userSignUp(userObject: UserSignUp) {
       data: {
         id: result.rows[0].id,
         email: result.rows[0].email,
+        user_role: result.rows[0].user_role,
         first_name: result.rows[0].first_name,
         last_name: result.rows[0].last_name,
         avatar: result.rows[0].avatar,
@@ -94,6 +98,7 @@ async function userSignIn(userObject: UserSignIn) {
           data: {
             id: result.rows[0].id,
             email: result.rows[0].email,
+            user_role: result.rows[0].user_role,
             first_name: result.rows[0].first_name,
             last_name: result.rows[0].last_name,
             avatar: result.rows[0].avatar,
@@ -140,6 +145,7 @@ async function getUserData(decoded: DecodedObject) {
       data: {
         id: result.rows[0].id,
         email: result.rows[0].email,
+        user_role: result.rows[0].user_role,
         first_name: result.rows[0].first_name,
         last_name: result.rows[0].last_name,
         avatar: result.rows[0].avatar,
