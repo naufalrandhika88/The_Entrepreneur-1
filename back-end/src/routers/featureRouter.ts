@@ -11,4 +11,10 @@ featureRouter.post(
   featureController.editProfile,
 );
 
+featureRouter.post(
+  '/create-event',
+  middleware.multerUploads,
+  featureController.createEvent,
+);
+
 export default featureRouter;

@@ -32,10 +32,22 @@ export type DecodedObject = {
   iat: number;
 };
 
+export type Role = 'Admin' | 'User';
+
 export type ReqEditProfileObject = {
   first_name: string;
   last_name: string;
   isAvatarChange?: boolean;
   avatar: string | null;
   gender: 'Male' | 'Female' | 'Other';
+};
+
+export type CreateEvent = {
+  event_name: string;
+  category: 'Workshop' | 'Seminar';
+  place: string;
+  price: number;
+  description: string;
+  available_seat: number;
+  image?: string | null;
 };

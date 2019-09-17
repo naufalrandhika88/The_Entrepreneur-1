@@ -1,16 +1,16 @@
-import userModel from '../models/userModel';
-import { ResponseObject } from '../types';
 import { Request, Response } from 'express';
+
+import userModel from '../models/userModel';
+import eventModel from '../models/eventModel';
+import { ResponseObject } from '../types';
 import { SERVER_OK, SERVER_BAD_REQUEST } from '../constants';
 import { dataUri } from '../helpers';
 import { uploader } from '../cloudinarySetup';
 
 async function editProfile(req: Request, res: Response) {
   try {
-    console.log('MASUK');
     let decoded = (<any>req).decoded;
     let { isAvatarChange, first_name, last_name, gender } = req.body;
-    console.log(req.body);
     if (!first_name || !gender) {
       res.status(SERVER_OK).json({
         success: false,
@@ -68,4 +68,66 @@ async function editProfile(req: Request, res: Response) {
   }
 }
 
-export default { editProfile };
+async function createEvent(req: Request, res: Response) {
+  try {
+    let decoded = (<any>req).decoded;
+    let {
+      event_name,
+      category,
+      place,
+      price,
+      description,
+      available_seat,
+      image,
+    } = req.body;
+
+    let user = await userModel.getUserData(decoded);
+
+    if (user.data.user_role === 'User') {
+      res.status(SERVER_OK).json({
+        success: false,
+        data: {},
+        message: 'Only admin can create an event',
+      });
+      return;
+    }
+
+    if (
+      !event_name ||
+      !category ||
+      !place ||
+      !price ||
+      !description ||
+      !available_seat
+    ) {
+      res.status(SERVER_OK).json({
+        success: false,
+        data: {},
+        message: 'Please fill all required fields',
+      });
+      return;
+    }
+
+    image = image ? image : null;
+
+    let result = await eventModel.newEvent({
+      event_name,
+      category,
+      place,
+      price,
+      description,
+      available_seat,
+      image,
+    });
+
+    if (result.success) {
+      res.status(SERVER_OK).json(result);
+    } else {
+      res.status(SERVER_BAD_REQUEST).json(result);
+    }
+  } catch (e) {
+    res.status(SERVER_BAD_REQUEST).json(String(e));
+  }
+}
+
+export default { editProfile, createEvent };
