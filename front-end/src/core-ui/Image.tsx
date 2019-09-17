@@ -5,7 +5,7 @@ import { Image as Picture } from 'react-native-elements';
 
 type Props = {
   newImageStyle?: StyleProp<ViewStyle>;
-  src?: string | 'placeholder';
+  src?: string;
   imagetype?: 'banner' | 'logo' | 'minilogo' | 'forum' | 'event' | 'seminar';
   resizeMode?: 'center' | 'contain' | 'stretch' | 'cover' | 'repeat';
 };
@@ -14,17 +14,14 @@ const placeholder = require('../../assets/images/placeholder.png');
 
 export default function Image(props: Props) {
   let { src, imagetype, newImageStyle, resizeMode } = props;
+  let source;
 
-  return src ? (
+  if(src == null) source = placeholder
+  else source = {uri: src}
+  
+  return (
     <Picture
-      source={src || placeholder}
-      style={styles[imagetype || 'logo']}
-      containerStyle={newImageStyle}
-      resizeMode={resizeMode ? resizeMode : 'center'}
-    />
-  ) : (
-    <Picture
-      source={{ uri: src }}
+      source={source}
       style={styles[imagetype || 'logo']}
       containerStyle={newImageStyle}
       resizeMode={resizeMode ? resizeMode : 'center'}

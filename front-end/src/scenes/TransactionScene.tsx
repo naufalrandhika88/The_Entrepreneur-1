@@ -30,14 +30,5 @@ const styles = StyleSheet.create({
         justifyContent: "flex-start",
         alignItems: 'flex-start',
     },
-    spacing1: {
-        height: 4,
-      },
-    spacing2: {
-        height: 8,
-    },
-    spacing3: {
-        height: 16,
-    },
   });
   

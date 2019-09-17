@@ -7,6 +7,8 @@ type Props = {};
 type State = {};
 
 export default class SignUpScene extends Component<Props, State> {
+  signInAction=()=>{};
+  forgotPasswordAction=()=>{};
   render() {
     return (
       <View style={styles.view}>
@@ -17,7 +19,7 @@ export default class SignUpScene extends Component<Props, State> {
             start={{ x: 0, y: 0 }}
             end={{ x: 0, y: 1 }}
           >
-            <AuthCard mode="signup"></AuthCard>
+            <AuthCard forgotPasswordAction={this.forgotPasswordAction} signInAction={this.signInAction} mode="signup"></AuthCard>
           </LinearGradient>
         </KeyboardAvoidingView>
       </View>

@@ -190,17 +190,29 @@ export default function Icon(props: Props) {
     return null;
   }
 
-  return (
-    <TouchableOpacity onPress={onPress}>
+  if(onPress == null){
+    return (
       <Image
-        resizeMode="contain"
-        resizeMethod="resize"
-        fadeDuration={0}
-        source={source}
-        style={[styles.defaultIcon, customStyle]}
-      />
-    </TouchableOpacity>
-  );
+      resizeMode="contain"
+      resizeMethod="resize"
+      fadeDuration={0}
+      source={source}
+      style={[styles.defaultIcon, customStyle]}
+    />
+    );
+  }else{
+    return (
+      <TouchableOpacity onPress={onPress}>
+        <Image
+          resizeMode="contain"
+          resizeMethod="resize"
+          fadeDuration={0}
+          source={source}
+          style={[styles.defaultIcon, customStyle]}
+        />
+      </TouchableOpacity>
+    );
+  }
 }
 
 Icon.defaultProps = {

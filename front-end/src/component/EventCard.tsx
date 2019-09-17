@@ -34,7 +34,7 @@ export default function EventCard(prop: Props) {
       <View style={styles.containerStyle}>
       <Image
         imagetype="event"
-        src={{uri: imageURL}}
+        src={imageURL}
         newImageStyle={styles.imagestyle}
       ></Image>
       <View style={styles.spacing1}></View>

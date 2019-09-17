@@ -8,12 +8,16 @@ import {
   CUSTOM_RED,
   CUSTOM_PINK,
   CUSTOM_BROWN,
+  GRAY,
+  GRAY2,
+  GRAY3,
+  GRAY4,
 } from '../constants/color';
 
 type TextProp = TextProps & {
   children: ReactNode;
   type?: 'display2' | 'display1' | 'headline' | 'subheading' | 'body';
-  color?: 'black' | 'yellow' | 'green' | 'red' | 'pink' | 'brown';
+  color?: 'black' | 'yellow' | 'green' | 'red' | 'pink' | 'brown' | 'gray' | 'gray2' | 'gray3' | 'gray4';
   size?: number;
   weight?: 'regular' | 'bold';
   onPress?: () => void;
@@ -30,7 +34,11 @@ const FONT_COLOR: any = {
   green: CUSTOM_GREEN,
   red: CUSTOM_RED,
   pink: CUSTOM_PINK,
-  brown: CUSTOM_BROWN
+  brown: CUSTOM_BROWN,
+  gray: GRAY,
+  gray2: GRAY2,
+  gray3: GRAY3,
+  gray4: GRAY4,
 };
 
 export default function Texts(props: TextProp) {

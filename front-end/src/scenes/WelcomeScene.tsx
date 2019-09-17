@@ -5,6 +5,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import Image from '../core-ui/Image';
 
 import {NavigationScreenProps} from 'react-navigation';
+import { k16 } from '../constants/dimens';
 
 type Props = NavigationScreenProps
 type State = {};
@@ -38,6 +39,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-end',
     alignItems: 'center',
-    paddingBottom: 16
+    paddingBottom: k16
   },
 });

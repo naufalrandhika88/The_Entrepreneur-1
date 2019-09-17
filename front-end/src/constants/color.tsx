@@ -10,5 +10,8 @@ export const BLACK = '#000';
 export const RED = '#F00';
 export const BLUE = '#00F';
 export const GRAY = '#E7E7E7';
+export const GRAY2 = '#C7C7C7';
+export const GRAY3 = '#979797';
+export const GRAY4 = '#676767';
 
 export const headerBarColor = '#353535';

@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, Key } from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import Texts from '../core-ui/Text';
@@ -6,21 +6,22 @@ import Icon from '../core-ui/Icon';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 type Props = {
+  key: Key;
   forumTitle: ReactNode;
   nameAuthor: ReactNode;
   comment: ReactNode;
+  onPress?:()=>void;
 };
 
 export default function ForumCard(prop: Props) {
-  let { forumTitle, nameAuthor, comment } = prop;
+  let { forumTitle, nameAuthor, comment,onPress } = prop;
 
   const styles = StyleSheet.create({
     containerStyle: {
-      paddingLeft: 16,
       flex: 1,
       flexDirection: 'row',
-      width: 328,
       height: 46,
+      marginBottom: 12
     },
     iconStyle: {
       width: 32,
@@ -45,15 +46,15 @@ export default function ForumCard(prop: Props) {
   });
 
   return (
-    <View style={styles.containerStyle}>
+    <TouchableOpacity onPress={onPress} style={styles.containerStyle}>
       <Icon name="forum" customStyle={styles.iconStyle}></Icon>
       <View style={styles.segmentContent}>
-        <Texts type="body">{forumTitle}</Texts>
+        <Texts color="gray3" type="body">{forumTitle}</Texts>
         <View style={styles.spacing}></View>
-        <Texts type="display2">{nameAuthor}</Texts>
+        <Texts color="gray2" type="display2">{nameAuthor}</Texts>
         <View style={styles.spacing}></View>
-        <Texts type="display2">{comment}</Texts>
+        <Texts color="gray" type="display2">{comment}</Texts>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 }
