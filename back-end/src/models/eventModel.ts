@@ -49,4 +49,27 @@ async function newEvent(eventObject: CreateEvent) {
   };
 }
 
-export default { newEvent };
+async function getEvent() {
+  let db = await getDB();
+
+  let result: QueryResult = await db.query('SELECT * FROM events');
+
+  let event = result.rows[0];
+
+  return {
+    success: true,
+    data: {
+      id: event.id,
+      event_name: event.event_name,
+      category: event.category,
+      place: event.place,
+      price: event.price,
+      description: event.description,
+      available_seat: event.available_seat,
+      image: event.image,
+    },
+    message: 'Successfully retrieve events data',
+  };
+}
+
+export default { newEvent, getEvent };
