@@ -83,7 +83,7 @@ async function createEvent(req: Request, res: Response) {
 
     let user = await userModel.getUserData(decoded);
 
-    if (user.data.user_role === 'User') {
+    if (user.data.user_role !== 'Admin') {
       res.status(SERVER_OK).json({
         success: false,
         data: {},
