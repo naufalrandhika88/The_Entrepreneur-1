@@ -1,23 +1,24 @@
-import React, { ReactNode } from 'react';
-import { StyleSheet, View } from 'react-native';
+import React, { Key } from 'react';
+import { StyleSheet, View, TouchableOpacity } from 'react-native';
 
 import Texts from '../core-ui/Text';
 import Image from '../core-ui/Image';
 
 type Props = {
-  imageChildren: ReactNode;
-  eventTitle: ReactNode;
-  title: ReactNode;
-  date: ReactNode;
-  price: ReactNode;
+  key: Key;
+  imageURL: string;
+  eventTitle: string;
+  title: string;
+  date: string;
+  price: string;
+  onClick?: ()=>void
 };
 
 export default function EventCard(prop: Props) {
-  let { imageChildren, eventTitle, title, date, price } = prop;
+  let { imageURL, eventTitle, title, date, price, onClick } = prop;
   const styles = StyleSheet.create({
     containerStyle: {
       width: 120,
-      height: 56,
     },
     spacing1: {
       height: 8,
@@ -29,10 +30,11 @@ export default function EventCard(prop: Props) {
   });
 
   return (
-    <View style={styles.containerStyle}>
+    <TouchableOpacity onPress={onClick}>
+      <View style={styles.containerStyle}>
       <Image
         imagetype="event"
-        src={imageChildren}
+        src={imageURL}
         newImageStyle={styles.imagestyle}
       ></Image>
       <View style={styles.spacing1}></View>
@@ -44,5 +46,6 @@ export default function EventCard(prop: Props) {
       <View style={styles.spacing2}></View>
       <Texts color="yellow">{price}</Texts>
     </View>
+    </TouchableOpacity>
   );
 }

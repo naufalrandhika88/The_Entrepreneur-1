@@ -1,13 +1,22 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import AuthCard from '../component/AuthCard';
 import { LinearGradient } from 'expo-linear-gradient';
-import { KeyboardAvoidingView } from 'react-native';
+import {KeyboardAvoidingView} from 'react-native';
+import {NavigationScreenProps} from 'react-navigation';
+import { k16 } from '../constants/dimens';
 
-type Props = {};
-type State = {};
-Z;
+type Props = NavigationScreenProps
+type State = {}
+
 export default class SignInScene extends Component<Props, State> {
+  signInAction = ()=>{
+    this.props.navigation.navigate('Main')
+  };
+  forgotPasswordAction = ()=>{
+
+  };
+
   render() {
     return (
       <View style={styles.view}>
@@ -16,10 +25,10 @@ export default class SignInScene extends Component<Props, State> {
             style={styles.container}
             colors={['#454545', '#000000']}
             start={{ x: 0, y: 0 }}
-            end={{ x: 0, y: 1 }}
-          >
-            <AuthCard mode="singin"></AuthCard>
-          </LinearGradient>
+            end={{ x: 0, y: 1 }}>
+              <AuthCard signInAction={this.signInAction}
+              forgotPasswordAction={this. forgotPasswordAction} mode="singin"></AuthCard>
+            </LinearGradient>
         </KeyboardAvoidingView>
       </View>
     );
@@ -34,6 +43,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-end',
     alignItems: 'center',
-    paddingBottom: 16,
+    paddingBottom: k16,
   },
 });
