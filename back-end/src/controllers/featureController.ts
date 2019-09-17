@@ -130,4 +130,20 @@ async function createEvent(req: Request, res: Response) {
   }
 }
 
-export default { editProfile, createEvent };
+async function getEvent(req: Request, res: Response) {
+  try {
+    let { id } = req.params;
+
+    let result = await eventModel.getEventById(id);
+
+    if (result.success) {
+      res.status(SERVER_OK).json(result);
+    } else {
+      res.status(SERVER_BAD_REQUEST).json(result);
+    }
+  } catch (e) {
+    res.status(SERVER_BAD_REQUEST).json(String(e));
+  }
+}
+
+export default { editProfile, createEvent, getEvent };

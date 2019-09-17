@@ -32,7 +32,7 @@ async function home(req: Request, res: Response) {
         success: true,
         data: {
           user: userResult.data,
-          events: eventResult.data,
+          events: eventResult.data.event,
         },
       });
     } else {

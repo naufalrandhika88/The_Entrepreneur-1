@@ -51,3 +51,14 @@ export type CreateEvent = {
   available_seat: number;
   image?: string | null;
 };
+
+export type event = {
+  id: string;
+  event_name: string;
+  category: 'Workshop' | 'Seminar';
+  place: string;
+  price: number;
+  description: string;
+  available_seat: number;
+  image?: string | null;
+};

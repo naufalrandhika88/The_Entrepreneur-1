@@ -17,4 +17,6 @@ featureRouter.post(
   featureController.createEvent,
 );
 
+featureRouter.get('/get-event/:id', featureController.getEvent);
+
 export default featureRouter;
