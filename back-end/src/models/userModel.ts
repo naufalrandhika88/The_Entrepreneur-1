@@ -8,29 +8,17 @@ import {
   UserSignIn,
   DecodedObject,
   ReqEditProfileObject,
-  Role,
 } from '../types';
 import { API_SECRET } from '../constants';
 
 async function userSignUp(userObject: UserSignUp) {
   try {
     let db = await getDB();
-    let { email, first_name, last_name, password } = userObject;
-
-    let user: QueryResult;
-    user = await db.query('SELECT * FROM users where email = $1', [email]);
-    if (user.rowCount !== 0) {
-      return {
-        success: false,
-        data: {},
-        message: 'Email already exist',
-      };
-    }
+    let { email, user_role, first_name, last_name, password } = userObject;
 
     let hash = sjcl.codec.hex.fromBits(sjcl.hash.sha256.hash(password + 'TES'));
 
     let encrypted = sjcl.encrypt('TES', hash);
-    let user_role: Role = email.endsWith('@admin.tes') ? 'Admin' : 'User';
 
     let values = [
       email,
@@ -169,7 +157,7 @@ async function updateUser(
 
     let db = await getDB();
 
-    let result = await db.query(
+    await db.query(
       'UPDATE users SET avatar=$1, first_name=$2, last_name=$3, gender=$4 WHERE id=$5',
       [avatar, first_name, last_name, gender, myId],
     );

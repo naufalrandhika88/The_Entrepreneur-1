@@ -10,6 +10,7 @@ export type User = {
 
 export type UserSignUp = {
   email: string;
+  user_role: Role;
   first_name: string;
   last_name: string;
   password: string;

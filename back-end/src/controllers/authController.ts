@@ -1,8 +1,11 @@
+import { QueryResult } from 'pg';
 import { Request, Response } from 'express';
-import { isEmail } from 'validator';
 
+import { isEmail } from 'validator';
 import userModel from '../models/userModel';
 import { SERVER_OK, SERVER_BAD_REQUEST } from '../constants';
+import { getDB } from '../db';
+import { Role } from '../types';
 
 async function signUp(req: Request, res: Response) {
   try {
@@ -25,8 +28,22 @@ async function signUp(req: Request, res: Response) {
       return;
     }
 
+    let db = await getDB();
+    let user: QueryResult;
+    user = await db.query('SELECT * FROM users where email = $1', [email]);
+    if (user.rowCount !== 0) {
+      return {
+        success: false,
+        data: {},
+        message: 'Email already exist',
+      };
+    }
+
+    let user_role: Role = email.endsWith('@admin.tes') ? 'Admin' : 'User';
+
     let result = await userModel.userSignUp({
       email,
+      user_role,
       first_name,
       last_name,
       password,
