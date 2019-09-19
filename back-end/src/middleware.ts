@@ -51,6 +51,6 @@ let checkToken = (req: Request, res: Response, next: NextFunction) => {
 };
 
 const storage = multer.memoryStorage();
-const multerUploads = multer({ storage }).single('avatar');
+const multerUploads = multer({ storage }).single('image');
 
 export default { checkToken, multerUploads };

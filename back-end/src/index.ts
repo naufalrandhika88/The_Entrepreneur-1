@@ -20,7 +20,7 @@ async function serverSetup() {
   );
 
   await app.locals.db.query(
-    'create table events(ID SERIAL PRIMARY KEY, event_name varchar(50) UNIQUE, category varchar(50), event_date Date, place varchar(50), price varchar(50), description varchar(100), available_seat int, image varchar(50))',
+    'create table events(ID SERIAL PRIMARY KEY, event_name varchar(50) UNIQUE, category varchar(50), event_date Date, place varchar(50), price varchar(50), description varchar(100), available_seat int, image varchar(100))',
     (error: Error, results: QueryResult) => {},
   );
 

@@ -152,14 +152,14 @@ async function updateUser(
   decoded: DecodedObject,
 ) {
   try {
-    let { avatar, first_name, last_name, gender } = editReq;
+    let { image, first_name, last_name, gender } = editReq;
     let { id: myId } = decoded;
 
     let db = await getDB();
 
     await db.query(
       'UPDATE users SET avatar=$1, first_name=$2, last_name=$3, gender=$4 WHERE id=$5',
-      [avatar, first_name, last_name, gender, myId],
+      [image, first_name, last_name, gender, myId],
     );
 
     let userData = await getUserData(decoded);
