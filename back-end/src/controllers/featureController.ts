@@ -74,6 +74,7 @@ async function createEvent(req: Request, res: Response) {
     let {
       event_name,
       category,
+      event_date,
       place,
       price,
       description,
@@ -95,6 +96,7 @@ async function createEvent(req: Request, res: Response) {
     if (
       !event_name ||
       !category ||
+      !event_date ||
       !place ||
       !price ||
       !description ||
@@ -113,6 +115,7 @@ async function createEvent(req: Request, res: Response) {
     let result = await eventModel.newEvent({
       event_name,
       category,
+      event_date,
       place,
       price,
       description,
@@ -121,6 +124,20 @@ async function createEvent(req: Request, res: Response) {
     });
 
     if (result.success) {
+      let date = new Date(result.data.event_date);
+      let year = date.getFullYear();
+      let month: string | number = date.getMonth() + 1;
+      let dt: string | number = date.getDate();
+
+      if (dt < 10) {
+        dt = '0' + dt;
+      }
+      if (month < 10) {
+        month = '0' + month;
+      }
+
+      result.data.event_date = year + '-' + month + '-' + dt;
+
       res.status(SERVER_OK).json(result);
     } else {
       res.status(SERVER_BAD_REQUEST).json(result);
@@ -137,6 +154,19 @@ async function getEvent(req: Request, res: Response) {
     let result = await eventModel.getEventById(id);
 
     if (result.success) {
+      let date = new Date(result.data.event_date);
+      let year = date.getFullYear();
+      let month: string | number = date.getMonth() + 1;
+      let dt: string | number = date.getDate();
+
+      if (dt < 10) {
+        dt = '0' + dt;
+      }
+      if (month < 10) {
+        month = '0' + month;
+      }
+
+      result.data.event_date = year + '-' + month + '-' + dt;
       res.status(SERVER_OK).json(result);
     } else {
       res.status(SERVER_BAD_REQUEST).json(result);

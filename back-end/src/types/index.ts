@@ -45,6 +45,7 @@ export type ReqEditProfileObject = {
 export type CreateEvent = {
   event_name: string;
   category: 'Workshop' | 'Seminar';
+  event_date: string;
   place: string;
   price: number;
   description: string;

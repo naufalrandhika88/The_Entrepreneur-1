@@ -1,4 +1,5 @@
 import { QueryResult } from 'pg';
+import moment from 'moment';
 
 import { getDB } from '../db';
 import { CreateEvent } from '../types';
@@ -10,6 +11,7 @@ async function newEvent(eventObject: CreateEvent) {
     let {
       event_name,
       category,
+      event_date,
       place,
       price,
       description,
@@ -20,6 +22,7 @@ async function newEvent(eventObject: CreateEvent) {
     let values = [
       event_name,
       category,
+      event_date,
       place,
       price,
       description,
@@ -28,7 +31,7 @@ async function newEvent(eventObject: CreateEvent) {
     ];
 
     let result: QueryResult = await db.query(
-      'INSERT INTO events (event_name, category, place, price, description, available_seat, image) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *',
+      'INSERT INTO events (event_name, category, event_date, place, price, description, available_seat, image) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *',
       values,
     );
 
@@ -40,6 +43,7 @@ async function newEvent(eventObject: CreateEvent) {
         id: event.id,
         event_name: event.event_name,
         category: event.category,
+        event_date: event.event_date,
         place: event.place,
         price: event.price,
         description: event.description,
@@ -98,6 +102,7 @@ async function getEventById(id: string) {
         id: event.id,
         event_name: event.event_name,
         category: event.category,
+        event_date: event.event_date,
         place: event.place,
         price: event.price,
         description: event.description,
