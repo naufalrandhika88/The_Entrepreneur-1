@@ -25,11 +25,6 @@ async function serverSetup() {
   );
 
   await app.locals.db.query(
-    'create table user_event(ID_user SERIAL REFERENCES users(ID), ID_event SERIAL REFERENCES events(ID), PRIMARY KEY(ID_user, ID_event))',
-    (error: Error, results: QueryResult) => {},
-  );
-
-  await app.locals.db.query(
     'create table forums(ID SERIAL PRIMARY KEY, ID_user SERIAL REFERENCES users(ID), forum_name varchar(50), category varchar(50), date timestamptz, description varchar(100), image varchar[], likes integer)',
     (error: Error, results: QueryResult) => {},
   );
