@@ -25,6 +25,11 @@ async function serverSetup() {
   );
 
   await app.locals.db.query(
+    'create table tickets(ID SERIAL, ID_event SERIAL REFERENCES events(ID), ID_user SERIAL REFERENCES users(ID), type varchar(50), total int, PRIMARY KEY(ID, ID_event, ID_user))',
+    (error: Error, results: QueryResult) => {},
+  );
+
+  await app.locals.db.query(
     'create table forums(ID SERIAL PRIMARY KEY, ID_user SERIAL REFERENCES users(ID), forum_name varchar(50), category varchar(50), date timestamptz, description varchar(100), image varchar[], likes integer)',
     (error: Error, results: QueryResult) => {},
   );
