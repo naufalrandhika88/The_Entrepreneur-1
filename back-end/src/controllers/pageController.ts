@@ -28,11 +28,30 @@ async function home(req: Request, res: Response) {
     let eventResult = await eventModel.getEvent();
 
     if (userResult.success && eventResult.success) {
+      if (eventResult.data.event) {
+        eventResult.data.event.sort((a, b) => b.event_date - a.event_date);
+
+        for (let i = 0; i < eventResult.data.event.length; i += 1) {
+          let date = new Date(eventResult.data.event[i].event_date);
+          let year = date.getFullYear();
+          let month: string | number = date.getMonth() + 1;
+          let dt: string | number = date.getDate();
+
+          if (dt < 10) {
+            dt = '0' + dt;
+          }
+          if (month < 10) {
+            month = '0' + month;
+          }
+          eventResult.data.event[i].event_date = year + '-' + month + '-' + dt;
+        }
+      }
+
       res.status(SERVER_OK).json({
         success: true,
         data: {
           user: userResult.data,
-          events: eventResult.data,
+          events: eventResult.data.event,
         },
       });
     } else {

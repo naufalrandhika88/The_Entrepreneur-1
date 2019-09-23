@@ -10,6 +10,7 @@ export type User = {
 
 export type UserSignUp = {
   email: string;
+  user_role: Role;
   first_name: string;
   last_name: string;
   password: string;
@@ -38,11 +39,35 @@ export type ReqEditProfileObject = {
   first_name: string;
   last_name: string;
   isAvatarChange?: boolean;
-  avatar: string | null;
+  image: string | null;
   gender: 'Male' | 'Female' | 'Other';
 };
 
 export type CreateEvent = {
+  event_name: string;
+  category: 'Workshop' | 'Seminar';
+  event_date: string;
+  place: string;
+  price: number;
+  description: string;
+  available_seat: number;
+  image?: string | null;
+};
+
+export type ReqEditEventObject = {
+  event_name: string;
+  category: 'Workshop' | 'Seminar';
+  event_date: string;
+  place: string;
+  price: number;
+  description: string;
+  available_seat: number;
+  isImageChange?: boolean;
+  image: string | null;
+};
+
+export type event = {
+  id: string;
   event_name: string;
   category: 'Workshop' | 'Seminar';
   place: string;
