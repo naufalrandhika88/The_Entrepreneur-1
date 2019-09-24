@@ -8,11 +8,13 @@ import TextIcon from '../component/TextIcon';
 import ForumCard from '../component/ForumCard';
 import { VerticalSpacer3 } from '../core-ui/Spacer';
 import { k16, screenWidth } from '../constants/dimens';
+import {NavigationScreenProps} from 'react-navigation';
 
-import { Image as Picture } from 'react-native-elements';
+import { Image as Picture} from 'react-native-elements';
 
 
-type Props = {};
+type Props = NavigationScreenProps;
+
 type State = {};
 
 export default class HomeScene extends Component<Props, State>{
@@ -27,7 +29,7 @@ export default class HomeScene extends Component<Props, State>{
             'key':0,
         },
     ]
-
+    
     render() {
         var tes = this.example[0];
         tes.key = 1;
@@ -60,15 +62,22 @@ export default class HomeScene extends Component<Props, State>{
         this.example.push(tes);
         tes.key = 5;
         this.example.push(tes);
-  tes.key = 5;
+        tes.key = 5;
         this.example.push(tes);
-
+        
         return (
             <SafeAreaView style={styles.view}>
                 <ScrollView style={styles.flex1} 
                 showsVerticalScrollIndicator={false}
                 contentContainerStyle={styles.scrollContainer}>
-                    <StatusCard/>
+                    <StatusCard 
+                        levelAction={()=>{
+                      
+                        }}
+                        membershipAction={()=>{
+
+                        }}
+                    />
                     <VerticalSpacer3/>
                     <View style={styles.menu}>
                         <TextIcon name="forum" text="Forum"></TextIcon>

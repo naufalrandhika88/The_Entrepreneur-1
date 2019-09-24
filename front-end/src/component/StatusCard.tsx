@@ -5,12 +5,15 @@ import Icon from '../core-ui/Icon';
 import { GRAY } from '../constants/color';
 
 type Props={
-
+    levelAction: ()=>void;
+    membershipAction: ()=>void;
 }
 export default function StatusCard(props: Props){
+    let {levelAction, membershipAction} = props;
+
     return(
         <View style={styles.view}>
-            <TouchableOpacity style={styles.maxWidth} onPress={()=>{}}>
+            <TouchableOpacity style={styles.maxWidth} onPress={levelAction}>
                 <View style={styles.segment} >
                     <Icon name="level"/>
                     <View style={styles.segmentContent}>
@@ -20,7 +23,7 @@ export default function StatusCard(props: Props){
                 </View>
             </TouchableOpacity>
             <View style={{borderLeftWidth: 1, borderColor: GRAY}}></View>
-            <TouchableOpacity style={styles.maxWidth} onPress={()=>{}}>
+            <TouchableOpacity style={styles.maxWidth} onPress={membershipAction}>
                 <View style={styles.segment} >
                     <Icon name="membership"/>
                     <View style={styles.segmentContent}>

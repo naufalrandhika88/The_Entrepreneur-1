@@ -5,7 +5,6 @@ import { LinearGradient } from 'expo-linear-gradient';
 
 import {NavigationScreenProps} from 'react-navigation';
 import { k16 } from '../constants/dimens';
-import Icon from '../core-ui/Icon';
 
 type Props = NavigationScreenProps
 type State = {};
