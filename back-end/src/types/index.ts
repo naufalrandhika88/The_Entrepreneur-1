@@ -78,7 +78,7 @@ export type event = {
 };
 
 export type CreateForum = {
-  id_user:string;
+  id_user: string;
   forum_name: string;
   category: 'Umum' | 'Jual' | 'Beli';
   description: string;

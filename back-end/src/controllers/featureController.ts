@@ -338,4 +338,68 @@ async function createForum(req: Request, res: Response) {
   }
 }
 
-export default { editProfile, createEvent, getEvent, updateEvent, deleteEvent, createForum };
+async function getForum(req: Request, res: Response) {
+  try {
+    let { id } = req.params;
+
+    let result = await forumModel.getForumById(id);
+
+    if (result.success) {
+      res.status(SERVER_OK).json(result);
+    } else {
+      res.status(SERVER_BAD_REQUEST).json(result);
+    }
+  } catch (e) {
+    res.status(SERVER_BAD_REQUEST).json(String(e));
+  }
+}
+
+async function getForumCategory(req: Request, res: Response) {
+  try {
+    let { category } = req.params;
+
+    let result = await forumModel.getForumByCategory(category);
+
+    if (result.success) {
+      res.status(SERVER_OK).json(result);
+    } else {
+      res.status(SERVER_BAD_REQUEST).json(result);
+    }
+  } catch (e) {
+    res.status(SERVER_BAD_REQUEST).json(String(e));
+  }
+}
+
+async function updateForum(req: Request, res: Response) {
+
+}
+
+async function deleteForum(req: Request, res: Response) {
+  try {
+    let decoded = (<any>req).decoded;
+    let { id } = req.params;
+
+    let user = await userModel.getUserData(decoded);
+
+    if (user.data.user_role !== 'Admin') {
+      res.status(SERVER_OK).json({
+        success: false,
+        data: {},
+        message: 'Only admin can delete a forum',
+      });
+      return;
+    }
+
+    let result = await forumModel.deleteForum(id);
+
+    if (result.success) {
+      res.status(SERVER_OK).json(result);
+    } else {
+      res.status(SERVER_BAD_REQUEST).json(result);
+    }
+  } catch (e) {
+    res.status(SERVER_BAD_REQUEST).json(String(e));
+  }
+}
+
+export default { editProfile, createEvent, getEvent, updateEvent, deleteEvent, createForum, getForum, getForumCategory, updateForum, deleteForum };
