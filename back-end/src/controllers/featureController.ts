@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 
 import userModel from '../models/userModel';
 import eventModel from '../models/eventModel';
+import forumModel from '../models/forumModel';
 import { ResponseObject } from '../types';
 import { SERVER_OK, SERVER_BAD_REQUEST } from '../constants';
 import { dataUri } from '../helpers';
@@ -285,4 +286,56 @@ async function deleteEvent(req: Request, res: Response) {
   }
 }
 
-export default { editProfile, createEvent, getEvent, updateEvent, deleteEvent };
+async function createForum(req: Request, res: Response) {
+  try {
+    let decoded = (<any>req).decoded;
+    let {
+      forum_name,
+      category,
+      description,
+      image,
+    } = req.body;
+
+    let user = await userModel.getUserData(decoded);
+
+    let id_user = user.data.id;
+
+    if (user.data.user_role !== 'Admin') {
+      res.status(SERVER_OK).json({
+        success: false,
+        data: {},
+        message: 'Only admin can create a forum',
+      });
+      return;
+    }
+
+    if (!forum_name || !category || !description) {
+      res.status(SERVER_OK).json({
+        success: false,
+        data: {},
+        message: 'Please fill all required fields',
+      });
+      return;
+    }
+
+    image = image ? image : null;
+
+    let result = await forumModel.newForum({
+      id_user,
+      forum_name,
+      category,
+      description,
+      image,
+    });
+
+    if (result.success) {
+      res.status(SERVER_OK).json(result);
+    } else {
+      res.status(SERVER_BAD_REQUEST).json(result);
+    }
+  } catch (e) {
+    res.status(SERVER_BAD_REQUEST).json(String(e));
+  }
+}
+
+export default { editProfile, createEvent, getEvent, updateEvent, deleteEvent, createForum };
