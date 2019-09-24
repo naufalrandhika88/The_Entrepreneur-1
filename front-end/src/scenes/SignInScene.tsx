@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
-import AuthCard from '../component/AuthCard';
+import AuthCard from '../component/authCard';
 import { LinearGradient } from 'expo-linear-gradient';
 import {KeyboardAvoidingView} from 'react-native';
 import {NavigationScreenProps} from 'react-navigation';

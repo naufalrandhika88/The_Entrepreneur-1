@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, KeyboardAvoidingView } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import AuthCard from '../component/AuthCard';
+import AuthCard from '../component/authCard';
 
 type Props = {};
 type State = {};

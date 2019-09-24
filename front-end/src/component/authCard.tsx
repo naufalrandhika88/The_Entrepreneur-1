@@ -5,6 +5,7 @@ import { WHITE } from '../constants/color';
 import TextInput from '../core-ui/textInput';
 import Button from '../core-ui/Button';
 import { screenWidth } from '../constants/dimens';
+import { VerticalSpacer3 } from '../core-ui/Spacer';
 
 type Props = {
     signInAction: ()=>void;
@@ -33,9 +34,6 @@ export default function AuthCard(props: Props){
         label:{
             color: '#C7C7C7'
         },
-        spacer:{
-            height: 24
-        },
         right:{
             alignContent: "flex-end",
         }
@@ -48,14 +46,14 @@ export default function AuthCard(props: Props){
                 <Texts type="headline" children="Sign Up"></Texts>
             }
             <TextInput label="Email" placeholder="Type your email" containerStyle={styles.form} labelStyle={styles.label} onChangeText={()=>{}}/>
-            <View style={styles.spacer}/>
+            <VerticalSpacer3/>
             <TextInput label="Password" placeholder="Type your password" isEncrypt={true} containerStyle={styles.form} labelStyle={styles.label} onChangeText={()=>{}}/>
-            <View style={styles.spacer}/>
+            <VerticalSpacer3/>
             {
                 mode == 'signup' ?  <TextInput label="Repeat Password" isEncrypt={true} placeholder="Type your password again" containerStyle={styles.form} labelStyle={styles.label} onChangeText={()=>{}}/> :
                 <Texts children="Forgot Password" style={styles.right} onPress={forgotPasswordAction}></Texts>
             }
-            <View style={styles.spacer}/>
+            <VerticalSpacer3/>
             {
                 mode =='signup' ? <Button buttonType="default" text="SIGN UP" onPress={()=>{}}></Button>:
                 <Button buttonType="default" text="SIGN IN" onPress={signInAction}></Button>
