@@ -1,8 +1,7 @@
 import { SignUpState, SignUpAction } from '../types/signUpSceneType';
 
 const initialRegisterState: SignUpState = {
-  isProcessing: false,
-  errorMessage: '',
+  message: '',
 };
 export default function registerReducer(
   registerState: SignUpState = initialRegisterState,
@@ -10,27 +9,24 @@ export default function registerReducer(
 ) {
   switch (action.type) {
     case 'REGISTER_REQUESTED': {
-      return { ...registerState, isProcessing: true, errorMessage: '' };
+      return { ...registerState, message: '' };
     }
     case 'REGISTER_SUCCEED': {
       return {
         ...registerState,
-        isProcessing: false,
-        errorMessage: '',
+        message: action.message,
       };
     }
     case 'REGISTER_FAILED': {
       return {
         ...registerState,
-        isProcessing: false,
-        errorMessage: action.message,
+        message: action.message,
       };
     }
     case 'RESET_ERROR': {
       return {
         ...registerState,
-        isProcessing: false,
-        errorMessage: '',
+        message: '',
       };
     }
     default: {

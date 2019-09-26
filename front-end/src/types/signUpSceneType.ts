@@ -1,8 +1,7 @@
 import { NavigationContainerComponent } from 'react-navigation';
 
 export type SignUpState = {
-  isProcessing: boolean;
-  errorMessage: string;
+  message: string;
 };
 
 export type SignUpAction =
@@ -13,5 +12,5 @@ export type SignUpAction =
       _navigator: NavigationContainerComponent;
     }
   | { type: 'REGISTER_FAILED'; message: string }
-  | { type: 'REGISTER_SUCCEED' }
+  | { type: 'REGISTER_SUCCEED'; message: string }
   | { type: 'RESET_ERROR' };

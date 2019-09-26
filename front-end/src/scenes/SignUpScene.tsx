@@ -12,8 +12,7 @@ import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 
 type Props = NavigationScreenProps & {
-  isProcessing: boolean;
-  errorMessage: string;
+  message: string;
   register: (
     email: string,
     password: string,
@@ -36,8 +35,8 @@ export class SignUpScene extends Component<Props, RegisterSceneState> {
   };
 
   componentDidUpdate() {
-    if (this.props.errorMessage !== '') {
-      alert(this.props.errorMessage);
+    if (this.props.message !== '') {
+      alert(this.props.message);
       let { reset_error } = this.props;
       reset_error();
     }
@@ -97,8 +96,7 @@ export class SignUpScene extends Component<Props, RegisterSceneState> {
 let mapStateToProps = (state: RootState) => {
   let { signUpState } = state;
   return {
-    isProcessing: signUpState.isProcessing,
-    errorMessage: signUpState.errorMessage,
+    message: signUpState.message,
   };
 };
 

@@ -31,7 +31,7 @@ function* signUpRequest(action: SignUpAction) {
     console.log(result);
     if (result.success) {
       let NavigationHelper = createNavigationHelper(_navigator);
-      yield put({ type: 'REGISTER_SUCCEED' });
+      yield put({ type: 'REGISTER_SUCCEED', message: result.message });
       NavigationHelper.navigate('Welcome');
     } else {
       yield put({ type: 'REGISTER_FAILED', message: result.message });
