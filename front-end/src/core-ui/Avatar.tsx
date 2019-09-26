@@ -21,7 +21,6 @@ export default function Avatar(props: Props) {
     <Image source={require('./assets/images/avatar.png')} />
   );
 }
-
 const styles = StyleSheet.create({
   medium: {
     width: 56,
