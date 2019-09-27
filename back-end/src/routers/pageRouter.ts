@@ -5,5 +5,6 @@ const pageController = controllers.page;
 const pageRouter = Router();
 
 pageRouter.get('/profile', pageController.profile);
+pageRouter.get('/home', pageController.home);
 
 export default pageRouter;

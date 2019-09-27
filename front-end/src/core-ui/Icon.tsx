@@ -45,6 +45,7 @@ import cart from '../../assets/images/cart.png';
 import cartGray from '../../assets/images/cartGray.png';
 
 // Images
+import eventlogo from '../../assets/images/event.png';
 import event1 from '../../assets/images/event1.png';
 import event2 from '../../assets/images/event2.png';
 import event3 from '../../assets/images/event3.png';
@@ -155,6 +156,10 @@ const ICONS = {
     true: eventBig,
     false: eventBig,
   },
+  eventlogo: {
+    true: eventlogo,
+    false: eventlogo,
+  },
 };
 
 export type IconName = keyof typeof ICONS;
@@ -190,17 +195,29 @@ export default function Icon(props: Props) {
     return null;
   }
 
-  return (
-    <TouchableOpacity onPress={onPress}>
+  if(onPress == null){
+    return (
       <Image
-        resizeMode="contain"
-        resizeMethod="resize"
-        fadeDuration={0}
-        source={source}
-        style={[styles.defaultIcon, customStyle]}
-      />
-    </TouchableOpacity>
-  );
+      resizeMode="contain"
+      resizeMethod="resize"
+      fadeDuration={0}
+      source={source}
+      style={[styles.defaultIcon, customStyle]}
+    />
+    );
+  }else{
+    return (
+      <TouchableOpacity onPress={onPress}>
+        <Image
+          resizeMode="contain"
+          resizeMethod="resize"
+          fadeDuration={0}
+          source={source}
+          style={[styles.defaultIcon, customStyle]}
+        />
+      </TouchableOpacity>
+    );
+  }
 }
 
 Icon.defaultProps = {
