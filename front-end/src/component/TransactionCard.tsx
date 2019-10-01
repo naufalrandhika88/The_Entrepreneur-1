@@ -1,10 +1,13 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, Key } from 'react';
 import { StyleSheet, View } from 'react-native';
 
-import Texts from '../core-ui/Text';
+import Text from '../core-ui/Text';
 import Icon from '../core-ui/Icon';
+import {k24 } from '../constants/dimens';
+import {VerticalSpacer1 } from '../core-ui/Spacer';
 
 type Props = {
+  key: Key;
   transactionTitle: ReactNode;
   dateTransaction: ReactNode;
   status: ReactNode;
@@ -18,20 +21,13 @@ export default function TransactionCard(prop: Props) {
   const styles = StyleSheet.create({
     containerStyle: {
       flexDirection: 'row',
-      paddingTop: 24,
-      paddingLeft: 27,
-      width: 317,
-      height: 48,
-      paddingBottom: 24,
+      padding: k24,
     },
     segmentContent: {
       flexDirection: 'column',
       width: 258,
       height: 48,
       paddingLeft: 27,
-    },
-    spacing: {
-      height: 6,
     },
   });
   return (
@@ -42,18 +38,18 @@ export default function TransactionCard(prop: Props) {
         <Icon name="eventlogo"></Icon>
       )}
       <View style={styles.segmentContent}>
-        <Texts type="body">{transactionTitle}</Texts>
-        <View style={styles.spacing}></View>
-        <Texts type="display1">{dateTransaction}</Texts>
-        <View style={styles.spacing}></View>
+        <Text type="body">{transactionTitle}</Text>
+        <VerticalSpacer1/>
+        <Text type="display1">{dateTransaction}</Text>
+        <VerticalSpacer1/>
         {mode2 === 'red' ? (
-          <Texts color="red" type="display1">
+          <Text color="red" type="display1">
             Status: {status}
-          </Texts>
+          </Text>
         ) : (
-          <Texts color="green" type="display2">
+          <Text color="green" type="display2">
             Status: {status}
-          </Texts>
+          </Text>
         )}
       </View>
     </View>

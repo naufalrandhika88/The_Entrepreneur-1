@@ -1,7 +1,7 @@
 import React, { ReactNode, Key } from 'react';
 import { StyleSheet, View } from 'react-native';
 
-import Texts from '../core-ui/Text';
+import Text from '../core-ui/Text';
 import Icon from '../core-ui/Icon';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
@@ -49,11 +49,11 @@ export default function ForumCard(prop: Props) {
     <TouchableOpacity onPress={onPress} style={styles.containerStyle}>
       <Icon name="forum" customStyle={styles.iconStyle}></Icon>
       <View style={styles.segmentContent}>
-        <Texts color="gray3" type="body">{forumTitle}</Texts>
+        <Text color="gray3" type="body">{forumTitle}</Text>
         <View style={styles.spacing}></View>
-        <Texts color="gray2" type="display2">{nameAuthor}</Texts>
+        <Text color="gray2" type="display2">{nameAuthor}</Text>
         <View style={styles.spacing}></View>
-        <Texts color="gray" type="display2">{comment}</Texts>
+        <Text color="gray" type="display2">{comment}</Text>
       </View>
     </TouchableOpacity>
   );

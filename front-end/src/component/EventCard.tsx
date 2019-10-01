@@ -1,7 +1,7 @@
 import React, { Key } from 'react';
 import { StyleSheet, View, TouchableOpacity } from 'react-native';
 
-import Texts from '../core-ui/Text';
+import Text from '../core-ui/Text';
 import Image from '../core-ui/Image';
 
 type Props = {
@@ -38,13 +38,13 @@ export default function EventCard(prop: Props) {
         newImageStyle={styles.imagestyle}
       ></Image>
       <View style={styles.spacing1}></View>
-      <Texts type="display2">{eventTitle}</Texts>
+      <Text type="display2">{eventTitle}</Text>
       <View style={styles.spacing2}></View>
-      <Texts type="display1">{title}</Texts>
+      <Text type="display1">{title}</Text>
       <View style={styles.spacing2}></View>
-      <Texts type="display1">{date}</Texts>
+      <Text type="display1">{date}</Text>
       <View style={styles.spacing2}></View>
-      <Texts color="yellow">{price}</Texts>
+      <Text color="yellow">{price}</Text>
     </View>
     </TouchableOpacity>
   );

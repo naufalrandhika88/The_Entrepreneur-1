@@ -9,4 +9,5 @@ const HomeStack = createStackNavigator({
   Membership: MembershipScene,
 });
 
+
 export default HomeStack;

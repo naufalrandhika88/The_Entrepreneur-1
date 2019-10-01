@@ -76,3 +76,11 @@ export type event = {
   available_seat: number;
   image?: string | null;
 };
+
+export type CreateForum = {
+  id_user: string;
+  forum_name: string;
+  category: 'Umum' | 'Jual' | 'Beli';
+  description: string;
+  image?: string[] | null;
+};

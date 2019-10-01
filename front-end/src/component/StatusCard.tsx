@@ -1,35 +1,39 @@
 import React from 'react';
-import { StyleSheet, View, TouchableOpacity } from 'react-native';
-import Texts from '../core-ui/Text';
+
+import { StyleSheet,  View, TouchableOpacity, } from 'react-native';
+import Text from '../core-ui/Text';
 import Icon from '../core-ui/Icon';
 import { GRAY } from '../constants/color';
 
-type Props = {
-  levelAction: () => void;
-  membershipAction: () => void;
-};
-export default function StatusCard(props: Props) {
-  let { levelAction, membershipAction } = props;
+type Props={
+    levelAction: ()=>void;
+    membershipAction: ()=>void;
+}
+export default function StatusCard(props: Props){
+    let {levelAction, membershipAction} = props;
 
-  return (
-    <View style={styles.view}>
-      <TouchableOpacity style={styles.maxWidth} onPress={levelAction}>
-        <View style={styles.segment}>
-          <Icon name="level" />
-          <View style={styles.segmentContent}>
-            <Texts type="body" children="ENTREPRENEUR" />
-            <Texts type="subheading" color="brown" children="Learning" />
-          </View>
-        </View>
-      </TouchableOpacity>
-      <View style={{ borderLeftWidth: 1, borderColor: GRAY }}></View>
-      <TouchableOpacity style={styles.maxWidth} onPress={membershipAction}>
-        <View style={styles.segment}>
-          <Icon name="membership" />
-          <View style={styles.segmentContent}>
-            <Texts type="body" children="Basic" />
-            <Texts color="yellow" type="subheading" children="UPRGADE" />
-          </View>
+    return(
+        <View style={styles.view}>
+            <TouchableOpacity style={styles.maxWidth} onPress={levelAction}>
+                <View style={styles.segment} >
+                    <Icon name="level"/>
+                    <View style={styles.segmentContent}>
+                        <Text type="body" children="ENTREPRENEUR"/>
+                        <Text type="subheading" color="brown" children="Learning"/>
+                    </View>
+                </View>
+            </TouchableOpacity>
+            <View style={{borderLeftWidth: 1, borderColor: GRAY}}></View>
+            <TouchableOpacity style={styles.maxWidth} onPress={membershipAction}>
+                <View style={styles.segment} >
+                    <Icon name="membership"/>
+                    <View style={styles.segmentContent}>
+                        <Text type="body" children="Basic"/>
+                        <Text color="yellow" type="subheading" children="UPRGADE"/>
+                    </View>
+                </View>
+            </TouchableOpacity>
+
         </View>
       </TouchableOpacity>
     </View>

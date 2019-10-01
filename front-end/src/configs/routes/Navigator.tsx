@@ -8,12 +8,9 @@ const AppNavigator = createSwitchNavigator(
   {
     Auth: {
       screen: AuthStack,
-      navigationOptions: {
-        header: null,
-      },
     },
     Main:{
-      screen: MainNavigation
+      screen: MainNavigation,
     }
   },
   {
