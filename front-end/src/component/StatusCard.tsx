@@ -33,9 +33,6 @@ export default function StatusCard(props: Props){
                     </View>
                 </View>
             </TouchableOpacity>
-
-        </View>
-      </TouchableOpacity>
     </View>
   );
 }

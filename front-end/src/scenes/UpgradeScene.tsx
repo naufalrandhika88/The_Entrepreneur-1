@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { StyleSheet, ScrollView, SafeAreaView, View } from 'react-native';
-import Texts from '../core-ui/Text';
+import { StyleSheet, ScrollView, View } from 'react-native';
+import Text from '../core-ui/Text';
 import { navigationOption } from '../component/ButtonBackNavBar';
 import Icon from '../core-ui/Icon';
 import Button from '../core-ui/Button';
@@ -25,31 +25,31 @@ export default class UpgradeScene extends Component<Props, State> {
           <VerticalSpacer2 />
           <View style={styles.row}>
             <VerticalSpacer2 />
-            <Texts type="subheading" children="Upgrade To "></Texts>
-            <Texts type="subheading" children="Premium" color="yellow"></Texts>
+            <Text type="subheading" children="Upgrade To "></Text>
+            <Text type="subheading" children="Premium" color="yellow"></Text>
           </View>
           <VerticalSpacer3 />
-          <Texts type="body" children="You Will Get: "></Texts>
+          <Text type="body" children="You Will Get: "></Text>
           <VerticalSpacer2 />
           <View style={styles.textlist}>
-            <Texts
+            <Text
               type="display1"
               children="1. Booth discount - 5% (platinum only)"
-            ></Texts>
-            <Texts
+            ></Text>
+            <Text
               type="display1"
               children="2. VIP registration/seating at the general session - 50% (platinum), 30 (gold), 15 (silver), 5 (bronze)"
-            ></Texts>
-            <Texts type="display1" children="3. Premium badge recognition" />
-            <Texts
+            ></Text>
+            <Text type="display1" children="3. Premium badge recognition" />
+            <Text
               type="display1"
               children="4. Premium level acknowledgment booth carpet decals - 2 (platinum), 1 (gold)"
             />
-            <Texts
+            <Text
               type="display1"
               children="5. Show floor acknowledgment signage"
             />
-            <Texts
+            <Text
               type="display1"
               children="6. Premium level acknowledgment table signs"
             />
@@ -58,8 +58,8 @@ export default class UpgradeScene extends Component<Props, State> {
           <VerticalSpacer4 />
           <View style={styles.row1}>
             <VerticalSpacer1 />
-            <Texts type="body" children="ID   " style={styles.marginTop1} />
-            <Texts
+            <Text type="body" children="ID   " style={styles.marginTop1} />
+            <Text
               style={styles.textnumber}
               children="1.350.000"
               color="yellow"
