@@ -50,6 +50,7 @@ import event1 from '../../assets/images/event1.png';
 import event2 from '../../assets/images/event2.png';
 import event3 from '../../assets/images/event3.png';
 import eventBig from '../../assets/images/eventBig.png';
+import upgrademembership from '../../assets/images/upgradeMembership.png';
 
 const ICONS = {
   home: {
@@ -160,6 +161,10 @@ const ICONS = {
     true: eventlogo,
     false: eventlogo,
   },
+  upgrademembership: {
+    true: upgrademembership,
+    false: upgrademembership,
+  },
 };
 
 export type IconName = keyof typeof ICONS;
@@ -195,17 +200,17 @@ export default function Icon(props: Props) {
     return null;
   }
 
-  if(onPress == null){
+  if (onPress == null) {
     return (
       <Image
-      resizeMode="contain"
-      resizeMethod="resize"
-      fadeDuration={0}
-      source={source}
-      style={[styles.defaultIcon, customStyle]}
-    />
+        resizeMode="contain"
+        resizeMethod="resize"
+        fadeDuration={0}
+        source={source}
+        style={[styles.defaultIcon, customStyle]}
+      />
     );
-  }else{
+  } else {
     return (
       <TouchableOpacity onPress={onPress}>
         <Image

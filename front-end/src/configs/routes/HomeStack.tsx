@@ -1,11 +1,13 @@
-import { createStackNavigator } from "react-navigation";
-import HomeScene from "../../scenes/HomeScene";
-import HelloWorldScene from "../../scenes/HelloWorld";
+import { createStackNavigator, createSwitchNavigator } from 'react-navigation';
+import HomeScene from '../../scenes/HomeScene';
+import UpgradeScene from '../../scenes/UpgradeScene';
+import MembershipScene from '../../scenes/MembershipScene';
 
-const HomeStack=createStackNavigator({
-    Home: HomeScene,
-    Upgrade: HelloWorldScene
-},
-);
+const HomeStack = createStackNavigator({
+  Home: HomeScene,
+  Upgrade: UpgradeScene,
+  Membership: MembershipScene,
+});
+
 
 export default HomeStack;

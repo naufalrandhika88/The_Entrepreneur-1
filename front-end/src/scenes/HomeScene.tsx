@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+
 import { StyleSheet, ScrollView, SafeAreaView, View, } from 'react-native';
 import {navigationOption} from '../component/NavBar';
 import Text from '../core-ui/Text';
+
 import EventCard from '../component/EventCard';
 import StatusCard from '../component/StatusCard';
 import TextIcon from '../component/TextIcon';
@@ -9,6 +11,7 @@ import ForumCard from '../component/ForumCard';
 import { VerticalSpacer3, VerticalSpacer1 } from '../core-ui/Spacer';
 import { k16 } from '../constants/dimens';
 import {NavigationScreenProps} from 'react-navigation';
+
 
 import PromotionCard from '../component/PromotionCard';
 
@@ -146,4 +149,3 @@ const styles = StyleSheet.create({
         alignItems: 'flex-start',
     },
   });
-  
