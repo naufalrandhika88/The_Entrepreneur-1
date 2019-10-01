@@ -5,20 +5,20 @@ import { Image } from 'react-native-elements';
 type Props = {
   newAvatarStyle?: StyleProp<ViewStyle>;
   src?: string | null;
-  sizeAvatar?: 'medium';
+  sAvatar?: 'medium';
 };
 
 export default function Avatar(props: Props) {
-  let { src, sizeAvatar, newAvatarStyle } = props;
+  let { src, sAvatar, newAvatarStyle } = props;
 
   return src ? (
     <Image
       source={{ uri: src }}
-      style={styles[sizeAvatar || 'medium']}
+      style={styles[sAvatar || 'medium']}
       containerStyle={newAvatarStyle}
     />
   ) : (
-    <Image source={require('./assets/images/avatar.png')} />
+    <Image source={require('./assets/images/fotoavatar.png')} />
   );
 }
 const styles = StyleSheet.create({
