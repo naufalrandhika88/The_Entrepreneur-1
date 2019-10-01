@@ -1,17 +1,16 @@
 import React, { Component } from 'react';
 import { StyleSheet, ScrollView, SafeAreaView, View, } from 'react-native';
 import {navigationOption} from '../component/NavBar';
-import Texts from '../core-ui/Text';
+import Text from '../core-ui/Text';
 import EventCard from '../component/EventCard';
 import StatusCard from '../component/StatusCard';
 import TextIcon from '../component/TextIcon';
 import ForumCard from '../component/ForumCard';
-import { VerticalSpacer3 } from '../core-ui/Spacer';
-import { k16, screenWidth } from '../constants/dimens';
+import { VerticalSpacer3, VerticalSpacer1 } from '../core-ui/Spacer';
+import { k16 } from '../constants/dimens';
 import {NavigationScreenProps} from 'react-navigation';
 
-import { Image as Picture} from 'react-native-elements';
-
+import PromotionCard from '../component/PromotionCard';
 
 type Props = NavigationScreenProps;
 
@@ -75,7 +74,7 @@ export default class HomeScene extends Component<Props, State>{
                       
                         }}
                         membershipAction={()=>{
-
+                            this.props.navigation.navigate('Upgrade')
                         }}
                     />
                     <VerticalSpacer3/>
@@ -87,21 +86,12 @@ export default class HomeScene extends Component<Props, State>{
                     </View>
                     <VerticalSpacer3/>
                     <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-                        <Picture
-                            source={require('../../assets/images/placeholder.png')}
-                            style={styles.promotion}
-                            resizeMode={'cover'}
-                        />
-                        <Picture
-                            source={require('../../assets/images/placeholder.png')}
-                            style={styles.promotion}
-                            resizeMode={'cover'}
-                        />
+                        <PromotionCard/>
+                        <PromotionCard/>
                     </ScrollView>
-                    
                     <VerticalSpacer3/>
-                    <Texts type="headline" children="Event Terdekat"></Texts>
-                    <VerticalSpacer3/>
+                    <Text type="headline">Event Terdekat</Text>
+                    <VerticalSpacer1/>
                     <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
                         {
                             this.example.map((data)=>{
@@ -118,7 +108,7 @@ export default class HomeScene extends Component<Props, State>{
                         }
                     </ScrollView>
                     <VerticalSpacer3/>
-                    <Texts type="headline">Trending Forum</Texts>
+                    <Text type="headline">Trending Forum</Text>
                     <VerticalSpacer3/>
                     <ScrollView showsHorizontalScrollIndicator={false}>
                         {
@@ -143,10 +133,6 @@ export default class HomeScene extends Component<Props, State>{
 const styles = StyleSheet.create({
     view:{
         flex: 1,
-    },
-    promotion:{
-        height:100,
-        maxWidth: screenWidth - k16*2  
     },
     flex1:{
         flex: 1,

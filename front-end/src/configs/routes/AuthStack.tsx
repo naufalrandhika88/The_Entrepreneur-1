@@ -1,8 +1,8 @@
 import { createStackNavigator, createSwitchNavigator } from 'react-navigation';
 
-import SignInScene from '../../scenes/SignInScene';
 import SignUpScene from '../../scenes/SignUpScene';
 import WelcomeScene from '../../scenes/WelcomeScene';
+import SignInScene from '../../scenes/SignInScene';
 
 const AuthStack = createStackNavigator({
   Welcome:{

@@ -1,8 +1,10 @@
-import { createStackNavigator, createSwitchNavigator } from "react-navigation";
+import { createStackNavigator } from "react-navigation";
 import HomeScene from "../../scenes/HomeScene";
+import HelloWorldScene from "../../scenes/HelloWorld";
 
 const HomeStack=createStackNavigator({
-    Home: HomeScene
+    Home: HomeScene,
+    Upgrade: HelloWorldScene
 },
 );
 

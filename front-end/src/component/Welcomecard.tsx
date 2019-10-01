@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import { WHITE } from '../constants/color';
-import Texts from '../core-ui/Text';
+import Text from '../core-ui/Text';
 import Button from '../core-ui/Button';
 import { VerticalSpacer2, VerticalSpacer4 } from '../core-ui/Spacer';
 import { screenWidth } from '../constants/dimens';
@@ -35,31 +35,31 @@ export default function WelcomeCard(props: Props) {
 
   return (
     <View style={styles.card}>
-      <Texts
+      <Text
         children="Welcome, Entrepreneurs!"
         type="headline"
-      ></Texts>
+      ></Text>
       <VerticalSpacer4></VerticalSpacer4>
       <Button
         buttonType="default"
         onPress={signUpAction}
       />
       <VerticalSpacer2></VerticalSpacer2>
-      <Texts
+      <Text
         children="─────────── or ───────────"
         type="display2"
-      ></Texts>
+      ></Text>
       <VerticalSpacer2></VerticalSpacer2>
       <Button
         buttonType="outline"
         onPress={() => loginGoogleAction}
       />
       <VerticalSpacer2></VerticalSpacer2>
-      <Texts
+      <Text
         children="Already have an account? Login here"
         type="display1"
         onPress={loginAction}
-      ></Texts>
+      ></Text>
     </View>
   );
 }

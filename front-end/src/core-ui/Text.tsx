@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { Text, TextProps, StyleSheet, TouchableOpacity } from 'react-native';
+import { Text as T, TextProps, StyleSheet, TouchableOpacity } from 'react-native';
 
 import {
   CUSTOM_BLACK,
@@ -41,7 +41,7 @@ const FONT_COLOR: any = {
   gray4: GRAY4,
 };
 
-export default function Texts(props: TextProp) {
+export default function Text(props: TextProp) {
   let { type, color, size, weight, style, onPress, children, ...other } = props;
 
   let fontWeight = FONT_WEIGHT[weight || 'regular'];
@@ -54,14 +54,14 @@ export default function Texts(props: TextProp) {
 
   return onPress ? (
     <TouchableOpacity onPress={onPress}>
-      <Text style={mixedStyles} {...other}>
+      <T style={mixedStyles} {...other}>
         {children}
-      </Text>
+      </T>
     </TouchableOpacity>
   ) : (
-    <Text style={mixedStyles} {...other}>
+    <T style={mixedStyles} {...other}>
       {children}
-    </Text>
+    </T>
   );
 }
 

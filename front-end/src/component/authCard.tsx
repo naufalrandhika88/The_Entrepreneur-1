@@ -1,5 +1,5 @@
 import React from 'react';
-import Texts from '../core-ui/Text';
+import Text from '../core-ui/Text';
 import { View, StyleSheet } from 'react-native';
 import { WHITE } from '../constants/color';
 import TextInput from '../core-ui/textInput';
@@ -44,9 +44,9 @@ export default function AuthCard(props: Props) {
   return (
     <View style={styles.outer}>
       {mode == 'singin' ? (
-        <Texts type="headline" children="Sign In"></Texts>
+        <Text type="headline" children="Sign In"></Text>
       ) : (
-        <Texts type="headline" children="Sign Up"></Texts>
+        <Text type="headline" children="Sign Up"></Text>
       )}
       <TextInput
         label="Email"
@@ -75,11 +75,11 @@ export default function AuthCard(props: Props) {
           onChangeText={props.onChangeRePassword}
         />
       ) : (
-        <Texts
+        <Text
           children="Forgot Password"
           style={styles.right}
           onPress={forgotPasswordAction}
-        ></Texts>
+        ></Text>
       )}
       <VerticalSpacer3 />
       {mode == 'signup' ? (

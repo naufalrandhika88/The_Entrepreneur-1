@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, View, TouchableOpacity } from 'react-native';
 import Icon, { IconName } from '../core-ui/Icon';
-import Texts from '../core-ui/Text';
+import Text from '../core-ui/Text';
 
 type Props={
   name: IconName;
@@ -15,7 +15,7 @@ export default function TextIcon(props: Props) {
       <View style={styles.content}>
         <TouchableOpacity onPress={onPress}>
          <Icon name={name}></Icon>
-         <Texts type="body">{text}</Texts>
+         <Text type="body">{text}</Text>
         </TouchableOpacity>
       </View>
     );
@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
   content:{
     flex: 1,
     alignItems:"center",
-    justifyContent:"center"
+    justifyContent:"center",
   }
 })
 
