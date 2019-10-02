@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 import { StyleSheet, View } from 'react-native';
 
-import Texts from '../core-ui/Text';
+import Text from '../core-ui/Text';
 import Icon from '../core-ui/Icon';
 import { VerticalSpacer1 } from '../core-ui/Spacer';
 
@@ -16,11 +16,11 @@ export default function InboxCard(prop: Props) {
   return (
     <View>
       <View style={styles.containerStyle}>
-        <Texts type="display2" style={styles.dateinbox}>
+        <Text type="display2" style={styles.dateinbox}>
           {dateInbox}
-        </Texts>
+        </Text>
         <View style={styles.spacing}></View>
-        <Texts type="body">{titleInbox}</Texts>
+        <Text type="body">{titleInbox}</Text>
       </View>
       <VerticalSpacer1 />
       <View style={styles.line}></View>
