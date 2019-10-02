@@ -32,11 +32,11 @@ async function signUp(req: Request, res: Response) {
     let user: QueryResult;
     user = await db.query('SELECT * FROM users where email = $1', [email]);
     if (user.rowCount !== 0) {
-      return {
+      res.status(SERVER_OK).json({
         success: false,
         data: {},
         message: 'Email already exist',
-      };
+      });
     }
 
     let user_role: Role = email.endsWith('@admin.tes') ? 'Admin' : 'User';

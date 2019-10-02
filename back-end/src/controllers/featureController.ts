@@ -209,7 +209,6 @@ async function updateEvent(req: Request, res: Response) {
     }
 
     if (req.file && isImageChange === 'true') {
-      console.log('MASUK KESINI BOSQ');
       const file = dataUri(req).content;
       return uploader
         .upload(file)
@@ -289,12 +288,7 @@ async function deleteEvent(req: Request, res: Response) {
 async function createForum(req: Request, res: Response) {
   try {
     let decoded = (<any>req).decoded;
-    let {
-      forum_name,
-      category,
-      description,
-      image,
-    } = req.body;
+    let { forum_name, category, description, image } = req.body;
 
     let user = await userModel.getUserData(decoded);
 
@@ -370,9 +364,7 @@ async function getForumCategory(req: Request, res: Response) {
   }
 }
 
-async function updateForum(req: Request, res: Response) {
-
-}
+async function updateForum(req: Request, res: Response) {}
 
 async function deleteForum(req: Request, res: Response) {
   try {
@@ -402,4 +394,15 @@ async function deleteForum(req: Request, res: Response) {
   }
 }
 
-export default { editProfile, createEvent, getEvent, updateEvent, deleteEvent, createForum, getForum, getForumCategory, updateForum, deleteForum };
+export default {
+  editProfile,
+  createEvent,
+  getEvent,
+  updateEvent,
+  deleteEvent,
+  createForum,
+  getForum,
+  getForumCategory,
+  updateForum,
+  deleteForum,
+};
