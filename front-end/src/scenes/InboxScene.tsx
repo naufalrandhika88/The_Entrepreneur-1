@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, SafeAreaView, View, Text } from 'react-native';
+import { StyleSheet, SafeAreaView, View, Text, ScrollView } from 'react-native';
 import { navigationOption } from '../component/NavBar';
 import InboxCard from '../component/InboxCard';
 
@@ -11,12 +11,52 @@ export default class InboxScene extends Component<Props, State> {
 
   render() {
     return (
-      <SafeAreaView style={styles.view}>
+      <ScrollView>
         <InboxCard
           dateInbox="02 Oktober 2019"
           titleInbox="Your e-ticket for talkshowmotivasi karya been issued"
         ></InboxCard>
-      </SafeAreaView>
+         <InboxCard
+          dateInbox="02 Oktober 2019"
+          titleInbox="Your e-ticket for talkshowmotivasi karya been issued"
+        ></InboxCard>
+         <InboxCard
+          dateInbox="02 Oktober 2019"
+          titleInbox="Your e-ticket for talkshowmotivasi karya been issued"
+        ></InboxCard>
+         <InboxCard
+          dateInbox="02 Oktober 2019"
+          titleInbox="Your e-ticket for talkshowmotivasi karya been issued"
+        ></InboxCard>
+         <InboxCard
+          dateInbox="02 Oktober 2019"
+          titleInbox="Your e-ticket for talkshowmotivasi karya been issued"
+        ></InboxCard>
+         <InboxCard
+          dateInbox="02 Oktober 2019"
+          titleInbox="Your e-ticket for talkshowmotivasi karya been issued"
+        ></InboxCard>
+         <InboxCard
+          dateInbox="02 Oktober 2019"
+          titleInbox="Your e-ticket for talkshowmotivasi karya been issued"
+        ></InboxCard>
+         <InboxCard
+          dateInbox="02 Oktober 2019"
+          titleInbox="Your e-ticket for talkshowmotivasi karya been issued"
+        ></InboxCard>
+         <InboxCard
+          dateInbox="02 Oktober 2019"
+          titleInbox="Your e-ticket for talkshowmotivasi karya been issued"
+        ></InboxCard>
+         <InboxCard
+          dateInbox="02 Oktober 2019"
+          titleInbox="Your e-ticket for talkshowmotivasi karya been issued"
+        ></InboxCard>
+         <InboxCard
+          dateInbox="02 Oktober 2019"
+          titleInbox="Your e-ticket for talkshowmotivasi karya been issued"
+        ></InboxCard>
+      </ScrollView>
     );
   }
 }
