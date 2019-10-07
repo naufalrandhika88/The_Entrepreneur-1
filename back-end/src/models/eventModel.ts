@@ -1,5 +1,4 @@
 import { QueryResult } from 'pg';
-import moment from 'moment';
 
 import { getDB } from '../db';
 import { CreateEvent, ReqEditEventObject } from '../types';
@@ -120,7 +119,7 @@ async function getEventById(id: string) {
   }
 }
 
-async function editEvent(eventObject: ReqEditEventObject, id) {
+async function editEvent(eventObject: ReqEditEventObject, id: string) {
   try {
     let {
       event_name,

@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 
 import userModel from '../models/userModel';
 import eventModel from '../models/eventModel';
+import ticketModel from '../models/ticketModel';
 import forumModel from '../models/forumModel';
 import { ResponseObject } from '../types';
 import { SERVER_OK, SERVER_BAD_REQUEST } from '../constants';
@@ -11,7 +12,13 @@ import { uploader } from '../cloudinarySetup';
 async function editProfile(req: Request, res: Response) {
   try {
     let decoded = (<any>req).decoded;
-    let { isAvatarChange, first_name, last_name, gender } = req.body;
+    let {
+      isAvatarChange,
+      first_name,
+      last_name,
+      membership,
+      gender,
+    } = req.body;
     if (!first_name || !gender) {
       res.status(SERVER_OK).json({
         success: false,
@@ -27,7 +34,7 @@ async function editProfile(req: Request, res: Response) {
         .then(async (db_result: any) => {
           let image = db_result.url;
           let result: ResponseObject = await userModel.updateUser(
-            { image, first_name, last_name, gender },
+            { image, first_name, last_name, membership, gender },
             decoded,
           );
 
@@ -48,7 +55,7 @@ async function editProfile(req: Request, res: Response) {
         );
     } else if (isAvatarChange === 'false') {
       let result: ResponseObject = await userModel.updateUser(
-        { image: null, first_name, last_name, gender },
+        { image: null, first_name, last_name, membership, gender },
         decoded,
       );
       if (result.success) {
@@ -394,12 +401,82 @@ async function deleteForum(req: Request, res: Response) {
   }
 }
 
+async function newTicket(req: Request, res: Response) {
+  try {
+    let decoded = (<any>req).decoded;
+    let { id: id_user } = decoded;
+    let { id_event, type, qty } = req.body;
+
+    let eventResult = await eventModel.getEventById(id_event);
+
+    if (eventResult.success !== true) {
+      res.status(SERVER_BAD_REQUEST).json(eventResult);
+      return;
+    }
+
+    let {
+      event_name,
+      category,
+      event_date,
+      place,
+      price,
+      description,
+      available_seat,
+      image,
+    } = eventResult.data;
+
+    available_seat -= qty;
+
+    if (available_seat < 0) {
+      res.status(SERVER_BAD_REQUEST).json({
+        success: false,
+        data: {},
+        message: 'The number of seat available is not enough',
+      });
+      return;
+    }
+
+    await eventModel.editEvent(
+      {
+        event_name,
+        category,
+        event_date,
+        place,
+        price,
+        description,
+        available_seat,
+        image,
+      },
+      id_event,
+    );
+
+    let total: number = qty * price;
+
+    let result = await ticketModel.buyTicket({
+      id_event,
+      id_user,
+      type,
+      qty,
+      total,
+    });
+
+    if (result.success) {
+      res.status(SERVER_OK).json(result);
+    } else {
+      res.status(SERVER_BAD_REQUEST).json(result);
+    }
+  } catch (e) {
+    res.status(SERVER_BAD_REQUEST).json(String(e));
+  }
+}
+
 export default {
   editProfile,
   createEvent,
   getEvent,
   updateEvent,
   deleteEvent,
+  newTicket,
   createForum,
   getForum,
   getForumCategory,
