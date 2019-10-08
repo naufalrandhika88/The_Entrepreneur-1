@@ -50,6 +50,11 @@ async function serverSetup() {
     (error: Error, results: QueryResult) => {},
   );
 
+  await app.locals.db.query(
+    'create table inbox(ID SERIAL, ID_user SERIAL REFERENCES users(ID), message varchar(100), inbox_date Date)',
+    (error: Error, results: QueryResult) => {},
+  );
+
   app.use('*', cloudinaryConfig);
 
   app.get('/', (req: Request, res: Response) => {

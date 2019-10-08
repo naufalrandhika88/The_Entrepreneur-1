@@ -4,6 +4,7 @@ import userModel from '../models/userModel';
 import eventModel from '../models/eventModel';
 import ticketModel from '../models/ticketModel';
 import forumModel from '../models/forumModel';
+import inboxModel from '../models/inboxModel';
 import { ResponseObject } from '../types';
 import { SERVER_OK, SERVER_BAD_REQUEST } from '../constants';
 import { dataUri } from '../helpers';
@@ -27,6 +28,20 @@ async function editProfile(req: Request, res: Response) {
       });
       return;
     }
+
+    let user = await userModel.getUserData(decoded);
+
+    if (!user) {
+      res.status(SERVER_OK).json({
+        success: false,
+        data: {},
+        message: 'User is not exist',
+      });
+      return;
+    }
+
+    let oldMembershipStatus = user.data.membership;
+
     if (req.file && isAvatarChange === 'true') {
       const file = dataUri(req).content;
       return uploader
@@ -40,6 +55,30 @@ async function editProfile(req: Request, res: Response) {
 
           if (result.success) {
             res.status(SERVER_OK).json(result);
+
+            if (oldMembershipStatus === 'Basic' && membership === 'Premium') {
+              let { id } = decoded;
+
+              let date = new Date();
+              let year = date.getFullYear();
+              let month: string | number = date.getMonth() + 1;
+              let day: string | number = date.getDate();
+
+              if (day < 10) {
+                day = '0' + day;
+              }
+              if (month < 10) {
+                month = '0' + month;
+              }
+
+              let today = year + '-' + month + '-' + day;
+
+              await inboxModel.addToInbox(
+                id,
+                'You are now a premium member!',
+                today,
+              );
+            }
           } else {
             res.status(SERVER_BAD_REQUEST).json(result);
           }
@@ -462,12 +501,39 @@ async function newTicket(req: Request, res: Response) {
 
     if (result.success) {
       res.status(SERVER_OK).json(result);
+
+      let date = new Date();
+      let year = date.getFullYear();
+      let month: string | number = date.getMonth() + 1;
+      let day: string | number = date.getDate();
+
+      if (day < 10) {
+        day = '0' + day;
+      }
+      if (month < 10) {
+        month = '0' + month;
+      }
+
+      let today = year + '-' + month + '-' + day;
+
+      await inboxModel.addToInbox(
+        id_user,
+        `Your e-ticket for ${event_name} has been issued!`,
+        today,
+      );
     } else {
       res.status(SERVER_BAD_REQUEST).json(result);
     }
   } catch (e) {
     res.status(SERVER_BAD_REQUEST).json(String(e));
   }
+}
+
+async function inboxMessage(req: Request, res: Response) {
+  let decoded = (<any>req).decoded;
+  let { id: id_user } = decoded;
+
+  // let inboxResult = await
 }
 
 export default {
