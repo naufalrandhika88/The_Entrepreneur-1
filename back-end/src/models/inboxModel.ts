@@ -34,21 +34,19 @@ async function addToInbox(id_user: number, message: string, date: string) {
 async function getInbox(id: number) {
   let db = await getDB();
 
-  let result: QueryResult = await db.query('SELECT * FROM inbox where id=$1', [
-    id,
-  ]);
-
-  let inbox = result.rows[0];
+  let result: QueryResult = await db.query(
+    'SELECT * FROM inbox where id_user=$1',
+    [id],
+  );
 
   return {
     success: true,
     data: [
-      {
-        message: inbox.message,
-        inbox_date: inbox.inbox_date,
-      },
+      result.rows.map((item) => {
+        return { message: item.message, inbox_date: item.inbox_date };
+      }),
     ],
   };
 }
 
-export default { addToInbox };
+export default { addToInbox, getInbox };

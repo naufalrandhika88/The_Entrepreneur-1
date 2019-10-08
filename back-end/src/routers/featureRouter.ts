@@ -43,4 +43,6 @@ featureRouter.get('/delete-forum/:id', featureController.deleteForum);
 
 featureRouter.post('/new-ticket', featureController.newTicket);
 
+featureRouter.get('/inbox', featureController.inboxMessage);
+
 export default featureRouter;

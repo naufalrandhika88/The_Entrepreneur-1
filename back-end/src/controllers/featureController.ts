@@ -530,10 +530,20 @@ async function newTicket(req: Request, res: Response) {
 }
 
 async function inboxMessage(req: Request, res: Response) {
-  let decoded = (<any>req).decoded;
-  let { id: id_user } = decoded;
+  try {
+    let decoded = (<any>req).decoded;
+    let { id: id_user } = decoded;
 
-  // let inboxResult = await
+    let result = await inboxModel.getInbox(id_user);
+
+    if (result.success) {
+      res.status(SERVER_OK).json(result);
+    } else {
+      res.status(SERVER_BAD_REQUEST).json(result);
+    }
+  } catch (e) {
+    res.status(SERVER_BAD_REQUEST).json(String(e));
+  }
 }
 
 export default {
@@ -548,4 +558,5 @@ export default {
   getForumCategory,
   updateForum,
   deleteForum,
+  inboxMessage,
 };
