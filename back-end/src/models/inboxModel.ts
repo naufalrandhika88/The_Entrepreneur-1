@@ -41,11 +41,9 @@ async function getInbox(id: number) {
 
   return {
     success: true,
-    data: [
-      result.rows.map((item) => {
-        return { message: item.message, inbox_date: item.inbox_date };
-      }),
-    ],
+    data: result.rows.map((item) => {
+      return { message: item.message, inbox_date: item.inbox_date };
+    }),
   };
 }
 
