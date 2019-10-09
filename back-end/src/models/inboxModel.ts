@@ -13,6 +13,19 @@ async function addToInbox(id_user: number, message: string, date: string) {
     );
     let inbox = result.rows[0];
 
+    let year = inbox.inbox_date.getFullYear();
+    let month: string | number = inbox.inbox_date.getMonth() + 1;
+    let day: string | number = inbox.inbox_date.getDate();
+
+    if (day < 10) {
+      day = '0' + day;
+    }
+    if (month < 10) {
+      month = '0' + month;
+    }
+
+    inbox.inbox_date = year + '-' + month + '-' + day;
+
     return {
       success: true,
       data: {
@@ -42,6 +55,19 @@ async function getInbox(id: number) {
   return {
     success: true,
     data: result.rows.map((item) => {
+      let year = item.inbox_date.getFullYear();
+      let month: string | number = item.inbox_date.getMonth() + 1;
+      let day: string | number = item.inbox_date.getDate();
+
+      if (day < 10) {
+        day = '0' + day;
+      }
+      if (month < 10) {
+        month = '0' + month;
+      }
+
+      item.inbox_date = year + '-' + month + '-' + day;
+
       return { message: item.message, inbox_date: item.inbox_date };
     }),
   };

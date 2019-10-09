@@ -99,6 +99,30 @@ async function editProfile(req: Request, res: Response) {
       );
       if (result.success) {
         res.status(SERVER_OK).json(result);
+
+        if (oldMembershipStatus === 'Basic' && membership === 'Premium') {
+          let { id } = decoded;
+
+          let date = new Date();
+          let year = date.getFullYear();
+          let month: string | number = date.getMonth() + 1;
+          let day: string | number = date.getDate();
+
+          if (day < 10) {
+            day = '0' + day;
+          }
+          if (month < 10) {
+            month = '0' + month;
+          }
+
+          let today = year + '-' + month + '-' + day;
+
+          await inboxModel.addToInbox(
+            id,
+            'You are now a premium member!',
+            today,
+          );
+        }
       } else {
         res.status(SERVER_BAD_REQUEST).json(result);
       }
