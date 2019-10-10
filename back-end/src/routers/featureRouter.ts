@@ -41,6 +41,10 @@ featureRouter.post(
 );
 featureRouter.get('/delete-forum/:id', featureController.deleteForum);
 
+featureRouter.post('/add-comment', featureController.newComments);
+featureRouter.post('/edit-comment', featureController.editComments);
+featureRouter.get('/get-comment/:id', featureController.getComments);
+
 featureRouter.post('/new-ticket', featureController.newTicket);
 
 featureRouter.get('/inbox', featureController.inboxMessage);

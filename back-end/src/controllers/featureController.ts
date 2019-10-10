@@ -5,6 +5,7 @@ import eventModel from '../models/eventModel';
 import ticketModel from '../models/ticketModel';
 import forumModel from '../models/forumModel';
 import inboxModel from '../models/inboxModel';
+import commentModel from '../models/commentModel';
 import { ResponseObject } from '../types';
 import { SERVER_OK, SERVER_BAD_REQUEST } from '../constants';
 import { dataUri } from '../helpers';
@@ -13,14 +14,8 @@ import { uploader } from '../cloudinarySetup';
 async function editProfile(req: Request, res: Response) {
   try {
     let decoded = (<any>req).decoded;
-    let {
-      isAvatarChange,
-      first_name,
-      last_name,
-      membership,
-      gender,
-    } = req.body;
-    if (!first_name || !gender) {
+    let { isAvatarChange, full_name, membership, gender } = req.body;
+    if (!full_name || !gender) {
       res.status(SERVER_OK).json({
         success: false,
         data: {},
@@ -49,7 +44,7 @@ async function editProfile(req: Request, res: Response) {
         .then(async (db_result: any) => {
           let image = db_result.url;
           let result: ResponseObject = await userModel.updateUser(
-            { image, first_name, last_name, membership, gender },
+            { image, full_name, membership, gender },
             decoded,
           );
 
@@ -94,7 +89,7 @@ async function editProfile(req: Request, res: Response) {
         );
     } else if (isAvatarChange === 'false') {
       let result: ResponseObject = await userModel.updateUser(
-        { image: null, first_name, last_name, membership, gender },
+        { image: null, full_name, membership, gender },
         decoded,
       );
       if (result.success) {
@@ -464,6 +459,85 @@ async function deleteForum(req: Request, res: Response) {
   }
 }
 
+async function newComments(req: Request, res: Response) {
+  try {
+    let decoded = (<any>req).decoded;
+    let { id: id_user } = decoded;
+    let { id_forum, comment } = req.body;
+
+    let result = await commentModel.addComment({
+      id_forum,
+      id_user,
+      comment,
+    });
+
+    if (result.success) {
+      res.status(SERVER_OK).json(result);
+    } else {
+      res.status(SERVER_BAD_REQUEST).json(result);
+    }
+  } catch (e) {
+    res.status(SERVER_BAD_REQUEST).json(String(e));
+  }
+}
+
+async function editComments(req: Request, res: Response) {
+  try {
+    let decoded = (<any>req).decoded;
+    let { id: id_user } = decoded;
+    let { id_forum, comment, likes } = req.body;
+
+    if (!id_forum) {
+      res.status(SERVER_BAD_REQUEST).json({
+        success: false,
+        data: {},
+        message: 'Please fill all required fields',
+      });
+    }
+
+    let result = await commentModel.updateComment(
+      {
+        id_forum,
+        comment,
+        likes,
+      },
+      id_user,
+    );
+
+    if (result.success) {
+      res.status(SERVER_OK).json(result);
+    } else {
+      res.status(SERVER_BAD_REQUEST).json(result);
+    }
+  } catch (e) {
+    res.status(SERVER_BAD_REQUEST).json(String(e));
+  }
+}
+
+async function getComments(req: Request, res: Response) {
+  try {
+    let { id: id_forum } = req.params;
+
+    if (!id_forum) {
+      res.status(SERVER_BAD_REQUEST).json({
+        success: false,
+        data: {},
+        message: 'Please fill all required fields',
+      });
+    }
+
+    let result = await commentModel.getAllComments(Number(id_forum));
+
+    if (result.success) {
+      res.status(SERVER_OK).json(result);
+    } else {
+      res.status(SERVER_BAD_REQUEST).json(result);
+    }
+  } catch (e) {
+    res.status(SERVER_BAD_REQUEST).json(String(e));
+  }
+}
+
 async function newTicket(req: Request, res: Response) {
   try {
     let decoded = (<any>req).decoded;
@@ -576,11 +650,14 @@ export default {
   getEvent,
   updateEvent,
   deleteEvent,
-  newTicket,
   createForum,
   getForum,
   getForumCategory,
   updateForum,
   deleteForum,
+  newComments,
+  editComments,
+  getComments,
+  newTicket,
   inboxMessage,
 };

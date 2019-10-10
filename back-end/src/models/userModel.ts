@@ -14,7 +14,7 @@ import { API_SECRET } from '../constants';
 async function userSignUp(userObject: UserSignUp) {
   try {
     let db = await getDB();
-    let { email, user_role, first_name, last_name, password } = userObject;
+    let { email, user_role, full_name, password } = userObject;
 
     let hash = sjcl.codec.hex.fromBits(sjcl.hash.sha256.hash(password + 'TES'));
 
@@ -23,8 +23,7 @@ async function userSignUp(userObject: UserSignUp) {
     let values = [
       email,
       user_role,
-      first_name,
-      last_name,
+      full_name,
       encrypted,
       null,
       'Basic',
@@ -32,7 +31,7 @@ async function userSignUp(userObject: UserSignUp) {
     ];
 
     let result: QueryResult = await db.query(
-      'INSERT INTO users (email, user_role, first_name, last_name, password, avatar, membership, gender) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *',
+      'INSERT INTO users (email, user_role, full_name, password, avatar, membership, gender) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *',
       values,
     );
 
@@ -45,13 +44,12 @@ async function userSignUp(userObject: UserSignUp) {
         id: result.rows[0].id,
         email: result.rows[0].email,
         user_role: result.rows[0].user_role,
-        first_name: result.rows[0].first_name,
-        last_name: result.rows[0].last_name,
+        full_name: result.rows[0].full_name,
         avatar: result.rows[0].avatar,
         membership: result.rows[0].membership,
         gender: result.rows[0].gender,
       },
-      message: `User ${first_name} ${last_name} has been added`,
+      message: `User ${full_name} has been added`,
       token: token,
     };
   } catch (e) {
@@ -87,8 +85,7 @@ async function userSignIn(userObject: UserSignIn) {
             id: result.rows[0].id,
             email: result.rows[0].email,
             user_role: result.rows[0].user_role,
-            first_name: result.rows[0].first_name,
-            last_name: result.rows[0].last_name,
+            full_name: result.rows[0].full_name,
             avatar: result.rows[0].avatar,
             membership: result.rows[0].membership,
             gender: result.rows[0].gender,
@@ -134,8 +131,7 @@ async function getUserData(decoded: DecodedObject) {
         id: result.rows[0].id,
         email: result.rows[0].email,
         user_role: result.rows[0].user_role,
-        first_name: result.rows[0].first_name,
-        last_name: result.rows[0].last_name,
+        full_name: result.rows[0].full_name,
         avatar: result.rows[0].avatar,
         membership: result.rows[0].membership,
         gender: result.rows[0].gender,
@@ -152,14 +148,14 @@ async function updateUser(
   decoded: DecodedObject,
 ) {
   try {
-    let { image, first_name, last_name, membership, gender } = editReq;
+    let { image, full_name, membership, gender } = editReq;
     let { id: myId } = decoded;
 
     let db = await getDB();
 
     await db.query(
-      'UPDATE users SET avatar=$1, first_name=$2, last_name=$3, membership=$4, gender=$5 WHERE id=$6',
-      [image, first_name, last_name, membership, gender, myId],
+      'UPDATE users SET avatar=$1, full_name=$2, membership=$3, gender=$4 WHERE id=$5',
+      [image, full_name, membership, gender, myId],
     );
 
     let userData = await getUserData(decoded);

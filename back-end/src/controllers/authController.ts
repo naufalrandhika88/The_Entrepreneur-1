@@ -9,9 +9,9 @@ import { Role } from '../types';
 
 async function signUp(req: Request, res: Response) {
   try {
-    let { email, first_name, last_name, password } = req.body;
+    let { email, full_name, password } = req.body;
 
-    if (!email || !first_name || !last_name || !password) {
+    if (!email || !full_name || !password) {
       res.status(SERVER_OK).json({
         success: false,
         data: {},
@@ -44,8 +44,7 @@ async function signUp(req: Request, res: Response) {
     let result = await userModel.userSignUp({
       email,
       user_role,
-      first_name,
-      last_name,
+      full_name,
       password,
     });
 
