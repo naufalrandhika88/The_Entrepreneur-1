@@ -429,7 +429,57 @@ async function getForumCategory(req: Request, res: Response) {
   }
 }
 
-async function updateForum(req: Request, res: Response) {}
+async function updateForum(req: Request, res: Response) {
+  try {
+    let decoded = (<any>req).decoded;
+
+    let id = req.params.id;
+
+    let {
+      forum_name,
+      category,
+      description,
+      image,
+    } = req.body;
+
+    let user = await userModel.getUserData(decoded);
+
+    if (user.data.user_role !== 'Admin') {
+      res.status(SERVER_OK).json({
+        success: false,
+        data: {},
+        message: 'Only admin can update a forum',
+      });
+      return;
+    }
+
+    if (!forum_name || !category || !description) {
+      res.status(SERVER_OK).json({
+        success: false,
+        data: {},
+        message: 'Please fill all required fields',
+      });
+      return;
+    }
+
+    image = image ? image : null;
+
+    let result = await forumModel.updateForum({
+      forum_name,
+      category,
+      description,
+      image,
+    }, id);
+
+    if (result.success) {
+      res.status(SERVER_OK).json(result);
+    } else {
+      res.status(SERVER_BAD_REQUEST).json(result);
+    }
+  } catch (e) {
+    res.status(SERVER_BAD_REQUEST).json(String(e));
+  }
+}
 
 async function deleteForum(req: Request, res: Response) {
   try {

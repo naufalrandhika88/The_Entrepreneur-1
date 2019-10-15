@@ -102,3 +102,10 @@ export type updateComment = {
   comment: string;
   likes: number;
 };
+
+export type UpdateForum = {
+  forum_name: string;
+  category: 'Umum' | 'Jual' | 'Beli';
+  description: string;
+  image?: string[] | null;
+};

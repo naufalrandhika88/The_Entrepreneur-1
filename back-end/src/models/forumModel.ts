@@ -1,7 +1,8 @@
 import { QueryResult } from 'pg';
 
 import { getDB } from '../db';
-import { CreateForum } from '../types';
+import { CreateForum, UpdateForum } from '../types';
+import { stringify } from 'querystring';
 
 async function newForum(forumObject: CreateForum) {
     let db = await getDB();
@@ -107,6 +108,38 @@ async function getForumByCategory(category: string) {
     }
 }
 
+async function updateForum(forumObject: UpdateForum, id: string) {
+    let db = await getDB();
+
+    let {
+        forum_name,
+        category,
+        description,
+        image,
+    } = forumObject;
+
+    let values = [
+        forum_name,
+        category,
+        description,
+        image,
+        id,
+    ];
+
+    await db.query(
+        'UPDATE forums SET forum_name=$1, category=$2, description=$3, image=$4, udate=NOW() WHERE id=$5',
+        values,
+    );
+
+    let result = await getForumById(id);
+
+    return {
+        success: true,
+        data: result.data,
+        message: 'Forum updated successfully',
+    };
+}
+
 async function deleteForum(id: string) {
     try {
         let db = await getDB();
@@ -127,4 +160,4 @@ async function deleteForum(id: string) {
     }
 }
 
-export default { newForum, getForumById, getForumByCategory, deleteForum };
+export default { newForum, getForumById, getForumByCategory, updateForum, deleteForum };
