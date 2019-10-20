@@ -34,4 +34,34 @@ async function buyTicket(ticketObject: BuyTicket) {
   }
 }
 
-export default { buyTicket };
+async function getUserTicket(id_user: string) {
+  try {
+    let db = await getDB();
+
+    let result = await db.query('SELECT * FROM tickets WHERE id_user=$1', [
+      id_user,
+    ]);
+
+    let ticket = result.rows[0];
+
+    return {
+      success: true,
+      data: {
+        id_event: ticket.id_event,
+        id_user: ticket.id_user,
+        type: ticket.type,
+        qty: ticket.qty,
+        total: ticket.total,
+      },
+      message: "User's ticket has been retrieved",
+    };
+  } catch (e) {
+    return {
+      success: false,
+      data: {},
+      message: String(e),
+    };
+  }
+}
+
+export default { buyTicket, getUserTicket };
