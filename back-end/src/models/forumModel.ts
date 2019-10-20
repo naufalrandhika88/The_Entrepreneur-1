@@ -2,7 +2,6 @@ import { QueryResult } from 'pg';
 
 import { getDB } from '../db';
 import { CreateForum, UpdateForum } from '../types';
-import { stringify } from 'querystring';
 
 async function newForum(forumObject: CreateForum) {
   let db = await getDB();
