@@ -147,4 +147,10 @@ async function deleteForum(id: string) {
   }
 }
 
-export default { newForum, getForumById, getCategorizedForum, deleteForum };
+export default {
+  newForum,
+  getForumById,
+  getCategorizedForum,
+  updateForum,
+  deleteForum,
+};
