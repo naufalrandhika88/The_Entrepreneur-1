@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
-import WelcomeCard from '../component/WelcomeCard';
+import WelcomeCard from '../component/Welcomecard';
 import { LinearGradient } from 'expo-linear-gradient';
 
 import { NavigationScreenProps } from 'react-navigation';

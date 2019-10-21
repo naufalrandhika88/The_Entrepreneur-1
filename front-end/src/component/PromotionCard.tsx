@@ -1,16 +1,26 @@
-import React, {StyleProp, ImageStyle} from 'react-native'
+import React from 'react'
+import {StyleProp,StyleSheet, ImageStyle} from 'react-native'
 import {Image as Picture} from 'react-native';
+import { screenWidth, k16 } from '../constants/dimens';
 
 type Props={
-    style: StyleProp<ImageStyle>
+    imgUrl?: String;
+    newStyle?: StyleProp<ImageStyle>;
 };
 
 export default function PromotionCard(props: Props){
-    let {style} = props;
+    let {newStyle, imgUrl} = props;
     return(
         <Picture
-        source={require('../../assets/images/placeholder.png')}
-        style={style}
+        source={ imgUrl == null ? require('../../assets/images/placeholder.png') : {uri: imgUrl}}
+        style={[styles.promotion, newStyle]}
         resizeMode={'cover'}/>
     );
 }
+
+const styles= StyleSheet.create({
+    promotion:{
+        height:100,
+        width: screenWidth - k16*2  
+    },
+})

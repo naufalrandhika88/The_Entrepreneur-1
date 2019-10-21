@@ -3,7 +3,6 @@ import { StyleSheet, ScrollView, SafeAreaView, View, Text } from 'react-native';
 import { navigationOption } from '../component/NavBar';
 import { k16 } from '../constants/dimens';
 
-
 type Props = {};
 type State = {};
 

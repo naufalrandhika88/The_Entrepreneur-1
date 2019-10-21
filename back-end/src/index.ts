@@ -16,38 +16,33 @@ async function serverSetup() {
   app.locals.db = await getDB();
 
   await app.locals.db.query(
-    'create table users(ID SERIAL PRIMARY KEY, email varchar(80) UNIQUE, user_role varchar(50), first_name varchar(50), last_name varchar(50), password text, avatar varchar(100), membership varchar(50), gender varchar(50))',
-    (error: Error, results: QueryResult) => { },
+    'create table users(ID SERIAL PRIMARY KEY, email varchar(80) UNIQUE, user_role varchar(50), full_name varchar(50), password text, avatar varchar(100), membership varchar(50), gender varchar(50))',
+    (error: Error, results: QueryResult) => {},
   );
 
   await app.locals.db.query(
     'create table events(ID SERIAL PRIMARY KEY, event_name varchar(50) UNIQUE, category varchar(50), event_date Date, place varchar(50), price varchar(50), description varchar(100), available_seat int, image varchar(100))',
-    (error: Error, results: QueryResult) => { },
+    (error: Error, results: QueryResult) => {},
   );
 
   await app.locals.db.query(
-    'create table user_event(ID_user SERIAL REFERENCES users(ID), ID_event SERIAL REFERENCES events(ID), PRIMARY KEY(ID_user, ID_event))',
-    (error: Error, results: QueryResult) => { },
+    'create table forums(ID SERIAL PRIMARY KEY, ID_user SERIAL REFERENCES users(ID), forum_name varchar(50), category varchar(50), description varchar(100), image varchar[], likes integer, cdate timestamptz not null default NOW(), udate timestamptz not null default NOW())',
+    (error: Error, results: QueryResult) => {},
   );
 
   await app.locals.db.query(
-    'create table forums(ID SERIAL PRIMARY KEY, ID_user SERIAL REFERENCES users(ID), \
-    cdate timestamptz not null default NOW(), udate timestamptz not null default NOW(), \
-    forum_name varchar(50), category varchar(50), description varchar(100), \
-    image varchar[], likes integer)',
-    (error: Error, results: QueryResult) => { },
+    'create table comments(ID SERIAL, ID_forum SERIAL REFERENCES forums(ID), ID_user SERIAL REFERENCES users(ID), comment varchar(50), likes int, cdate timestamptz not null default NOW(), udate timestamptz not null default NOW())',
+    (error: Error, results: QueryResult) => {},
   );
 
   await app.locals.db.query(
-    'create table comments(ID SERIAL PRIMARY KEY, ID_forum SERIAL REFERENCES forums(ID), ID_user SERIAL REFERENCES users(ID), \
-    cdate timestamptz not null default NOW(), udate timestamptz not null default NOW(), \
-    comment varchar(50), likes integer)',
-    (error: Error, results: QueryResult) => { },
+    'create table tickets(ID SERIAL, ID_event SERIAL REFERENCES events(ID), ID_user SERIAL REFERENCES users(ID), type varchar(50), qty int, total int, PRIMARY KEY(ID, ID_event, ID_user))',
+    (error: Error, results: QueryResult) => {},
   );
 
   await app.locals.db.query(
-    'create table tickets(ID SERIAL, ID_event SERIAL REFERENCES events(ID), ID_user SERIAL REFERENCES users(ID), type varchar(50), total int, PRIMARY KEY(ID, ID_event, ID_user))',
-    (error: Error, results: QueryResult) => { },
+    'create table inbox(ID SERIAL, ID_user SERIAL REFERENCES users(ID), message varchar(100), inbox_date Date)',
+    (error: Error, results: QueryResult) => {},
   );
 
   app.use('*', cloudinaryConfig);
@@ -59,7 +54,7 @@ async function serverSetup() {
 
   app.use('/api', apiRouter);
 
-  app.on('listening', function () {
+  app.on('listening', function() {
     console.log('server is running');
   });
   app.listen(PORT, () => {

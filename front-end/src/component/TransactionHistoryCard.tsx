@@ -1,0 +1,59 @@
+import React, { ReactNode, Key } from 'react';
+import { StyleSheet, View } from 'react-native';
+
+import Text from '../core-ui/Text';
+import Icon from '../core-ui/Icon';
+
+type Props = {
+  key: Key,
+  transactionTitle: ReactNode;
+  dateTransaction: ReactNode;
+  mode1: 'membership' | 'event';
+};
+
+export default function TransactionHistoryCard(prop: Props) {
+  let { transactionTitle, dateTransaction, mode1 } = prop;
+  
+  return (
+    <View>
+      <View style={styles.containerStyle}>
+        {mode1 == 'membership' ? (
+          <Icon name="membership"></Icon>
+        ) : (
+          <Icon name="eventlogo"></Icon>
+        )}
+        <View style={styles.segmentContent}>
+          <Text type="body">{transactionTitle}</Text>
+          <View style={styles.spacing}></View>
+          <Text type="display1">{dateTransaction}</Text>
+        </View>
+      </View>
+      <View style={styles.line}></View>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  containerStyle: {
+    flexDirection: 'row',
+    paddingTop: 24,
+    paddingLeft: 27,
+    width: 317,
+    height: 48,
+  },
+  segmentContent: {
+    flexDirection: 'column',
+    width: 258,
+    height: 48,
+    paddingLeft: 27,
+  },
+  spacing: {
+    height: 6,
+  },
+  line: {
+    paddingTop: 40,
+    borderBottomColor: 'black',
+    borderBottomWidth: 1,
+    opacity: 0.4,
+  },
+});

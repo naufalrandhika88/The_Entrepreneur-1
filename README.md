@@ -96,3 +96,123 @@ Response Value
   message: "Login Success",
   token : generated with JWT middleware, use this for session and authenticate each time fetching,
 }
+```
+
+- [ ] Forum (FORUM SCENE - ALL FORUM ENDPOINT)
+
+### 1. Create Forum
+| A | B |
+| ----------- | ------------- |
+| FETCH       | /api/feature/create-forum  |
+| METHOD      | POST |
+| Description | Endpoint used for create forum |
+
+Request Body
+```
+{
+	forum_name: string,
+    category: string,
+    description: string,
+    image: string
+}
+```
+
+Response Value
+```
+{
+    success: true,
+    data: {
+        id: number,
+        id_user: number,
+        cdate: timestamptz,
+        udate: timestamptz,
+        forum_name: string,
+        category: string,
+        description: string,
+        image: string[],
+        likes: number,
+    },
+    message: 'Forum created successfully',
+}
+```
+### 2. Get Forum by ID
+| A | B |
+| ----------- | ------------- |
+| FETCH       | /api/feature/get-forum/:id  |
+| METHOD      | GET |
+| Description | Endpoint used for get forum by id |
+
+Response Value
+```
+{
+    success: true,
+    data: {
+        id: number,
+        id_user: number,
+        cdate: timestamptz,
+        udate: timestamptz,
+        forum_name: string,
+        category: string,
+        description: string,
+        image: string[],
+        likes: number,
+    },
+    message: 'Successfully retrieve forum data by id',
+}
+```
+### 3. Get Forum by Category
+| A | B |
+| ----------- | ------------- |
+| FETCH       | /api/feature/get-forum/:category  |
+| METHOD      | GET |
+| Description | Endpoint used for get forum by category |
+
+Response Value
+```
+{
+    success: true,
+    data: [
+        {
+            id: number,
+            id_user: number,
+            cdate: timestamptz,
+            udate: timestamptz,
+            forum_name: string,
+            category: string,
+            description: string,
+            image: string[],
+            likes: number,
+        },
+        {
+            id: number,
+            id_user: number,
+            cdate: timestamptz,
+            udate: timestamptz,
+            forum_name: string,
+            category: string,
+            description: string,
+            image: string[],
+            likes: number,
+        },
+    ]
+    message: 'Successfully retrieve forum data by category',
+}
+```
+
+### 4. Update Forum
+
+### 5. Delete Forum
+| A | B |
+| ----------- | ------------- |
+| FETCH       | /api/feature/delete-forum/:id  |
+| METHOD      | GET |
+| Description | Endpoint used for delete forum |
+
+Response Value
+```
+{
+    success: true,
+    data: {},
+    message: 'Successfully delete forum',
+}
+```

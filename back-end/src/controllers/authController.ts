@@ -9,9 +9,9 @@ import { Role } from '../types';
 
 async function signUp(req: Request, res: Response) {
   try {
-    let { email, first_name, last_name, password } = req.body;
+    let { email, full_name, password } = req.body;
 
-    if (!email || !first_name || !last_name || !password) {
+    if (!email || !full_name || !password) {
       res.status(SERVER_OK).json({
         success: false,
         data: {},
@@ -32,11 +32,11 @@ async function signUp(req: Request, res: Response) {
     let user: QueryResult;
     user = await db.query('SELECT * FROM users where email = $1', [email]);
     if (user.rowCount !== 0) {
-      return {
+      res.status(SERVER_OK).json({
         success: false,
         data: {},
         message: 'Email already exist',
-      };
+      });
     }
 
     let user_role: Role = email.endsWith('@admin.tes') ? 'Admin' : 'User';
@@ -44,8 +44,7 @@ async function signUp(req: Request, res: Response) {
     let result = await userModel.userSignUp({
       email,
       user_role,
-      first_name,
-      last_name,
+      full_name,
       password,
     });
 
