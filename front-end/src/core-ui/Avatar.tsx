@@ -10,7 +10,6 @@ type Props = {
 
 export default function Avatar(props: Props) {
   let { src, sAvatar, newAvatarStyle } = props;
-
   return src ? (
     <Image
       source={{ uri: src }}
@@ -18,7 +17,7 @@ export default function Avatar(props: Props) {
       containerStyle={newAvatarStyle}
     />
   ) : (
-    <Image source={require('./assets/images/fotoavatar.png')} />
+    <Image source={require('./assets/images/fotoProfile.png')} />
   );
 }
 const styles = StyleSheet.create({
