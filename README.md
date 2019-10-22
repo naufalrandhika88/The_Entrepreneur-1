@@ -211,7 +211,7 @@ Response Value
 }
 ```
 
-### 4. Delete Forum
+### 4. Delete Event
 | A | B |
 | ----------- | ------------- |
 | FETCH       | /api/feature/delete-event/:id  |
