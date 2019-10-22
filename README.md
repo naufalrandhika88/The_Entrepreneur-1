@@ -406,3 +406,91 @@ Response Value
     message: 'Successfully delete forum',
 }
 ```
+
+- [ ] Comment (FORUM SCENE - ALL COMMENT ENDPOINT)
+
+### 1. Create Comment
+| A | B |
+| ----------- | ------------- |
+| FETCH       | /api/feature/add-comment  |
+| METHOD      | POST |
+| Description | Endpoint used for create comment |
+
+Request Body
+```
+{
+	id_forum: number;
+    id_user: number;
+    comment: string;
+}
+```
+
+Response Value
+```
+{
+    success: boolean,
+    data: {
+        _id: number,
+        id_forum: number,
+        id_user: number,
+        comment: string,
+        likes: number
+    },
+    message: 'Comment has been added',
+}
+```
+
+### 2. Edit Comment
+| A | B |
+| ----------- | ------------- |
+| FETCH       | /api/feature/èdit-comment  |
+| METHOD      | POST |
+| Description | Endpoint used for edit comment |
+
+Request Body
+```
+{
+	id_forum: number;
+    comment: string;
+    likes: number;
+}
+```
+
+Response Value
+```
+{
+    success: boolean,
+    data: {
+        comment: string,
+        likes: number
+    },
+    message: 'Comment has been added',
+}
+```
+
+### 2. Get Comment
+| A | B |
+| ----------- | ------------- |
+| FETCH       | /api/feature/get-comment/:ïd  |
+| METHOD      | GET |
+| Description | Endpoint used for get comment |
+
+
+Response Value
+```
+{
+    success: boolean,
+    data: {
+        id_user: number,
+        email: string,
+        user_role: string,
+        full_name: string,
+        avatar: string,
+        membership: string,
+        gender: string,
+        comment: string,
+        likes: number,
+    },
+    message: 'Successfully retrieve comments',
+}
+```
