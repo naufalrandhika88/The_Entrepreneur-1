@@ -61,7 +61,6 @@ Response Value
   token : generated with JWT middleware, use this for session and authenticate each time fetching,
 }
 ```
-<br/>
 
 - [X] Login (LOGIN SCENE)
 
@@ -98,7 +97,7 @@ Response Value
 }
 ```
 
-- [ ] Forum (FORUM SCENE - ALL FORUM ENDPOINT)
+- [X] Forum (FORUM SCENE - ALL FORUM ENDPOINT)
 
 ### 1. Create Forum
 | A | B |
@@ -106,6 +105,8 @@ Response Value
 | FETCH       | /api/feature/create-forum  |
 | METHOD      | POST |
 | Description | Endpoint used for create forum |
+
+Please use email with @admin.tes to grant Admin role.
 
 Request Body
 ```
@@ -135,7 +136,64 @@ Response Value
     message: 'Forum created successfully',
 }
 ```
-### 2. Get Forum by ID
+
+### 2. Get All Forum
+| A | B |
+| ----------- | ------------- |
+| FETCH       | /api/feature/get-forums  |
+| METHOD      | GET |
+| Description | Endpoint used for get all forum |
+
+Response Value
+```
+{
+    success: true,
+    data: {
+        "umum": [
+            {
+                id: number,
+                id_user: number,
+                cdate: timestamptz,
+                udate: timestamptz,
+                forum_name: string,
+                category: string,
+                description: string,
+                image: string[],
+                likes: number,
+            }
+        ],
+        "jual": [
+            {
+                id: number,
+                id_user: number,
+                cdate: timestamptz,
+                udate: timestamptz,
+                forum_name: string,
+                category: string,
+                description: string,
+                image: string[],
+                likes: number,
+            }
+        ],
+        "beli": [
+            {
+                id: number,
+                id_user: number,
+                cdate: timestamptz,
+                udate: timestamptz,
+                forum_name: string,
+                category: string,
+                description: string,
+                image: string[],
+                likes: number,
+            }
+        ]
+    },
+    message: 'Successfully retrieve forums data',
+}
+```
+
+### 3. Get Forum by ID
 | A | B |
 | ----------- | ------------- |
 | FETCH       | /api/feature/get-forum/:id  |
@@ -160,46 +218,34 @@ Response Value
     message: 'Successfully retrieve forum data by id',
 }
 ```
-### 3. Get Forum by Category
+
+### 4. Update Forum
 | A | B |
 | ----------- | ------------- |
-| FETCH       | /api/feature/get-forum/:category  |
-| METHOD      | GET |
-| Description | Endpoint used for get forum by category |
+| FETCH       | /api/feature/update-forum/:id  |
+| METHOD      | POST |
+| Description | Endpoint used for update forum |
+
+Please use email with @admin.tes to grant Admin role.
 
 Response Value
 ```
 {
     success: true,
-    data: [
-        {
-            id: number,
-            id_user: number,
-            cdate: timestamptz,
-            udate: timestamptz,
-            forum_name: string,
-            category: string,
-            description: string,
-            image: string[],
-            likes: number,
-        },
-        {
-            id: number,
-            id_user: number,
-            cdate: timestamptz,
-            udate: timestamptz,
-            forum_name: string,
-            category: string,
-            description: string,
-            image: string[],
-            likes: number,
-        },
-    ]
-    message: 'Successfully retrieve forum data by category',
+    data: {
+        id: number,
+        id_user: number,
+        cdate: timestamptz,
+        udate: timestamptz,
+        forum_name: string,
+        category: string,
+        description: string,
+        image: string[],
+        likes: number
+    },
+    message: 'Successfully delete forum',
 }
 ```
-
-### 4. Update Forum
 
 ### 5. Delete Forum
 | A | B |
@@ -207,6 +253,8 @@ Response Value
 | FETCH       | /api/feature/delete-forum/:id  |
 | METHOD      | GET |
 | Description | Endpoint used for delete forum |
+
+Please use email with @admin.tes to grant Admin role.
 
 Response Value
 ```
