@@ -97,6 +97,138 @@ Response Value
 }
 ```
 
+- [X] Event (EVENT SCENE - ALL EVENT ENDPOINT)
+
+### 1. Create Event
+| A | B |
+| ----------- | ------------- |
+| FETCH       | /api/feature/create-event  |
+| METHOD      | POST |
+| Description | Endpoint used for create event |
+
+Please use email with @admin.tes to grant Admin role.
+
+Request Body
+```
+{
+	event_name: string;
+    event_name: string;
+    category: 'Workshop' | 'Seminar';
+    event_date: string;
+    place: string;
+    price: number;
+    description: string;
+    available_seat: number;
+    image?: string | null;
+}
+```
+
+Response Value
+```
+{
+    success: boolean,
+    data: {
+        _id: number,
+        event_name: string,
+        category: string,
+        event_date: string,
+        place: string,
+        price: string,
+        description: string,
+        available_seat: number,
+        image: string,
+    },
+    message: 'Event created successfully',
+}
+```
+
+### 2. Get Event by ID
+| A | B |
+| ----------- | ------------- |
+| FETCH       | /api/feature/get-event/:id  |
+| METHOD      | GET |
+| Description | Endpoint used for get event by id |
+
+Response Value
+```
+{
+    success: boolean,
+    data: {
+        _id: number,
+        event_name: string,
+        category: string,
+        event_date: string,
+        place: string,
+        price: string,
+        description: string,
+        available_seat: number,
+        image: string,
+    },
+    message: 'Successfully retrieve event data',
+}
+```
+
+### 3. Update Event
+| A | B |
+| ----------- | ------------- |
+| FETCH       | /api/feature/update-event/:id  |
+| METHOD      | POST |
+| Description | Endpoint used for update event |
+
+Please use email with @admin.tes to grant Admin role.
+
+Request Body
+```
+{
+	event_name: string;
+    category: 'Workshop' | 'Seminar';
+    event_date: string;
+    place: string;
+    price: number;
+    description: string;
+    available_seat: number;
+    isImageChange?: boolean;
+    image: string | null;
+}
+```
+
+Response Value
+```
+{
+    success: boolean,
+    data: {
+        _id: number,
+        event_name: string,
+        category: string,
+        event_date: string,
+        place: string,
+        price: string,
+        description: string,
+        available_seat: number,
+        image: string,
+    },
+    message: 'Event has been updated',
+}
+```
+
+### 4. Delete Forum
+| A | B |
+| ----------- | ------------- |
+| FETCH       | /api/feature/delete-event/:id  |
+| METHOD      | GET |
+| Description | Endpoint used for delete event |
+
+Please use email with @admin.tes to grant Admin role.
+
+Response Value
+```
+{
+    success: boolean,
+    data: {},
+    message: 'Successfully delete event',
+}
+```
+
 - [X] Forum (FORUM SCENE - ALL FORUM ENDPOINT)
 
 ### 1. Create Forum
@@ -121,9 +253,9 @@ Request Body
 Response Value
 ```
 {
-    success: true,
+    success: boolean,
     data: {
-        id: number,
+        _id: number,
         id_user: number,
         cdate: timestamptz,
         udate: timestamptz,
@@ -147,11 +279,11 @@ Response Value
 Response Value
 ```
 {
-    success: true,
+    success: boolean,
     data: {
         "umum": [
             {
-                id: number,
+                _id: number,
                 id_user: number,
                 cdate: timestamptz,
                 udate: timestamptz,
@@ -164,7 +296,7 @@ Response Value
         ],
         "jual": [
             {
-                id: number,
+                _id: number,
                 id_user: number,
                 cdate: timestamptz,
                 udate: timestamptz,
@@ -177,7 +309,7 @@ Response Value
         ],
         "beli": [
             {
-                id: number,
+                _id: number,
                 id_user: number,
                 cdate: timestamptz,
                 udate: timestamptz,
@@ -203,9 +335,9 @@ Response Value
 Response Value
 ```
 {
-    success: true,
+    success: boolean,
     data: {
-        id: number,
+        _id: number,
         id_user: number,
         cdate: timestamptz,
         udate: timestamptz,
@@ -228,12 +360,22 @@ Response Value
 
 Please use email with @admin.tes to grant Admin role.
 
+Request Body
+```
+{
+	forum_name: string,
+    category: string,
+    description: string,
+    image: string
+}
+```
+
 Response Value
 ```
 {
-    success: true,
+    success: boolean,
     data: {
-        id: number,
+        _id: number,
         id_user: number,
         cdate: timestamptz,
         udate: timestamptz,
@@ -243,7 +385,7 @@ Response Value
         image: string[],
         likes: number
     },
-    message: 'Successfully delete forum',
+    message: 'Successfully update forum',
 }
 ```
 
@@ -259,7 +401,7 @@ Please use email with @admin.tes to grant Admin role.
 Response Value
 ```
 {
-    success: true,
+    success: boolean,
     data: {},
     message: 'Successfully delete forum',
 }
