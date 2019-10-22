@@ -17,7 +17,7 @@ export default function Avatar(props: Props) {
       containerStyle={newAvatarStyle}
     />
   ) : (
-    <Image source={require('./assets/images/fotoProfile.png')} />
+    <Image source={require('./assets/images/Profile.png')} />
   );
 }
 const styles = StyleSheet.create({
