@@ -407,7 +407,7 @@ Response Value
 }
 ```
 
-- [ ] Comment (FORUM SCENE - ALL COMMENT ENDPOINT)
+- [X] Comment (FORUM SCENE - ALL COMMENT ENDPOINT)
 
 ### 1. Create Comment
 | A | B |
@@ -468,10 +468,10 @@ Response Value
 }
 ```
 
-### 2. Get Comment
+### 3. Get Comment
 | A | B |
 | ----------- | ------------- |
-| FETCH       | /api/feature/get-comment/:ïd  |
+| FETCH       | /api/feature/get-comment/:id  |
 | METHOD      | GET |
 | Description | Endpoint used for get comment |
 
@@ -492,5 +492,101 @@ Response Value
         likes: number,
     },
     message: 'Successfully retrieve comments',
+}
+```
+
+- [X] Ticket (TRANSACTION SCENE - ALL TICKET ENDPOINT)
+
+### 1. New Ticket
+| A | B |
+| ----------- | ------------- |
+| FETCH       | /api/feature/new-ticket  |
+| METHOD      | POST |
+| Description | Endpoint used for new ticket |
+
+Request Body
+```
+{
+	id_event: number;
+    id_user: number;
+    type: 'Regular';
+    qty: number;
+    total: number;
+}
+```
+
+Response Value
+```
+{
+    success: boolean,
+    data: {
+        id_event: number,
+        id_user: number,
+        type: string,
+        qty: number,
+        total: number
+    },
+    message: 'Successfully purchased tickets',
+}
+```
+
+### 2. Get Ticket
+| A | B |
+| ----------- | ------------- |
+| FETCH       | /api/feature/get-ticket  |
+| METHOD      | GET |
+| Description | Endpoint used for get ticket |
+
+
+Response Value
+```
+{
+    success: boolean,
+    data: {
+        id_event: number,
+        id_user: number,
+        type: string,
+        qty: number,
+        total: number
+    },
+    message: 'User's ticket has been retrieved',
+}
+```
+
+- [X] Inbox (INBOX SCENE - ALL INBOX ENDPOINT)
+### 1. Get Inbox
+| A | B |
+| ----------- | ------------- |
+| FETCH       | /api/feature/inbox  |
+| METHOD      | GET |
+| Description | Endpoint used for get inbox |
+
+
+Response Value
+```
+{
+    success: boolean,
+    data: {
+        id: number,
+        message: string,
+        inbox_date: string
+    }
+}
+```
+
+### 2. Delete Inbox
+| A | B |
+| ----------- | ------------- |
+| FETCH       | /api/feature//delete-inbox/:id  |
+| METHOD      | GET |
+| Description | Endpoint used for delete inbox |
+
+
+Response Value
+```
+{
+    success: boolean,
+    data: { },
+    message: 'Successfully delete inbox',
 }
 ```
