@@ -13,5 +13,6 @@ export const GRAY = '#E7E7E7';
 export const GRAY2 = '#C7C7C7';
 export const GRAY3 = '#979797';
 export const GRAY4 = '#676767';
+export const GRAY5 = '#353535';
 
 export const headerBarColor = '#353535';

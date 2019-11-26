@@ -28,6 +28,7 @@ type RegisterSceneState = {
 };
 
 export class SignUpScene extends Component<Props, RegisterSceneState> {
+ 
   state: RegisterSceneState = {
     email: '',
     password: '',

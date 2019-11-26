@@ -10,6 +10,8 @@ type Props = NavigationScreenProps;
 type State = {};
 
 export default class WelcomeScene extends Component<Props, State> {
+
+  
   loginAction = () => {
     this.props.navigation.navigate('SignIn');
   };

@@ -7,7 +7,8 @@ const HomeStack = createStackNavigator({
   Home: HomeScene,
   Upgrade: UpgradeScene,
   Membership: MembershipScene,
-});
+},
+);
 
 
 export default HomeStack;

@@ -12,12 +12,13 @@ import {
   GRAY2,
   GRAY3,
   GRAY4,
+  WHITE,
 } from '../constants/color';
 
 type TextProp = TextProps & {
   children: ReactNode;
   type?: 'display2' | 'display1' | 'headline' | 'subheading' | 'body';
-  color?: 'black' | 'yellow' | 'green' | 'red' | 'pink' | 'brown' | 'gray' | 'gray2' | 'gray3' | 'gray4';
+  color?: 'black' | 'yellow' | 'green' | 'red' | 'pink' | 'brown' | 'gray' | 'gray2' | 'gray3' | 'gray4' | 'white';
   size?: number;
   weight?: 'regular' | 'bold';
   onPress?: () => void;
@@ -39,6 +40,7 @@ const FONT_COLOR: any = {
   gray2: GRAY2,
   gray3: GRAY3,
   gray4: GRAY4,
+  white: WHITE,
 };
 
 export default function Text(props: TextProp) {

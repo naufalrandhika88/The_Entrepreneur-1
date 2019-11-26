@@ -5,7 +5,7 @@ import { Image as Picture } from 'react-native-elements';
 
 type Props = {
   newImageStyle?: StyleProp<ViewStyle>;
-  src?: string;
+  src?: String;
   imagetype?: 'banner' | 'logo' | 'minilogo' | 'forum' | 'event' | 'seminar';
   resizeMode?: 'center' | 'contain' | 'stretch' | 'cover' | 'repeat';
 };

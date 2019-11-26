@@ -6,7 +6,6 @@ import TransactionStack from '../configs/routes/TransactionStack';
 import AccountStack from '../configs/routes/AccountStack';
 import Icon from '../core-ui/Icon';
 
-
 const TabNavigator = createBottomTabNavigator({
   Home: {
     screen: HomeStack,
