@@ -47,5 +47,8 @@
     "singleQuote": true,
     "trailingComma": "all",
     "arrowParens": "always"
+  },
+  "engines": {
+    "node": "10.13.0"
   }
 }
