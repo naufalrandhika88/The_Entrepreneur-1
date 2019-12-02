@@ -6,6 +6,8 @@ export let DB_HOST = process.env.DB_HOST;
 export let DB_NAME = process.env.DB_NAME;
 export let DB_PASSWORD = process.env.PASSWORD;
 export let DB_PORT = Number(process.env.DB_PORT) || 5432;
+export let DATABASE_URL =
+  'postgres://ebdfqstkmebzpu:17eb5132e46f16cfc11291c582ca483e553b2babaa09d4ddeefaa54d2121fa13@ec2-174-129-253-1.compute-1.amazonaws.com:5432/d5abdcu228tlpf';
 
 export let USER = process.env.USER;
 export let HOST = process.env.HOST;
