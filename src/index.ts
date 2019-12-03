@@ -26,12 +26,12 @@ async function serverSetup() {
   );
 
   await app.locals.db.query(
-    'create table forums(ID SERIAL PRIMARY KEY, ID_user SERIAL REFERENCES users(ID), forum_name varchar(50), category varchar(50), description varchar(100), image varchar[], likes integer, cdate timestamptz not null default NOW(), udate timestamptz not null default NOW())',
+    'create table forums(ID SERIAL PRIMARY KEY, ID_user SERIAL REFERENCES users(ID), forum_name varchar(50), category varchar(50), description varchar(100), image varchar, likes integer, is_liked_by TEXT[], cdate timestamptz not null default NOW(), udate timestamptz not null default NOW())',
     (error: Error, results: QueryResult) => {},
   );
 
   await app.locals.db.query(
-    'create table comments(ID SERIAL, ID_forum SERIAL REFERENCES forums(ID), ID_user SERIAL REFERENCES users(ID), comment varchar(50), likes int, cdate timestamptz not null default NOW(), udate timestamptz not null default NOW())',
+    'create table comments(ID SERIAL, ID_forum SERIAL REFERENCES forums(ID), ID_user SERIAL REFERENCES users(ID), comment varchar(50), likes integer, is_liked_by TEXT[], cdate timestamptz not null default NOW(), udate timestamptz not null default NOW())',
     (error: Error, results: QueryResult) => {},
   );
 

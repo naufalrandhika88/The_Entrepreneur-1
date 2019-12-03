@@ -98,9 +98,9 @@ export type newComment = {
 };
 
 export type updateComment = {
-  id_forum: number;
   comment: string;
-  likes: number;
+  likes?: number;
+  is_liked_by?: Array<{ id: number }>;
 };
 
 export type UpdateForum = {
@@ -108,4 +108,6 @@ export type UpdateForum = {
   category: 'Umum' | 'Jual' | 'Beli';
   description: string;
   image?: string[] | null;
+  likes?: number;
+  is_liked_by?: Array<{ id: number }>;
 };
