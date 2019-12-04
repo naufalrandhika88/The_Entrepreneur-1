@@ -42,13 +42,16 @@ async function getAllComments(id_forum: number) {
     let db = await getDB();
 
     let result: QueryResult = await db.query(
-      'SELECT comments.id, users.id as id_user, users.email, users.user_role, users.full_name, users.avatar, users.membership, users.gender, comments.comment, comments.likes, comments.cdate as date FROM comments INNER JOIN users ON comments.id_user = users.id WHERE id_forum = $1',
+      'SELECT comments.id, users.id as id_user, users.email, users.user_role, users.full_name, users.avatar, users.membership, users.gender, comments.comment, comments.likes, comments.is_liked_by, comments.cdate as date FROM comments INNER JOIN users ON comments.id_user = users.id WHERE id_forum = $1',
       [id_forum],
     );
 
     return {
       success: true,
       data: result.rows.map((item) => {
+        for (let i = 0; i < item.is_liked_by.length; i += 1) {
+          item.is_liked_by = JSON.parse(item.is_liked_by[i]);
+        }
         return item;
       }),
       message: 'Successfully retrieve comments',
