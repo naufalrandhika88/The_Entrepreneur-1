@@ -51,8 +51,7 @@ Response Value
     _id : number,
     email : string,
     user_role : 'User' | 'Admin',
-    first_name : string,
-    last_name : string,
+    full_name : string,
     avatar : string | null,
     membership : 'Basic' | 'Premium',
     gender : 'Male' | 'female' | 'Other',
@@ -83,17 +82,55 @@ Response Value
 {
   success: boolean,
   data: {
-  _id : number,
-  email : string,
-  user_role : 'User' | 'Admin',
-  first_name : string,
-  last_name : string,
-  avatar : string | null,
-  membership : 'Basic' | 'Premium',
-  gender : 'Male' | 'female' | 'Other',
+      _id : number,
+      email : string,
+      user_role : 'User' | 'Admin',
+      full_name : string,
+      avatar : string | null,
+      membership : 'Basic' | 'Premium',
+      gender : 'Male' | 'female' | 'Other',
   },
   message: "Login Success",
   token : generated with JWT middleware, use this for session and authenticate each time fetching,
+}
+```
+
+- [X] Home (HOME SCENE)
+
+| A | B |
+| ----------- | ------------- |
+| FETCH       | /api/page/home  |
+| METHOD      | GET |
+| Description | Endpoint used for home scene |
+
+Response Value
+```
+{
+    success: boolean,
+    data: {
+       user: {
+            _id : number,
+            email : string,
+            user_role : 'User' | 'Admin',
+            full_name : string,
+            avatar : string | null,
+            membership : 'Basic' | 'Premium',
+            gender : 'Male' | 'female' | 'Other',
+       },
+       events:[
+        {
+            _id: number,
+            event_name: string,
+            category: string,
+            event_date: string,
+            place: string,
+            price: string,
+            description: string,
+            available_seat: number,
+            image: string,
+        }
+       ]
+    }
 }
 ```
 
