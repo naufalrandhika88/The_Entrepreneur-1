@@ -37,10 +37,12 @@ featureRouter.post(
   featureController.updateForum,
 );
 featureRouter.get('/delete-forum/:id', featureController.deleteForum);
+featureRouter.get('/likes-forum/:id', featureController.likesForum);
 
 featureRouter.post('/add-comment', featureController.newComments);
-featureRouter.post('/edit-comment', featureController.editComments);
+featureRouter.post('/edit-comment/:id', featureController.editComments);
 featureRouter.get('/get-comment/:id', featureController.getComments);
+featureRouter.get('/likes-comment/:id', featureController.likesComment);
 
 featureRouter.post('/new-ticket', featureController.newTicket);
 featureRouter.get('/get-ticket', featureController.getTicketById);

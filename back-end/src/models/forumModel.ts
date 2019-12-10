@@ -8,28 +8,16 @@ async function newForum(forumObject: CreateForum) {
 
   let { id_user, forum_name, category, description, image } = forumObject;
 
-  let values = [id_user, forum_name, category, description, image];
+  let values = [id_user, forum_name, category, description, image, 0, []];
 
   let result: QueryResult = await db.query(
-    'INSERT INTO forums (id_user, forum_name, category, description, image) VALUES ($1, $2, $3, $4, $5) RETURNING *',
+    'INSERT INTO forums (id_user, forum_name, category, description, image, likes, is_liked_by) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *',
     values,
   );
 
-  let forum = result.rows[0];
-
   return {
     success: true,
-    data: {
-      id: forum.id,
-      id_user: forum.id_user,
-      cdate: forum.cdate,
-      udate: forum.udate,
-      forum_name: forum.forum_name,
-      category: forum.category,
-      description: forum.description,
-      image: forum.image,
-      likes: forum.likes,
-    },
+    data: result.rows[0],
     message: 'Forum created successfully',
   };
 }
@@ -43,21 +31,9 @@ async function getForumById(id: string) {
       [id],
     );
 
-    let forum = result.rows[0];
-
     return {
       success: true,
-      data: {
-        id: forum.id,
-        id_user: forum.id_user,
-        cdate: forum.cdate,
-        udate: forum.udate,
-        forum_name: forum.forum_name,
-        category: forum.category,
-        description: forum.description,
-        image: forum.image,
-        likes: forum.likes,
-      },
+      data: result.rows[0],
       message: 'Successfully retrieve forum data by id',
     };
   } catch (e) {
@@ -96,7 +72,28 @@ async function getCategorizedForum() {
       message: 'Successfully retrieve forums data',
     };
   } catch (e) {
-    console.log(e);
+    return {
+      success: false,
+      data: {},
+      message: String(e),
+    };
+  }
+}
+
+async function getLatestForum() {
+  try {
+    let db = await getDB();
+
+    let result: QueryResult = await db.query(
+      "SELECT * from forums WHERE category LIKE 'Umum' ORDER BY cdate DESC LIMIT 3",
+    );
+
+    return {
+      success: true,
+      data: result.rows,
+      message: 'Successfully get latest forum',
+    };
+  } catch (e) {
     return {
       success: false,
       data: {},
@@ -108,14 +105,36 @@ async function getCategorizedForum() {
 async function updateForum(forumObject: UpdateForum, id: string) {
   let db = await getDB();
 
-  let { forum_name, category, description, image } = forumObject;
+  let {
+    forum_name,
+    category,
+    description,
+    image,
+    likes,
+    is_liked_by,
+  } = forumObject;
 
-  let values = [forum_name, category, description, image, id];
+  let values = [
+    forum_name,
+    category,
+    description,
+    image,
+    likes,
+    is_liked_by,
+    id,
+  ];
 
-  await db.query(
-    'UPDATE forums SET forum_name=$1, category=$2, description=$3, image=$4, udate=NOW() WHERE id=$5',
-    values,
-  );
+  if (likes || is_liked_by) {
+    await db.query(
+      'UPDATE forums SET forum_name=$1, category=$2, description=$3, image=$4, likes=$5, is_liked_by=$6, udate=NOW() WHERE id=$7',
+      values,
+    );
+  } else {
+    await db.query(
+      'UPDATE forums SET forum_name=$1, category=$2, description=$3, image=$4, udate=NOW() WHERE id=$5',
+      [forum_name, category, description, image, id],
+    );
+  }
 
   let result = await getForumById(id);
 
@@ -150,6 +169,7 @@ export default {
   newForum,
   getForumById,
   getCategorizedForum,
+  getLatestForum,
   updateForum,
   deleteForum,
 };

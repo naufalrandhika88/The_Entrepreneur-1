@@ -93,6 +93,12 @@ async function userSignIn(userObject: UserSignIn) {
           message: 'Login Success',
           token: token,
         };
+      } else {
+        return {
+          success: false,
+          data: {},
+          message: 'Incorrect email or password.',
+        };
       }
     } else {
       return {
@@ -110,12 +116,15 @@ async function userSignIn(userObject: UserSignIn) {
   }
 }
 
-async function getUserData(decoded: DecodedObject) {
+async function getUserData(decoded?: DecodedObject, id_user?: number) {
   try {
     let db = await getDB();
-    let { id: myId } = decoded;
 
-    let result = await db.query('SELECT * FROM users where id=$1', [myId]);
+    let result = id_user
+      ? await db.query('SELECT * FROM users where id=$1', [id_user])
+      : await db.query('SELECT * FROM users where id=$1', [
+          decoded && decoded.id,
+        ]);
 
     if (!result.rows) {
       return {

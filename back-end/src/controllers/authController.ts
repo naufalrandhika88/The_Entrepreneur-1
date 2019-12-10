@@ -1,11 +1,12 @@
 import { QueryResult } from 'pg';
 import { Request, Response } from 'express';
+import inboxModel from '../models/inboxModel';
 
 import { isEmail } from 'validator';
 import userModel from '../models/userModel';
 import { SERVER_OK, SERVER_BAD_REQUEST } from '../constants';
 import { getDB } from '../db';
-import { Role } from '../types';
+import { Role, ResponseObject } from '../types';
 
 async function signUp(req: Request, res: Response) {
   try {
@@ -29,8 +30,10 @@ async function signUp(req: Request, res: Response) {
     }
 
     let db = await getDB();
-    let user: QueryResult;
-    user = await db.query('SELECT * FROM users where email = $1', [email]);
+    let user: QueryResult = await db.query(
+      'SELECT * FROM users where email = $1',
+      [email],
+    );
     if (user.rowCount !== 0) {
       res.status(SERVER_OK).json({
         success: false,
@@ -41,7 +44,7 @@ async function signUp(req: Request, res: Response) {
 
     let user_role: Role = email.endsWith('@admin.tes') ? 'Admin' : 'User';
 
-    let result = await userModel.userSignUp({
+    let result: ResponseObject = await userModel.userSignUp({
       email,
       user_role,
       full_name,
@@ -49,6 +52,25 @@ async function signUp(req: Request, res: Response) {
     });
 
     if (result.success) {
+      let date = new Date();
+      let year = date.getFullYear();
+      let month: string | number = date.getMonth() + 1;
+      let day: string | number = date.getDate();
+
+      if (day < 10) {
+        day = '0' + day;
+      }
+      if (month < 10) {
+        month = '0' + month;
+      }
+      let today = year + '-' + month + '-' + day;
+
+      await inboxModel.addToInbox(
+        result.data.id,
+        `Welcome to The Entrepreneur Society! Start your first step for being an entrepreneur`,
+        today,
+      );
+
       res.status(SERVER_OK).json(result);
     } else {
       res.status(SERVER_BAD_REQUEST).json(result);
@@ -72,14 +94,16 @@ async function signIn(req: Request, res: Response) {
       return;
     }
 
-    let result = await userModel.userSignIn({
+    let result: ResponseObject = await userModel.userSignIn({
       email,
       password,
     });
 
-    res.send(result);
-
-    return;
+    if (result.success) {
+      res.status(SERVER_OK).json(result);
+    } else {
+      res.status(SERVER_BAD_REQUEST).json(result);
+    }
   } catch (e) {
     res.status(SERVER_BAD_REQUEST).json(String(e));
     return;

@@ -400,8 +400,32 @@ async function createForum(req: Request, res: Response) {
 async function getForum(req: Request, res: Response) {
   try {
     let { id } = req.params;
+    let decoded = (<any>req).decoded;
+    let { id: id_user } = decoded;
 
     let result = await forumModel.getForumById(id);
+    let userResult = await userModel.getUserData(
+      undefined,
+      result.data.id_user,
+    );
+    let likes: Array<{ id: number }> = [];
+    let is_liked_by_you: boolean = false;
+
+    for (let i = 0; i < result.data.is_liked_by.length; i += 1) {
+      likes.push(JSON.parse(result.data.is_liked_by[i]));
+    }
+    result.data.is_liked_by = likes;
+
+    if (
+      result.data.is_liked_by.find((like) => {
+        return like.id == id_user;
+      })
+    ) {
+      is_liked_by_you = true;
+    }
+    result.data.is_liked_by_you = is_liked_by_you;
+    result.data.full_name = userResult.data.full_name;
+    result.data.avatar = userResult.data.avatar;
 
     if (result.success) {
       res.status(SERVER_OK).json(result);
@@ -415,9 +439,45 @@ async function getForum(req: Request, res: Response) {
 
 async function getAllForums(req: Request, res: Response) {
   try {
-    let result = await forumModel.getCategorizedForum();
+    let result: ResponseObject = await forumModel.getCategorizedForum();
+
+    let tempUmum: any = [];
+    let tempJual: any = [];
+    let tempBeli: any = [];
+
+    const getData = async (item) => {
+      let userResult: ResponseObject = await userModel.getUserData(
+        undefined,
+        item.id_user,
+      );
+      let commentResult: ResponseObject = await commentModel.getAllComments(
+        item.id,
+      );
+      item.full_name = userResult.data.full_name;
+      item.comment_length = commentResult.data.length;
+      return item;
+    };
+
+    const getUmumData = async () => {
+      return Promise.all(result.data.umum.map((item) => getData(item)));
+    };
+
+    const getJualData = async () => {
+      return Promise.all(result.data.jual.map((item) => getData(item)));
+    };
+
+    const getBeliData = async () => {
+      return Promise.all(result.data.beli.map((item) => getData(item)));
+    };
+
+    tempUmum.push(await getUmumData());
+    tempJual.push(await getJualData());
+    tempBeli.push(await getBeliData());
 
     if (result.success) {
+      result.data.umum = tempUmum[0];
+      result.data.jual = tempJual[0];
+      result.data.beli = tempBeli[0];
       res.status(SERVER_OK).json(result);
     } else {
       res.status(SERVER_BAD_REQUEST).json(result);
@@ -433,12 +493,7 @@ async function updateForum(req: Request, res: Response) {
 
     let id = req.params.id;
 
-    let {
-      forum_name,
-      category,
-      description,
-      image,
-    } = req.body;
+    let { forum_name, category, description, image } = req.body;
 
     let user = await userModel.getUserData(decoded);
 
@@ -462,12 +517,15 @@ async function updateForum(req: Request, res: Response) {
 
     image = image ? image : null;
 
-    let result = await forumModel.updateForum({
-      forum_name,
-      category,
-      description,
-      image,
-    }, id);
+    let result = await forumModel.updateForum(
+      {
+        forum_name,
+        category,
+        description,
+        image,
+      },
+      id,
+    );
 
     if (result.success) {
       res.status(SERVER_OK).json(result);
@@ -507,6 +565,99 @@ async function deleteForum(req: Request, res: Response) {
   }
 }
 
+async function likesForum(req: Request, res: Response) {
+  try {
+    let decoded = (<any>req).decoded;
+    let { id: id_user } = decoded;
+    let { id: id_forum } = req.params;
+    let result: ResponseObject;
+
+    let likes: Array<{ id: number }> = [];
+
+    let forum = await forumModel.getForumById(id_forum);
+
+    for (let i = 0; i < forum.data.is_liked_by.length; i += 1) {
+      likes.push(JSON.parse(forum.data.is_liked_by[i]));
+    }
+    forum.data.is_liked_by = likes;
+
+    if (
+      forum.data.is_liked_by.find((like) => {
+        return like.id == id_user;
+      })
+    ) {
+      forum.data.is_liked_by = forum.data.is_liked_by.filter((like) => {
+        return like.id != id_user;
+      });
+      forum.data.likes -= 1;
+      result = await forumModel.updateForum(forum.data, id_forum);
+    } else {
+      forum.data.is_liked_by.push({ id: id_user });
+      forum.data.likes += 1;
+      result = await forumModel.updateForum(forum.data, id_forum);
+    }
+    result.data.is_liked_by = forum.data.is_liked_by;
+
+    if (result.success) {
+      res.status(SERVER_OK).json(result);
+    } else {
+      res.status(SERVER_BAD_REQUEST).json(result);
+    }
+  } catch (e) {
+    res.status(SERVER_BAD_REQUEST).json(String(e));
+  }
+}
+
+async function likesComment(req: Request, res: Response) {
+  try {
+    let decoded = (<any>req).decoded;
+    let { id: id_user } = decoded;
+    let { id: id_comment } = req.params;
+    let result: ResponseObject;
+
+    let likes: Array<{ id: number }> = [];
+
+    let comment: ResponseObject = await commentModel.getCommentById(
+      Number(id_comment),
+    );
+    for (let i = 0; i < comment.data.is_liked_by.length; i += 1) {
+      likes.push(JSON.parse(comment.data.is_liked_by[i]));
+    }
+    comment.data.is_liked_by = likes;
+    if (
+      comment.data.is_liked_by.find((like) => {
+        return like.id == id_user;
+      })
+    ) {
+      comment.data.is_liked_by = comment.data.is_liked_by.filter((like) => {
+        return like.id != id_user;
+      });
+      comment.data.likes -= 1;
+      result = await commentModel.updateComment(
+        comment.data,
+        Number(id_comment),
+      );
+    } else {
+      comment.data.is_liked_by.push({ id: id_user });
+      comment.data.likes += 1;
+      result = await commentModel.updateComment(
+        comment.data,
+        Number(id_comment),
+      );
+    }
+    result.data.likes = comment.data.likes;
+    result.data.is_liked_by = comment.data.is_liked_by;
+
+    if (result.success) {
+      res.status(SERVER_OK).json(result);
+    } else {
+      res.status(SERVER_BAD_REQUEST).json(result);
+    }
+  } catch (e) {
+    res.status(SERVER_BAD_REQUEST).json(String(e));
+  }
+}
+
 async function newComments(req: Request, res: Response) {
   try {
     let decoded = (<any>req).decoded;
@@ -518,6 +669,19 @@ async function newComments(req: Request, res: Response) {
       id_user,
       comment,
     });
+
+    let date = new Date();
+    let year = date.getFullYear();
+    let month: string | number = date.getMonth() + 1;
+    let day: string | number = date.getDate();
+
+    if (day < 10) {
+      day = '0' + day;
+    }
+    if (month < 10) {
+      month = '0' + month;
+    }
+    result.data.date = year + '-' + month + '-' + day;
 
     if (result.success) {
       res.status(SERVER_OK).json(result);
@@ -531,25 +695,14 @@ async function newComments(req: Request, res: Response) {
 
 async function editComments(req: Request, res: Response) {
   try {
-    let decoded = (<any>req).decoded;
-    let { id: id_user } = decoded;
-    let { id_forum, comment, likes } = req.body;
-
-    if (!id_forum) {
-      res.status(SERVER_BAD_REQUEST).json({
-        success: false,
-        data: {},
-        message: 'Please fill all required fields',
-      });
-    }
+    let { comment } = req.body;
+    let { id: id_comment } = req.params;
 
     let result = await commentModel.updateComment(
       {
-        id_forum,
         comment,
-        likes,
       },
-      id_user,
+      Number(id_comment),
     );
 
     if (result.success) {
@@ -564,6 +717,8 @@ async function editComments(req: Request, res: Response) {
 
 async function getComments(req: Request, res: Response) {
   try {
+    let decoded = (<any>req).decoded;
+    let { id: id_user } = decoded;
     let { id: id_forum } = req.params;
 
     if (!id_forum) {
@@ -574,7 +729,36 @@ async function getComments(req: Request, res: Response) {
       });
     }
 
-    let result = await commentModel.getAllComments(Number(id_forum));
+    let result: ResponseObject = await commentModel.getAllComments(
+      Number(id_forum),
+    );
+    result.data.sort((a, b) => b.date - a.date);
+
+    result.data.map((element) => {
+      let date = new Date(element.date);
+      let year = date.getFullYear();
+      let month: string | number = date.getMonth() + 1;
+      let day: string | number = date.getDate();
+
+      if (day < 10) {
+        day = '0' + day;
+      }
+      if (month < 10) {
+        month = '0' + month;
+      }
+
+      element.date = year + '-' + month + '-' + day;
+
+      if (
+        element.is_liked_by.find((like) => {
+          return like.id == id_user;
+        })
+      ) {
+        element.is_liked_by_you = true;
+      } else {
+        element.is_liked_by_you = false;
+      }
+    });
 
     if (result.success) {
       res.status(SERVER_OK).json(result);
@@ -739,9 +923,11 @@ export default {
   getAllForums,
   updateForum,
   deleteForum,
+  likesForum,
   newComments,
   editComments,
   getComments,
+  likesComment,
   newTicket,
   getTicketById,
   inboxMessage,
