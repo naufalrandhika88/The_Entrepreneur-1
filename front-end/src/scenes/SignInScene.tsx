@@ -5,49 +5,62 @@ import { LinearGradient } from 'expo-linear-gradient';
 import {KeyboardAvoidingView} from 'react-native';
 import {NavigationScreenProps, StackActions, NavigationActions} from 'react-navigation';
 import { k16 } from '../constants/dimens';
+import { SignInSaga } from '../sagas/signInSaga';
+import { SessionSaga } from '../sagas/sessionSaga';
 
 type Props = NavigationScreenProps
-type State = {}
+type State = {
+  email: String
+  password: String
+}
 
 export default class SignInScene extends Component<Props, State> {
   state!: State;
-
-  componentDidMount(){
-    this.setState({
-      'email': String,
-      'password': String,
-    })
-  }
+  singInSaga: SignInSaga= new SignInSaga
+  sessionSaga : SessionSaga = new SessionSaga
 
   signInAction = ()=>{
-    const successSignin = StackActions.reset({
-      index: 0, 
-      key: null,
-      actions: [
-           NavigationActions.navigate({ routeName: 'Main' })
-      ],
-    });
-    this.props.navigation.dispatch(successSignin);
+    this.singInSaga.doSignIn(this.state.email, this.state.password).then(
+      async (res: any)=>{
+        if(!res.error){
+          await this.sessionSaga.setSession(res.user, res.token)
+          const successSignin = StackActions.reset({
+            index: 0, 
+            key: null,
+            actions: [
+                NavigationActions.navigate({ routeName: 'Main' })
+            ],
+          });
+          this.props.navigation.dispatch(successSignin);
+        }else{
+          alert(res.message)
+        }
+      }
+    )
   };
 
   onChangeValueEmail=(text: String)=>{
     this.setState({
-      'email': text
+      email: text
     })
-    console.log(JSON.stringify(this.state))
   }
 
   onChangeValuePassword=(text: String)=>{
     this.setState({
-      'password': text
+      password: text
     })
-    console.log(JSON.stringify(this.state))
   }
 
   forgotPasswordAction = ()=>{
 
   };
 
+  componentWillMount=()=>{
+    this.setState({
+      email: '',
+      password: '',
+    })
+  }
 
   render() {
     return (

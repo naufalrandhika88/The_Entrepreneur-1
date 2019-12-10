@@ -27,7 +27,6 @@ export default function HistoryCard(prop: Props) {
           <Texts type="display1">{dateTransaction}</Texts>
         </View>
       </View>
-      <View style={styles.line}></View>
     </View>
   );
 }

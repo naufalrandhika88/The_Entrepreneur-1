@@ -31,7 +31,7 @@ export default function Image(props: Props) {
 
 const styles = StyleSheet.create({
   banner: {
-    width: 324,
+    alignSelf: 'stretch',
     height: 100,
   },
   logo: {

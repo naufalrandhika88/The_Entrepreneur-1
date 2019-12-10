@@ -1,4 +1,4 @@
-import React, { ReactNode, Key } from 'react';
+import React, { Key } from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import Text from '../core-ui/Text';
@@ -6,8 +6,9 @@ import Icon from '../core-ui/Icon';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { ForumData } from '../model/forum';
 import Image from '../core-ui/Image';
-import { k8, k16, k24, k32 } from '../constants/dimens';
-import { VerticalSpacer1, HorizontalSpacer1, HorizontalSpacer3 } from '../core-ui/Spacer';
+import { k16, k32 } from '../constants/dimens';
+import { HorizontalSpacer3 } from '../core-ui/Spacer';
+import { month_names } from '../constants/data';
 
 type Props = {
   key: Key;
@@ -23,16 +24,12 @@ export default function ForumTitleCard(prop: Props) {
       flex: 1,
       padding: k16,
       flexDirection: 'row',
-      alignItems: "center"
+      alignItems: "center",
+      minHeight: k32*2,
     },
     iconStyle: {
       width: k32,
       height: k32,
-    },
-    pictureStyle: {
-      width: k32,
-      height: k32,
-      overflow: 'hidden'
     },
     segmentContent: {
       flexDirection: 'column',
@@ -40,19 +37,19 @@ export default function ForumTitleCard(prop: Props) {
     },
   });
 
+  var cDate = new Date(data.cdate)
+
   return (
     <TouchableOpacity onPress={(onPress)} style={styles.containerStyle}>
       {
-        data.image != null ? <Image src={data.image[0]} newImageStyle={styles.pictureStyle}></Image> :
+        data.image != null ? <Image imagetype="forum" resizeMode="cover"  src={data.image}></Image> :
         <Icon name="forum" customStyle={styles.iconStyle}></Icon>
       }
       <HorizontalSpacer3></HorizontalSpacer3>
       <View style={styles.segmentContent}>
-        <Text color="gray2" type="display1">{data.cdate}</Text>
-        <VerticalSpacer1></VerticalSpacer1>
-        <Text color="gray3" type="body">{data.forum_name}</Text>
-        <VerticalSpacer1></VerticalSpacer1>
-        <Text color="gray" type="display1">{"Likes: "+data.likes}</Text>
+        <Text color="gray3" type="display1">{cDate.getDay()+' '+month_names[cDate.getMonth()]+' '+cDate.getFullYear()}</Text>
+        <Text color="gray4" type="subheading">{data.forum_name}</Text>
+        <Text color="gray2" type="display2">{"Likes: "+data.likes}</Text>
       </View>
     </TouchableOpacity>
   );

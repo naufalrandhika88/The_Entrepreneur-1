@@ -1,8 +1,8 @@
-import { API_HOST, TestToken } from "../constants/api";
-import {User} from "../model/user";
-import { SessionSaga } from "./sessionSaga";
+import { API_HOST, TestToken } from '../constants/api';
+import { SessionSaga } from './sessionSaga';
+import { Inbox } from '../model/inbox';
 
-export class HomeSaga{
+export default class InboxSaga{
   private sessionSaga: SessionSaga = new SessionSaga
 
   private kHttpHeader={
@@ -22,21 +22,19 @@ export class HomeSaga{
     }
   }
 
-  doGetHomeData=async ()=>{
+  doGetInbox=()=>{
     this.updateHttpHeader()
-    return fetch(`${API_HOST}/api/page/home`,{
+    return fetch(`${API_HOST}/api/feature/inbox`,{
       method: 'GET',
       headers: this.kHttpHeader.headers,
     })
-
     .then((response) => response.json())
     .then((responseJson) => {
-      var res: Event[] = responseJson.data.events
-      var user: User = responseJson.data.user
+      var res: Inbox[] = responseJson.data
+      res = res.reverse()
        return {
          error: !responseJson.success,
-         data: res,
-         user: user
+         data: res
        }
     })
     .catch((error) => {
@@ -47,5 +45,4 @@ export class HomeSaga{
     });
  
   }
-  
 }

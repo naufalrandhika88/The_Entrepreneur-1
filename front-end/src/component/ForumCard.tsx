@@ -20,13 +20,12 @@ export default function ForumCard(prop: Props) {
     containerStyle: {
       flex: 1,
       flexDirection: 'row',
-      height: 46,
-      marginBottom: 12
+      paddingBottom: 16,
+      alignItems: "center"
     },
     iconStyle: {
       width: 32,
       height: 32,
-      marginTop: 12,
     },
     spacing: {
       height: 4,
@@ -47,7 +46,7 @@ export default function ForumCard(prop: Props) {
 
   return (
     <TouchableOpacity onPress={onPress} style={styles.containerStyle}>
-      <Icon name="forum" customStyle={styles.iconStyle}></Icon>
+      <Icon name="forum"></Icon>
       <View style={styles.segmentContent}>
         <Text color="gray3" type="body">{forumTitle}</Text>
         <View style={styles.spacing}></View>

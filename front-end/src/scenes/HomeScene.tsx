@@ -1,79 +1,52 @@
 import React, { Component } from 'react';
 
-import { StyleSheet, ScrollView, SafeAreaView, View, } from 'react-native';
+import { StyleSheet, ScrollView, SafeAreaView, View, ActivityIndicator, } from 'react-native';
 import {navigationOption} from '../component/NavBar';
 import Text from '../core-ui/Text';
 
 import EventCard from '../component/EventCard';
 import StatusCard from '../component/StatusCard';
 import TextIcon from '../component/TextIcon';
-import ForumCard from '../component/ForumCard';
 import { VerticalSpacer3, VerticalSpacer1 } from '../core-ui/Spacer';
 import { k16 } from '../constants/dimens';
 import {NavigationScreenProps} from 'react-navigation';
+import {Event} from '../model/event'
 
 
 import PromotionCard from '../component/PromotionCard';
+import { HomeSaga } from '../sagas/homeSaga';
+import { headerBarColor } from '../constants/color';
+import { any } from 'prop-types';
+import { SessionSaga } from '../sagas/sessionSaga';
 
 type Props = NavigationScreenProps;
 
-type State = {};
-
-export default class HomeScene extends Component<Props, State>{
+export default class HomeScene extends Component<Props>{
     static navigationOptions = navigationOption('Home');
 
-    private example=[
-        {
-            'imageURL':'https://facebook.github.io/react/logo-og.png',
-            'eventTitle':"WORKSHOP",
-            'title':"Jemur Keramik",
-            'date':"23 Januari 2019",
-            'price':"Rp 220.000",
-            'key':0,
-        },
-    ]
-    
+    sessionSaga: SessionSaga = new SessionSaga
+
+    homeSaga: HomeSaga = new HomeSaga
+
+    state={
+        error: false,
+        data: [],
+        user: any
+    }
+
+    componentWillMount=async ()=>{
+        this.setState(
+            await this.homeSaga.doGetHomeData()
+        )
+    }
     render() {
-        var tes = this.example[0];
-        tes.key = 1;
-        this.example.push(tes);
-        tes.key = 2;
-        this.example.push(tes);
-        tes.key = 3;
-        this.example.push(tes);
-        tes.key = 4;
-        this.example.push(tes);
-        tes.key = 5;
-        this.example.push(tes);
-        tes.key = 5;
-        this.example.push(tes);
-        tes.key = 5;
-        this.example.push(tes);
-        tes.key = 5;
-        this.example.push(tes);
-        tes.key = 5;
-        this.example.push(tes);
-        tes.key = 5;
-        this.example.push(tes);
-        tes.key = 5;
-        this.example.push(tes);
-        tes.key = 5;
-        this.example.push(tes);
-        tes.key = 5;
-        this.example.push(tes);
-        tes.key = 5;
-        this.example.push(tes);
-        tes.key = 5;
-        this.example.push(tes);
-        tes.key = 5;
-        this.example.push(tes);
-        
         return (
             <SafeAreaView style={styles.view}>
                 <ScrollView style={styles.flex1} 
                 showsVerticalScrollIndicator={false}
                 contentContainerStyle={styles.scrollContainer}>
                     <StatusCard 
+                        user={this.state.user}
                         levelAction={()=>{
                       
                         }}
@@ -100,24 +73,32 @@ export default class HomeScene extends Component<Props, State>{
                     <VerticalSpacer3/>
                     <Text type="headline">Event Terdekat</Text>
                     <VerticalSpacer1/>
-                    <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-                        {
-                            this.example.map((data)=>{
-                                return (
-                                    <EventCard 
-                                    onClick={()=>
-                                        this.props.navigation.navigate("EventDetails")
-                                    }
-                                    key={Math.random()}
-                                    imageURL={'https://facebook.github.io/react/logo-og.png'}
-                                    eventTitle="WORKSHOP"
-                                    title="Jemur Keramik"
-                                    date="23 Januari 2019"
-                                    price="Rp 220.000"/>
-                                )
-                            })
-                        }
-                    </ScrollView>
+                    { !this.state.error ?
+                        this.state.data.length == 0 ?<ActivityIndicator style={{
+                            alignSelf: "stretch"
+                        }}
+                        size="large" color={headerBarColor} ></ActivityIndicator>:
+                        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+                            {
+                                this.state.data.map((data: Event)=>{
+                                    return (
+                                        <EventCard 
+                                        data={data}
+                                        onClick={()=>
+                                            this.props.navigation.navigate("EventDetails",{
+                                                id: data.id
+                                            })
+                                        }
+                                        key={Math.random()}>
+                                        </EventCard>
+                                    )
+                                })
+                            }
+                        </ScrollView>
+                        : <Text color="red">Unable to load</Text>
+                    }
+                    
+                    {/*
                     <VerticalSpacer3/>
                     <Text type="headline">Trending Forum</Text>
                     <VerticalSpacer3/>
@@ -135,6 +116,8 @@ export default class HomeScene extends Component<Props, State>{
                             })
                         }
                     </ScrollView>
+                    */}
+
                 </ScrollView>
             </SafeAreaView>
         );

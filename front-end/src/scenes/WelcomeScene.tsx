@@ -3,15 +3,18 @@ import { StyleSheet, View } from 'react-native';
 import WelcomeCard from '../component/Welcomecard';
 import { LinearGradient } from 'expo-linear-gradient';
 
-import { NavigationScreenProps } from 'react-navigation';
+import { NavigationScreenProps, StackActions, NavigationActions } from 'react-navigation';
 import { k16 } from '../constants/dimens';
+import { SessionSaga } from '../sagas/sessionSaga';
+import Toast from 'react-native-root-toast';
+import { User } from '../model/user';
 
 type Props = NavigationScreenProps;
 type State = {};
 
 export default class WelcomeScene extends Component<Props, State> {
+  sessionSaga: SessionSaga = new SessionSaga
 
-  
   loginAction = () => {
     this.props.navigation.navigate('SignIn');
   };
@@ -19,6 +22,27 @@ export default class WelcomeScene extends Component<Props, State> {
     this.props.navigation.navigate('SignUp');
   };
   googleSignAction = () => {};
+
+  componentWillMount=async ()=>{
+    var user: User = await this.sessionSaga.getSession()
+    if(user != null){
+      //you are logged in
+      Toast.show("Welcome back, "+user.full_name, {
+        backgroundColor: "#0ba257",
+        duration: 1000,
+        opacity: 0.8,
+        position: Toast.positions.BOTTOM
+      })
+      const successSignin = StackActions.reset({
+        index: 0, 
+        key: null,
+        actions: [
+            NavigationActions.navigate({ routeName: 'Main' })
+        ],
+      });
+      this.props.navigation.dispatch(successSignin);
+    }
+  }
 
   render() {
     return (

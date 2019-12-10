@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { NavigationScreenProps, ScrollView, createAppContainer, createMaterialTopTabNavigator } from 'react-navigation';
 import { headerBarColor, WHITE } from '../constants/color';
-import { navigationOption } from '../component/NavBar';
 import Text from "../core-ui/Text";
 import { ForumSaga } from '../sagas/forumsSaga';
 import { ForumData } from '../model/forum';

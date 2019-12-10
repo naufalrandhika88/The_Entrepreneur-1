@@ -4,13 +4,17 @@ import { StyleSheet,  View, TouchableOpacity, } from 'react-native';
 import Text from '../core-ui/Text';
 import Icon from '../core-ui/Icon';
 import { GRAY } from '../constants/color';
+import { User } from '../model/user';
 
 type Props={
-    levelAction: ()=>void;
-    membershipAction: ()=>void;
+  user: any
+  levelAction: ()=>void;
+  membershipAction: ()=>void;
 }
 export default function StatusCard(props: Props){
-    let {levelAction, membershipAction} = props;
+    let {user, levelAction, membershipAction} = props;
+
+    let data: User = user
 
     return(
         <View style={styles.view}>
@@ -28,7 +32,7 @@ export default function StatusCard(props: Props){
                 <View style={styles.segment} >
                     <Icon name="membership"/>
                     <View style={styles.segmentContent}>
-                        <Text type="body" children="Basic"/>
+                        <Text type="body" children={data.membership}/>
                         <Text color="yellow" type="subheading" children="UPRGADE"/>
                     </View>
                 </View>

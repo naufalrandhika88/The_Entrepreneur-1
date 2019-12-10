@@ -1,85 +1,86 @@
 import React, { Component } from 'react';
-import { StyleSheet, SafeAreaView, View, Text, ScrollView } from 'react-native';
+import { StyleSheet, ScrollView, ActivityIndicator, RefreshControl } from 'react-native';
 import { navigationOption } from '../component/NavBar';
 import InboxCard from '../component/InboxCard';
+import InboxSaga from '../sagas/inboxSaga';
+import { Inbox } from '../model/inbox';
+import { headerBarColor } from '../constants/color';
+import Text from '../core-ui/Text';
 
 type Props = {};
-type State = {};
+type State = {
+  error: Boolean,
+  data: Inbox[],
+  isLoading: Boolean
+};
 
 export default class InboxScene extends Component<Props, State> {
-  static navigationOptions = navigationOption('Inbox');
 
+  static navigationOptions = navigationOption('Inbox');
+  inboxSaga: InboxSaga = new InboxSaga
+
+  componentWillMount=async ()=>{    
+    this.setState({
+      isLoading: true,
+      error: false,
+      data: []
+    })
+    this.refresh()
+  }
+
+  refresh=async ()=>{
+    this.setState({
+      isLoading: true,
+    })
+    var res: any = await this.inboxSaga.doGetInbox();
+    this.setState({
+      isLoading: false,
+      error: res.error,
+      data: res.data
+    })
+  }
+  
   render() {
-    return (
-      <ScrollView>
-        <InboxCard
-          dateInbox="02 Oktober 2019"
-          titleInbox="Your e-ticket for talkshowmotivasi karya been issued"
-        ></InboxCard>
-         <InboxCard
-          dateInbox="02 Oktober 2019"
-          titleInbox="Your e-ticket for talkshowmotivasi karya been issued"
-        ></InboxCard>
-         <InboxCard
-          dateInbox="02 Oktober 2019"
-          titleInbox="Your e-ticket for talkshowmotivasi karya been issued"
-        ></InboxCard>
-         <InboxCard
-          dateInbox="02 Oktober 2019"
-          titleInbox="Your e-ticket for talkshowmotivasi karya been issued"
-        ></InboxCard>
-         <InboxCard
-          dateInbox="02 Oktober 2019"
-          titleInbox="Your e-ticket for talkshowmotivasi karya been issued"
-        ></InboxCard>
-         <InboxCard
-          dateInbox="02 Oktober 2019"
-          titleInbox="Your e-ticket for talkshowmotivasi karya been issued"
-        ></InboxCard>
-         <InboxCard
-          dateInbox="02 Oktober 2019"
-          titleInbox="Your e-ticket for talkshowmotivasi karya been issued"
-        ></InboxCard>
-         <InboxCard
-          dateInbox="02 Oktober 2019"
-          titleInbox="Your e-ticket for talkshowmotivasi karya been issued"
-        ></InboxCard>
-         <InboxCard
-          dateInbox="02 Oktober 2019"
-          titleInbox="Your e-ticket for talkshowmotivasi karya been issued"
-        ></InboxCard>
-         <InboxCard
-          dateInbox="02 Oktober 2019"
-          titleInbox="Your e-ticket for talkshowmotivasi karya been issued"
-        ></InboxCard>
-         <InboxCard
-          dateInbox="02 Oktober 2019"
-          titleInbox="Your e-ticket for talkshowmotivasi karya been issued"
-        ></InboxCard>
-      </ScrollView>
-    );
+    if(this.state.isLoading){
+      return (<ActivityIndicator style={{
+        alignSelf: "stretch"
+      }}
+      size="large" color={headerBarColor} ></ActivityIndicator>)
+
+    }else{
+      if(!this.state.error){
+        if(this.state.data.length > 0)
+        return(
+          <ScrollView
+          refreshControl={
+            <RefreshControl refreshing={this.state.isLoading} onRefresh={this.refresh} />
+          }
+          >
+            {this.state.data.map(
+              (f)=>{
+                return (
+                  <InboxCard
+                  key={f.id}
+                  dateInbox={f.inbox_date}
+                  titleInbox={f.message}
+                ></InboxCard>
+                )
+              }
+            )}
+        </ScrollView>
+        )
+        else{
+          return (
+            <Text color='brown'>You don't have any inbox(es)</Text>
+          )
+        }
+    }else{
+      return (
+        <Text color="red">There has been an error loading your inbox</Text>
+      )
+    }
+
+
   }
 }
-
-const styles = StyleSheet.create({
-  view: {
-    flex: 1,
-  },
-  flex1: {
-    flex: 1,
-  },
-  scrollContainer: {
-    padding: 16,
-    justifyContent: 'flex-start',
-    alignItems: 'flex-start',
-  },
-  spacing1: {
-    height: 4,
-  },
-  spacing2: {
-    height: 8,
-  },
-  spacing3: {
-    height: 16,
-  },
-});
+}

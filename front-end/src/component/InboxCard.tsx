@@ -1,13 +1,13 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, Key } from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import Text from '../core-ui/Text';
-import Icon from '../core-ui/Icon';
 import { VerticalSpacer1 } from '../core-ui/Spacer';
 
 type Props = {
   titleInbox: ReactNode;
   dateInbox: ReactNode;
+  key: Key;
 };
 
 export default function InboxCard(prop: Props) {

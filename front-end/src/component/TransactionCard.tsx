@@ -22,6 +22,7 @@ export default function TransactionCard(prop: Props) {
     containerStyle: {
       flexDirection: 'row',
       padding: k24,
+      alignItems: "center"
     },
     segmentContent: {
       flexDirection: 'column',

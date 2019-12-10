@@ -3,19 +3,17 @@ import { StyleSheet, View, TouchableOpacity } from 'react-native';
 
 import Text from '../core-ui/Text';
 import Image from '../core-ui/Image';
+import {Event} from '../model/event';
+import { k16 } from '../constants/dimens';
 
 type Props = {
-  key: Key;
-  imageURL: string;
-  eventTitle: string;
-  title: string;
-  date: string;
-  price: string;
+  data: Event
+  key: Key
   onClick?: ()=>void
 };
 
 export default function EventCard(prop: Props) {
-  let { imageURL, eventTitle, title, date, price, onClick } = prop;
+  let { data, onClick } = prop;
   const styles = StyleSheet.create({
     containerStyle: {
       width: 120,
@@ -30,21 +28,22 @@ export default function EventCard(prop: Props) {
   });
 
   return (
-    <TouchableOpacity onPress={onClick}>
+    <TouchableOpacity onPress={onClick} style={{paddingRight: k16}}>
       <View style={styles.containerStyle}>
       <Image
         imagetype="event"
-        src={imageURL}
+        resizeMode="cover"
+        src={data.image}
         newImageStyle={styles.imagestyle}
       ></Image>
       <View style={styles.spacing1}></View>
-      <Text type="display2">{eventTitle}</Text>
+      <Text type="display2">{data.category}</Text>
       <View style={styles.spacing2}></View>
-      <Text type="display1">{title}</Text>
+      <Text type="display1">{data.event_name}</Text>
       <View style={styles.spacing2}></View>
-      <Text type="display1">{date}</Text>
+      <Text type="display1">{data.event_date}</Text>
       <View style={styles.spacing2}></View>
-      <Text color="yellow">{price}</Text>
+      <Text color="yellow">{'Rp'+data.price}</Text>
     </View>
     </TouchableOpacity>
   );

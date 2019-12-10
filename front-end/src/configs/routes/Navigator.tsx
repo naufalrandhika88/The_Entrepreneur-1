@@ -7,7 +7,7 @@ import SignUpScene from '../../scenes/SignUpScene';
 import ForumsScene from '../../scenes/ForumsScene';
 import EventDetails from '../../scenes/EventDetailsScene';
 import { navigationOption } from '../../component/ButtonBackNavBar';
-import ForumDetails from '../../scenes/ForumDetails';
+import ForumDetails from '../../scenes/ForumDetailsScene';
 
 const AppNavigator = createStackNavigator(
   {
