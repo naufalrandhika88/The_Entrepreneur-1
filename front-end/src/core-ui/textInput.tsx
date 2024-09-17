@@ -20,7 +20,7 @@ type Props = TextInputProps & {
   placeholder?: string;
   placeholderTextColor?: 'white' | 'black';
   isEncrypt?: boolean;
-  onChangeText: (text: string) => void;
+  onChangeText?: (text: string) => void;
 };
 
 export default function TextInput(props: Props) {

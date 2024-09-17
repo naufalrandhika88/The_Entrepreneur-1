@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { Text, TextProps, StyleSheet, TouchableOpacity } from 'react-native';
+import { Text as T, TextProps, StyleSheet, TouchableOpacity } from 'react-native';
 
 import {
   CUSTOM_BLACK,
@@ -7,12 +7,18 @@ import {
   CUSTOM_GREEN,
   CUSTOM_RED,
   CUSTOM_PINK,
+  CUSTOM_BROWN,
+  GRAY,
+  GRAY2,
+  GRAY3,
+  GRAY4,
+  WHITE,
 } from '../constants/color';
 
 type TextProp = TextProps & {
   children: ReactNode;
   type?: 'display2' | 'display1' | 'headline' | 'subheading' | 'body';
-  color?: 'black' | 'yellow' | 'green' | 'red' | 'pink';
+  color?: 'black' | 'yellow' | 'green' | 'red' | 'pink' | 'brown' | 'gray' | 'gray2' | 'gray3' | 'gray4' | 'white';
   size?: number;
   weight?: 'regular' | 'bold';
   onPress?: () => void;
@@ -29,9 +35,15 @@ const FONT_COLOR: any = {
   green: CUSTOM_GREEN,
   red: CUSTOM_RED,
   pink: CUSTOM_PINK,
+  brown: CUSTOM_BROWN,
+  gray: GRAY,
+  gray2: GRAY2,
+  gray3: GRAY3,
+  gray4: GRAY4,
+  white: WHITE,
 };
 
-export default function Texts(props: TextProp) {
+export default function Text(props: TextProp) {
   let { type, color, size, weight, style, onPress, children, ...other } = props;
 
   let fontWeight = FONT_WEIGHT[weight || 'regular'];
@@ -44,41 +56,36 @@ export default function Texts(props: TextProp) {
 
   return onPress ? (
     <TouchableOpacity onPress={onPress}>
-      <Text style={mixedStyles} {...other}>
+      <T style={mixedStyles} {...other}>
         {children}
-      </Text>
+      </T>
     </TouchableOpacity>
   ) : (
-    <Text style={mixedStyles} {...other}>
+    <T style={mixedStyles} {...other}>
       {children}
-    </Text>
+    </T>
   );
 }
 
 const styles = StyleSheet.create({
   headline: {
     fontSize: 18,
-    color: CUSTOM_BLACK,
     fontWeight: 'bold',
   },
   subheading: {
     fontSize: 16,
-    color: CUSTOM_BLACK,
     fontWeight: 'normal',
   },
   body: {
     fontSize: 14,
-    color: CUSTOM_BLACK,
     fontWeight: 'normal',
   },
   display1: {
     fontSize: 12,
-    color: CUSTOM_BLACK,
     fontWeight: 'normal',
   },
   display2: {
     fontSize: 10,
-    color: CUSTOM_BLACK,
     fontWeight: 'normal',
   },
 });

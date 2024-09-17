@@ -9,7 +9,8 @@
     "skipLibCheck": true,
     "strict": true,
     "noUnusedLocals": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitAny": false
     // "typeRoots": ["node_modules/@types", "custom_types"]
   }
   // "types": ["react", "react-dom", "react-native", "node"],
